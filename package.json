@@ -40,6 +40,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.1.2",
+    "@prisma-cms/front": "^1.0.4",
     "@prisma-cms/prisma-context": "^1.0.0",
     "@prisma-cms/prisma-module": "^1.0.2",
     "@prisma-cms/prisma-processor": "^1.0.1",
