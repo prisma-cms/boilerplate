@@ -1,5 +1,5 @@
 
-import generateSchema from "react-cms-schema";
+import generateSchema from "@prisma-cms/prisma-schema";
 
 import CoreModule from "../modules";
 

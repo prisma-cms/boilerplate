@@ -45,6 +45,7 @@ switch (process.env.action) {
   case "build-schema":
 
     require("./schema").default(process.env.schemaType);
+    // require("./schema")
 
     break;
 
@@ -52,7 +53,7 @@ switch (process.env.action) {
 
 
     // require("./server");
-    const {default : server} = require("@prisma-cms/server/src/server");
+    const server = require("@prisma-cms/server/lib/server");
 
     server({
       typeDefs: 'src/server/schema/generated/api.graphql',
