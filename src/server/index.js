@@ -52,10 +52,10 @@ switch (process.env.action) {
 
 
     // require("./server");
-    const {default : server} = require("../src/node_modules/cms/server/src/server");
+    const {default : server} = require("@prisma-cms/core/server/src/server");
 
     server({
-      typeDefs: 'server/schema/generated/api.graphql',
+      typeDefs: 'src/server/schema/generated/api.graphql',
     });
 
     break;

@@ -20,6 +20,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/src/node_modules/cms
+/src/node_modules/@prisma-cms
 server/node_modules/
 yarn.lock

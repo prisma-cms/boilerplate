@@ -1,7 +1,7 @@
 {
   "projects": {
     "app": {
-      "schemaPath": "server/schema/generated/api.graphql",
+      "schemaPath": "src/server/schema/generated/api.graphql",
       "extensions": {
         "endpoints": {
           "default": "http://localhost:4000"
@@ -9,9 +9,9 @@
       }
     },
     "prisma": {
-      "schemaPath": "server/schema/generated/prisma.graphql",
+      "schemaPath": "src/server/schema/generated/prisma.graphql",
       "extensions": {
-        "prisma": "server/schema/prisma/prisma.yml"
+        "prisma": "src/server/schema/prisma/prisma.yml"
       }
     }
   }

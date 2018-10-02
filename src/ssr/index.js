@@ -52,10 +52,10 @@ require('@babel/register')({
 // ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2'].forEach((ext) => require.extensions[ext] = () => {});
 require('@babel/polyfill');
 
-let SSRmiddlewareClass = require('../src/node_modules/cms/front/ssr/SSR');
+let SSRmiddlewareClass = require('@prisma-cms/core/front/ssr/SSR');
 
 let SSRmiddleware = new SSRmiddlewareClass({
-  typeDefs: 'server/schema/generated/api.graphql',
+  typeDefs: 'src/server/schema/generated/api.graphql',
 }).middleware;
 
 const ws = require('ws');
@@ -94,6 +94,7 @@ app.use(proxy('/images/', {
 }));
 
 
+app.use('/static', express.static(cwd + '/build/static')); //Serves resources from build folder
 app.use('/build', express.static(cwd + '/build')); //Serves resources from build folder
 app.use('/public', express.static(cwd + '/public')); //Serves resources from public folder
 

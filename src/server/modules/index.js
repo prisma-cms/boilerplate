@@ -7,7 +7,7 @@ import chalk from "chalk";
 
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
-import CmsModule from "../../src/node_modules/cms/server/src/modules";
+import CmsModule from "@prisma-cms/core/server/src/modules";
 
 
 class CoreModule extends CmsModule {
