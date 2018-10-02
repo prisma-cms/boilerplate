@@ -55,7 +55,7 @@ require('@babel/polyfill');
 
 const App = require("../App").default;
 
-let SSRmiddlewareClass = require('@prisma-cms/core/front/ssr/SSR');
+let SSRmiddlewareClass = require('@prisma-cms/front/ssr/SSR');
 
 let SSRmiddleware = new SSRmiddlewareClass({
   typeDefs: 'src/server/schema/generated/api.graphql',

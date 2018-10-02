@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import PrismaCms from "@prisma-cms/core/front/src";
+import PrismaCms from "@prisma-cms/front/src";
 
 import registerServiceWorker from './registerServiceWorker';
 
