@@ -50,12 +50,16 @@ require('@babel/register')({
 
 ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2', '.svg'].forEach((ext) => require.extensions[ext] = () => { });
 // ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2'].forEach((ext) => require.extensions[ext] = () => {});
+
 require('@babel/polyfill');
+
+const App = require("../App").default;
 
 let SSRmiddlewareClass = require('@prisma-cms/core/front/ssr/SSR');
 
 let SSRmiddleware = new SSRmiddlewareClass({
   typeDefs: 'src/server/schema/generated/api.graphql',
+  App,
 }).middleware;
 
 const ws = require('ws');

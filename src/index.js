@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import App from "./App";
+import PrismaCms from "@prisma-cms/core/front/src";
 
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from "./App";
+
+ReactDOM.render(<PrismaCms
+  App={App}
+/>, document.getElementById('root'));
 registerServiceWorker();
 
