@@ -1,6 +1,6 @@
 {
-  "name": "prisma-cms-boilerplate",
-  "version": "1.3.0-beta",
+  "name": "@prisma-cms/boilerplate",
+  "version": "1.3.1-beta",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -40,13 +40,13 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.1.2",
-    "@prisma-cms/front": "^1.1.4",
-    "@prisma-cms/prisma-context": "^1.0.0",
-    "@prisma-cms/prisma-module": "^1.0.2",
-    "@prisma-cms/prisma-processor": "^1.0.1",
-    "@prisma-cms/prisma-schema": "^1.0.1",
-    "@prisma-cms/prisma-uploads": "^1.0.1",
-    "@prisma-cms/server": "^1.1.8",
+    "@prisma-cms/front": "^1.1.5-beta",
+    "@prisma-cms/prisma-context": "^1.0.1-beta",
+    "@prisma-cms/prisma-module": "^1.0.3-beta",
+    "@prisma-cms/prisma-processor": "^1.0.2-beta",
+    "@prisma-cms/prisma-schema": "^1.0.2-beta",
+    "@prisma-cms/prisma-uploads": "^1.0.2-beta",
+    "@prisma-cms/server": "^1.1.11-beta",
     "@types/react": "^16.1.0",
     "apollo-boost": "^0.1.16",
     "apollo-cache-inmemory": "^1.2.10",
@@ -95,5 +95,22 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prisma-cms/boilerplate.git"
+  },
+  "keywords": [
+    "prisma",
+    "cms",
+    "boilerplate"
+  ],
+  "author": "Fi1osof",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prisma-cms/boilerplate/issues"
+  },
+  "homepage": "https://github.com/prisma-cms/boilerplate#readme",
+  "description": ""
 }
