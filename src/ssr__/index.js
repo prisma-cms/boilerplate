@@ -1,3 +1,7 @@
+
+// require ("../src/node_modules/cms/front/ssr");
+
+
 /* eslint consistent-return:0 */
 
 const path = require('path');
@@ -49,9 +53,14 @@ require('@babel/register')({
 
 require('@babel/polyfill');
 
-let SSRmiddlewareClass = require('./SSR');
+const App = require("../App").default;
 
-let SSRmiddleware = new SSRmiddlewareClass().middleware;
+let SSRmiddlewareClass = require('@prisma-cms/front/ssr/SSR');
+
+let SSRmiddleware = new SSRmiddlewareClass({
+  typeDefs: 'src/server/schema/generated/api.graphql',
+  App,
+}).middleware;
 
 const ws = require('ws');
 
@@ -113,4 +122,6 @@ app.listen(port, (err) => {
   // logger.appStarted(port);
   console.log("Server started");
 });
+
+
 
