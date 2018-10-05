@@ -12,6 +12,25 @@ import UserProfileModule from "./userProfile";
 class CoreModule extends CmsModule {
   
 
+
+  constructor(options = {}) {
+
+    let {
+      modules = [],
+    } = options;
+
+    modules = modules.concat([
+    ]);
+
+    Object.assign(options, {
+      modules,
+    });
+
+    super(options);
+
+  }
+  
+
   getSchema(types = []) {
 
     let schema = fileLoader(__dirname + '/schema/database/', {
