@@ -52,6 +52,8 @@ export default class UserProfile extends PrismaModule {
   getExcludableApiTypes() {
 
     return [
+      "UserProfileCreateInput",
+      "UserProfileUpdateInput",
     ];
 
   }

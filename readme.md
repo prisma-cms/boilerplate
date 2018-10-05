@@ -1,8 +1,13 @@
 
 *🙌 Sorry for my english...*
 
-## Example 1
-### Extends type User. Add custom fields
+## Examples
+
+### Example 1
+Extends type User. Add custom fields
+
+### Example 2
+Remove some fields from API schema
 
 
 =========================================

@@ -1,0 +1,10 @@
+
+input UserProfileCreateInput {
+  displayName: String
+  # User: UserCreateOneWithoutProfileInput!
+}
+
+input UserProfileUpdateInput {
+  displayName: String
+  # User: UserUpdateOneWithoutProfileInput
+}
