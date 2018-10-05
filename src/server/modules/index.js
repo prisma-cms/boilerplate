@@ -20,6 +20,7 @@ class CoreModule extends CmsModule {
     } = options;
 
     modules = modules.concat([
+      UserProfileModule,
     ]);
 
     Object.assign(options, {

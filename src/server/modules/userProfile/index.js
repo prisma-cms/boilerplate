@@ -1,6 +1,8 @@
 
 import PrismaModule from "@prisma-cms/prisma-module";
 
+import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
+
 export default class UserProfile extends PrismaModule {
 
   getSchema(types = []) {
@@ -13,6 +15,14 @@ export default class UserProfile extends PrismaModule {
     if (schema) {
       types = types.concat(schema);
     }
+    
+    const extendedType = `
+      type UserProfile {
+        displayName: String
+      }
+    `;
+    
+    types = types.concat([extendedType]);
 
 
     let typesArray = super.getSchema(types);
