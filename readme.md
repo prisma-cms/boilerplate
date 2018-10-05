@@ -66,10 +66,10 @@ Check prisma `prisma -v`
 sudo chown $(whoami): ~ -R
 ```
 
-### make /var/www if not exists
+### Create /var/www if not exists
 ```shell
 sudo mkdir /var/www
-sudo chown USERNAME: /var/www -R
+sudo chown $(whoami): /var/www -R
 ```
 
 ### Install @prisma-cms/boilerplate
@@ -83,25 +83,70 @@ yarn
 
 ## Deploy schema
 
-### Using Prisma Cloud
-Signup on [www.prisma.io/cloud/](https://www.prisma.io/cloud/)
+There two variants to use:
+<details>
+  <summary>With Prisma Cloud</summary>
+ 
+  Signup on [www.prisma.io/cloud/](https://www.prisma.io/cloud/)
 
 
 
+  If you use Prisma Cloud, first you need signin. 
+  Note: for authorize required browser able opened from commandline. If you want authorize on server which does not have X and can not run browser, you should install prisma localy on your own computer, run `prisma login` localy, then copy local file ~/.prisma/config.yml on target server. 
+
+  Check you is logged in.
+  ```
+  prisma account
+  ```
+  If you loged in success, you can run `yarn deploy`.
+
+</details>
+
+<details>
+  <summary>With Prisma local</summary>
+ 
+
+  ## Install prisma local
+
+  ### Install docker
+  ```shell
+  sudo apt-get install software-properties-common python-software-properties
+  sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+  sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+  sudo apt-get update
+  sudo apt-get install -y docker-engine
+  ```
+  Check docker installed
+  `docker -v`
+
+  ### Install docker-compose
+  ```shell
+  sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  ```
+  Check docker-compose `docker-compose -v`
+
+  ### Start prisma docker images
+  *Note: before do this, you can edit src/server/schema/prisma/docker-compose.yml for change prisma port and password.*
+  ```
+  sudo docker-compose -f ./src/server/schema/prisma/docker-compose.yml up -d
+  ```
+
+  ### Start PhpMyAdmin (optionaly)
+  ```
+  sudo docker run -d --link prisma_mysql_1:db --network prisma_default -p 8080:80 phpmyadmin/phpmyadmin
+  ```
+
+</details>
 
 
-If you use Prisma Cloud, first you need signin. 
-Note: for authorize required browser able opened from commandline. If you want authorize on server which does not have X and can not run browser, you should install prisma localy on your own computer, run `prisma login` localy, then copy local file ~/.prisma/config.yml on target server. 
-
-Check you is logged in.
-```
-prisma account
-```
-If you loged in success, you can run `yarn deploy`.
-
-
+### Deploy
 ```shell
+# If you use Prisma Cloud, you'll get endpoint automatically, just run:
 yarn deploy
+
+# If you use Prisma local, you should specify endpoint by youself, for example:
+endpoint=http://localhost:4466/my-project/my-stage yarn deploy
 ```
 This command run four commands:
 1. `yarn build-schema-prisma` - generate raw graphql schema (for backend)
@@ -169,26 +214,12 @@ yarn start-ssr
 
 
  
-
-<!-- 
-Install docker
-```shell
-sudo apt-get install software-properties-common python-software-properties
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
-sudo apt-get update
-sudo apt-get install -y docker-engine
-```
-Check docker installed
-`docker -v`
- -->
-
+ 
 ## ToDo:
-1. Write using prisma local docs
-2. Write using nginx docs
-3. Write server customization docs
-4. Write frontend customization docs
-5. Examples
+1. Write using nginx docs
+2. Write server customization docs
+3. Write frontend customization docs
+4. Examples
 
 ## Support project
 We are looking for sponsors.

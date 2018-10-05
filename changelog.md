@@ -1,7 +1,8 @@
 1.3.3-beta
 ============================================
-- Readme
 - SSR .png loader
+- Readme
+- Install prisma local Docs
 
 
 1.3.2-beta
