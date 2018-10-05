@@ -28,6 +28,32 @@ class CoreModule extends CmsModule {
 
   }
 
+  
+  getApiSchema(types = []) {
+
+
+    let apiSchema = super.getApiSchema(types, []);
+
+
+    let schema = fileLoader(__dirname + '/schema/api/', {
+      recursive: true,
+    });
+
+    apiSchema = mergeTypes([apiSchema.concat(schema)], { all: true });
+
+    return apiSchema;
+
+  }
+
+
+  getExcludableApiTypes(){
+
+    return [
+    ];
+
+  }
+
+
 }
 
 
