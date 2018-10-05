@@ -4,48 +4,25 @@ const path = require('path');
 
 const basepath = process.cwd();
 
-// console.log('process.cwd', process.cwd());
-// console.log('process.env.PWD', process.env.PWD);
-
-// return ;
-
 require('@babel/register')({
   extensions: ['.js'],
-  // presets: ['react', "es2015"],
-  // presets: ["es2015"],
-  // presets: ['react'],
-  // presets: [ "es2015", "react", "stage-0"],
   "presets": [
     "@babel/preset-env",
     "@babel/preset-react"
   ],
   "plugins": [
-    // "transform-ensure-ignore"
     "transform-es2015-modules-commonjs",
     "@babel/plugin-proposal-class-properties"
   ],
-  // ignore: /\/prisma\/node_modules\//,
 
   ignore: [function (filename) {
-    // console.log(filename.indexOf(basepath + `/node_modules/`));
 
     return filename.indexOf(basepath + `/node_modules/`) === 0;
   }],
 
-  // ignore: function(filename) {
-  //   // console.log('filename', filename);
-  //   // if (filename === "/path/to/es6-file.js") {
-  //   if (filename === "/path/to/es6-file.js") {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  //   return true;
-  // },
 });
 
 ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2', '.svg', '.png'].forEach((ext) => require.extensions[ext] = () => { });
-// ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2'].forEach((ext) => require.extensions[ext] = () => {});
 
 require('@babel/polyfill');
 

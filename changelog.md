@@ -3,6 +3,7 @@
 - SSR .png loader
 - Readme
 - Install prisma local Docs
+- Cleanup code
 
 
 1.3.2-beta
