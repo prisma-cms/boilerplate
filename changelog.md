@@ -4,6 +4,7 @@
 - Readme
 - Install prisma local Docs
 - Cleanup code
+- Fix CoreModule get schema
 
 
 1.3.2-beta

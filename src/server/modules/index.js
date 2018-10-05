@@ -67,8 +67,8 @@ class CoreModule extends CmsModule {
 
   getExcludableApiTypes(){
 
-    return [
-    ];
+    return super.getExcludableApiTypes([
+    ]);
 
   }
 
