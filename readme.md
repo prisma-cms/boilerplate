@@ -1,6 +1,12 @@
 
 *🙌 Sorry for my english...*
 
+## Example 1
+### Extends type User. Add custom fields
+
+
+=========================================
+
 ## Installation
  
 ### Base requirements

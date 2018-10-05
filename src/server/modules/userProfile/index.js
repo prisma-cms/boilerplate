@@ -1,16 +1,7 @@
 
-import fs from "fs";
+import PrismaModule from "@prisma-cms/prisma-module";
 
-import chalk from "chalk";
-
-import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
-
-import {CmsModule} from "@prisma-cms/server";
-
-import UserProfileModule from "./userProfile";
-
-class CoreModule extends CmsModule {
-  
+export default class UserProfile extends PrismaModule {
 
   getSchema(types = []) {
 
@@ -30,7 +21,7 @@ class CoreModule extends CmsModule {
 
   }
 
-  
+
   getApiSchema(types = []) {
 
 
@@ -48,15 +39,11 @@ class CoreModule extends CmsModule {
   }
 
 
-  getExcludableApiTypes(){
+  getExcludableApiTypes() {
 
     return [
     ];
 
   }
 
-
 }
-
-
-export default CoreModule;
