@@ -9,7 +9,7 @@
       }
     },
     "prisma": {
-      "schemaPath": "src/server/schema/generated/prisma.graphql",
+      "schemaPath": "src/server/schema/generated/api.graphql",
       "extensions": {
         "prisma": "src/server/schema/prisma/prisma.yml"
       }

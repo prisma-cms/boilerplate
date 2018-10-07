@@ -77,7 +77,7 @@ sudo chown $(whoami): /var/www -R
 cd /var/www
 git clone https://github.com/prisma-cms/boilerplate
 cd boilerplate
-yarn
+yarn --ignore-engines
 ```
 
 
