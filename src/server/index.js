@@ -20,6 +20,12 @@ require('@babel/register')({
 require("@babel/polyfill");
 
 
+const CoreModule = require("./modules").default;
+const coreModule = new CoreModule({
+});
+const resolvers = coreModule.getResolvers();
+
+
 switch (process.env.action) {
 
   case "build-schema":
@@ -35,6 +41,7 @@ switch (process.env.action) {
 
     server({
       typeDefs: 'src/server/schema/generated/api.graphql',
+      resolvers,
     });
 
     break;
