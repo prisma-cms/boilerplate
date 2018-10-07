@@ -7,6 +7,9 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 import {CmsModule} from "@prisma-cms/server";
 
+import {ECommerceModule} from "@prisma-cms/e-commerce/src/server"
+
+// console.log("ECommerceModule", ECommerceModule);
 
 class CoreModule extends CmsModule {
 
@@ -18,6 +21,7 @@ class CoreModule extends CmsModule {
     } = options;
 
     modules = modules.concat([
+      ECommerceModule,
     ]);
 
     Object.assign(options, {
@@ -25,6 +29,9 @@ class CoreModule extends CmsModule {
     });
 
     super(options);
+
+    super.mergeModules([
+    ]);
 
   }
   
