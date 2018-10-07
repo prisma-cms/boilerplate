@@ -8,7 +8,8 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 import {CmsModule} from "@prisma-cms/server";
 
 import UserProfileModule from "./userProfile";
-import {ECommerceModule} from "@prisma-cms/e-commerce/src/server"
+import {ECommerceModule} from "@prisma-cms/e-commerce/src/server";
+import {RouterModule} from "@prisma-cms/router/src/server";
 
 
 class CoreModule extends CmsModule {
@@ -33,6 +34,7 @@ class CoreModule extends CmsModule {
     super.mergeModules([
       ECommerceModule,
       UserProfileModule,
+      RouterModule,
     ]);
 
   }
