@@ -1,0 +1,9 @@
+
+type User {
+  Profile: UserProfile @relation(name: "UserProfile")
+}
+
+type UserProfile {
+  id: ID! @unique
+  User: User! @relation(name: "UserProfile")
+}

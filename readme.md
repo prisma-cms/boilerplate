@@ -1,6 +1,17 @@
 
 *🙌 Sorry for my english...*
 
+## Examples
+
+### Example 1
+Extends type User. Add custom fields
+
+### Example 2
+Remove some fields from API schema
+
+
+=========================================
+
 ## Installation
  
 ### Base requirements

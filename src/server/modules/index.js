@@ -7,11 +7,12 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 import {CmsModule} from "@prisma-cms/server";
 
+import UserProfileModule from "./userProfile";
 import {ECommerceModule} from "@prisma-cms/e-commerce/src/server"
 
-// console.log("ECommerceModule", ECommerceModule);
 
 class CoreModule extends CmsModule {
+  
 
 
   constructor(options = {}) {
@@ -21,16 +22,17 @@ class CoreModule extends CmsModule {
     } = options;
 
     modules = modules.concat([
-      ECommerceModule,
     ]);
-
+    
     Object.assign(options, {
       modules,
     });
-
+    
     super(options);
-
+    
     super.mergeModules([
+      ECommerceModule,
+      UserProfileModule,
     ]);
 
   }
