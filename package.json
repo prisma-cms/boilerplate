@@ -47,7 +47,7 @@
     "@prisma-cms/prisma-processor": "^1.0.2-beta",
     "@prisma-cms/prisma-schema": "^1.0.2-beta",
     "@prisma-cms/prisma-uploads": "^1.0.3-beta",
-    "@prisma-cms/server": "^1.1.14-beta",
+    "@prisma-cms/server": "^1.1.15-beta",
     "@types/react": "^16.1.0",
     "apollo-boost": "^0.1.16",
     "apollo-cache-inmemory": "^1.2.10",
