@@ -1,6 +1,7 @@
 1.4.1-beta
 ============================================
 - Remove UserProfile module
+- Refactoring package.json scripts
 
 1.4.0-beta
 ============================================
