@@ -2,6 +2,7 @@
 ============================================
 - Remove UserProfile module
 - Refactoring package.json scripts
+- Remove sharp
 
 1.4.0-beta
 ============================================

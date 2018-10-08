@@ -89,6 +89,8 @@ cd /var/www
 git clone https://github.com/prisma-cms/boilerplate
 cd boilerplate
 yarn --ignore-engines
+# Fix Error: Cannot find module '../build/Release/sharp.node'
+npm rebuild
 ```
 
 
@@ -236,6 +238,19 @@ yarn start-ssr
 ```
 
 
+## Known Issues
+#### Cannot find module '../build/Release/sharp.node'
+```shell
+rm yarn.lock -f
+npm rebuild
+```
+
+#### Crash server if used more that one sharp version
+Check that installed one sharp modules
+```shell
+find -regex .*/node_modules/sharp$
+```
+Should be only one modules ./node_modules/sharp
  
  
 ## ToDo:
