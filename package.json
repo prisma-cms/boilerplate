@@ -16,8 +16,9 @@
     "build-schema-prisma": "schemaType=prisma yarn build-schema",
     "deploy-schema": "node_modules/prisma/dist/index.js deploy",
     "get-schema": "node_modules/graphql-cli/dist/bin.js get-schema -p prisma -o src/schema/generated/prisma.graphql",
-    "build-schema-api": "schemaType=api yarn build-schema",
+    "build-schema-api": "schemaType=api run-s build-schema && yarn generate-fragments-api",
     "build-schema": "action=build-schema node src/server/index.js",
+    "generate-fragments-api": "graphql generate-fragments --verbose",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

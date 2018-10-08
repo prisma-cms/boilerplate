@@ -1,6 +1,7 @@
 1.4.0-beta
 ============================================
 - Move tests
+- Added cli-command yarn generate-fragments-api
 
 
 1.3.6-beta

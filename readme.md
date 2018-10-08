@@ -152,19 +152,31 @@ There two variants to use:
 
 
 ### Deploy
+#### If you use Prisma Cloud, you'll get endpoint automatically, just run:
 ```shell
-# If you use Prisma Cloud, you'll get endpoint automatically, just run:
 yarn deploy
-
-# If you use Prisma local, you should specify endpoint by youself, for example:
+```
+#### If you use Prisma local, you should specify endpoint by youself, for example:
+```shell
 endpoint=http://localhost:4466/my-project/my-stage yarn deploy
 ```
-This command run four commands:
-1. `yarn build-schema-prisma` - generate raw graphql schema (for backend)
-2. `yarn deploy-schema` - deploy generated schema into prisma server. <br />
-   If you deploy schema for update exists database and wont force deploy while prisma reject deleting data, you may use `yarn deploy-schema -f` OR `yarn deploy-force` (for run complete procedure).
-3. `yarn get-schema -p prisma` - get schema from prisma server
-4. `yarn build-schema-api` - generate API schema (for frontend)
+<details>
+  <summary>
+    Explaining yarn deploy
+  </summary>
+
+  *Note: you sould not execute this commands separately from `yarn deploy`, but may, if undestand what they are doing.*
+
+    This command run several commands:
+    1. `yarn build-schema-prisma` - generate raw graphql schema (for backend)
+    2. `yarn deploy-schema` - deploy generated schema into prisma server. <br />
+      If you deploy schema for update exists database and wont force deploy while prisma reject deleting data, you may use `yarn deploy-schema -f` OR `yarn deploy-force` (for run complete procedure).
+    3. `yarn get-schema -p prisma` - get schema from prisma server
+    4. `yarn build-schema-api` - generate API schema (for frontend)
+    5. `yarn generate-fragments-api` - generate JS fragments for apollo client.
+
+</details>
+
 
 
 ## Run server API
