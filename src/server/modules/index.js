@@ -19,6 +19,7 @@ class RouterModuleExtended extends RouteModule{
 
     types = types.concat([
       "Product",
+      "ProductsCategory",
     ]);
     
     return super.getRouteComponentTypes(types); 

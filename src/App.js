@@ -2,7 +2,7 @@
 
 import { Component } from "react";
 
-import PrismaApp from "@prisma-cms/front/lib/components/App";
+import {App as PrismaApp} from "@prisma-cms/front";
 
 import Renderer from "./components/Renderer";
 

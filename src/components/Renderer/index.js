@@ -1,11 +1,8 @@
 
 
-import PrismaCmsRenderer from "@prisma-cms/front/lib/components/App/Renderer";
+import {Renderer as PrismaCmsRenderer} from "@prisma-cms/front";
 
 export default class Renderer extends PrismaCmsRenderer {
 
-  // render() {
-  //   return "ggggfg"
-  // }
 }
 
