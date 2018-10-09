@@ -1,8 +1,14 @@
+1.4.2-beta
+============================================
+- Added @prisma-cms/front
+
+
 1.4.1-beta
 ============================================
 - Remove UserProfile module
 - Refactoring package.json scripts
 - Remove sharp
+
 
 1.4.0-beta
 ============================================
