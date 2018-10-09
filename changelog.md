@@ -1,6 +1,8 @@
 1.4.2-beta
 ============================================
 - Added @prisma-cms/front
+- Added graphql-cli-generate-fragments
+- Upgrade @prisma-cms/server
 
 
 1.4.1-beta
