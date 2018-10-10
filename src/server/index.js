@@ -46,7 +46,7 @@ switch (process.env.action) {
 
     break;
 
-  default: throw (new Error("action env not defined"))
+  // default: throw (new Error("action env not defined"))
 
 }
 
