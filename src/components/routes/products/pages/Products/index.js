@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 import PageLayout from "@prisma-cms/front/lib/modules/pages/layout";
-import Grid from '@prisma-cms/front/src/modules/ui/Grid';
+import Grid from '@prisma-cms/front/lib/modules/ui/Grid';
 
 class ProductsPage extends PageLayout {
 

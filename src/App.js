@@ -8,12 +8,22 @@ import Renderer from "./components/Renderer";
 
 import * as queryFragments from "./schema/generated/api.fragments";
 
+export {
+  Renderer,
+  queryFragments,
+}
+
 export default class App extends PrismaApp {
 
   static defaultProps = {
     ...PrismaApp.defaultProps,
     Renderer,
     queryFragments,
+
+    themeOptions: {
+      direction: 'ltr',
+      paletteType: 'dark',
+    },
   }
 
 }

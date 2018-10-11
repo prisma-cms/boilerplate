@@ -1,3 +1,9 @@
+1.5.0-beta
+============================================
+- Update tests
+- Products routing
+
+
 1.4.3-beta
 ============================================
 - Upgrade @prisma-cms/server

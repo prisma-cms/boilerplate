@@ -7,7 +7,10 @@ import { Paper } from 'material-ui';
 import { withStyles } from 'material-ui';
 import Grid from '@prisma-cms/front/lib/modules/ui/Grid';
 
+// import Span from '@prisma-cms/ui';
+
 import SingleUploader from '@prisma-cms/front/lib/modules/react-cms-uploads/src/components/uploader/SingleUploader';
+import Typography from 'material-ui/Typography';
 
 
 export const styles = {
@@ -94,7 +97,12 @@ class Product extends EditableView {
       <Grid
         item
       >
-        Name: {name}
+
+        <Typography
+          variant="display2"
+        >
+          Name: {name}
+        </Typography>
 
       </Grid>
 

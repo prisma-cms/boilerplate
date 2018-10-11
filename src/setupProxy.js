@@ -1,2 +1,2 @@
 
-module.exports = require("@prisma-cms/front/src/setupProxy");
+module.exports = require("@prisma-cms/front/lib/setupProxy");
