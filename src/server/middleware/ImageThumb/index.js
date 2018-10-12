@@ -83,7 +83,7 @@ const ImageThumbMiddleware = async (req, res, next) => {
       case 'middle':
 
         img
-          .resize(600, 420)
+          .resize(700, 430)
           .max()
           .crop();
 
