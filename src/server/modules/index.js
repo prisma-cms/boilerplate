@@ -99,6 +99,69 @@ class CoreModule extends CmsModule {
 
   }
 
+  async denyEditUser(args, ctx) {
+
+    const {
+      where,
+    } = args;
+
+    const user = await ctx.db.query.user({
+      where,
+    });
+
+    const {
+      denyEdit,
+    } = user || {};
+
+    if (denyEdit === true) {
+      throw new Error("Нельзя редактировать этого пользователя");
+    }
+
+  }
+
+
+  getResolvers() {
+
+    // console.log("getResolvers");
+
+    const resolvers = super.getResolvers();
+
+    const {
+      resetPassword,
+      updateUserProcessor,
+    } = resolvers.Mutation
+
+
+    Object.assign(resolvers.Query, {
+    });
+
+
+    Object.assign(resolvers.Mutation, {
+
+      resetPassword: async (source, args, ctx, info) => {
+
+        await this.denyEditUser(args, ctx);
+
+        return resetPassword(source, args, ctx, info);
+      },
+
+      updateUserProcessor: async (source, args, ctx, info) => {
+
+        await this.denyEditUser(args, ctx);
+
+        return updateUserProcessor(source, args, ctx, info);
+      },
+
+    });
+
+
+    Object.assign(resolvers, {
+    });
+
+
+    return resolvers;
+  }
+
 
 }
 

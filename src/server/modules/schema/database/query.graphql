@@ -1,4 +1,5 @@
 
 type User {
   extended: String
+  denyEdit: Boolean @default(value: false)
 }
