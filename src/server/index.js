@@ -25,6 +25,8 @@ const coreModule = new CoreModule({
 });
 const resolvers = coreModule.getResolvers();
 
+const imagesMiddleware = require("./middleware/ImageThumb");
+
 
 switch (process.env.action) {
 
@@ -42,6 +44,7 @@ switch (process.env.action) {
     server({
       typeDefs: 'src/server/schema/generated/api.graphql',
       resolvers,
+      imagesMiddleware,
     });
 
     break;

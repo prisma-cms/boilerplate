@@ -9,14 +9,44 @@ import Grid from '@prisma-cms/front/lib/modules/ui/Grid';
 
 // import Span from '@prisma-cms/ui';
 
-import SingleUploader from '@prisma-cms/front/lib/modules/react-cms-uploads/src/components/uploader/SingleUploader';
+// import SingleUploader from '@prisma-cms/front/lib/modules/react-cms-uploads/src/components/uploader/SingleUploader';
 import Typography from 'material-ui/Typography';
 
+import { Uploader } from "@prisma-cms/ui";
+import { Image } from "@prisma-cms/ui";
 
-export const styles = {
-  root: {
-    padding: 15,
-  },
+
+export const styles = theme => {
+
+  // console.log("theme", theme);
+
+  const {
+    palette: {
+      grey,
+    },
+  } = theme;
+
+  return {
+    root: {
+      padding: 15,
+    },
+    image: {
+      width: "100%",
+    },
+    noImage: {
+      width: "100%",
+      paddingTop: "24%",
+      paddingBottom: "24%",
+      backgroundColor: grey[300],
+      textAlign: "center",
+    },
+    uploader: {
+      "&.fullWidth": {
+        width: "100%",
+        maxWidth: "100%",
+      },
+    },
+  }
 }
 
 class Product extends EditableView {
@@ -24,9 +54,25 @@ class Product extends EditableView {
 
   static propTypes = {
     ...EditableView.propTypes,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    lexicon: PropTypes.func.isRequired,
   }
 
+  constructor(props){
+
+    super(props);
+
+    console.log("Product constructor");
+  }
+
+
+  lexicon(word) {
+    const {
+      lexicon,
+    } = this.props;
+
+    return lexicon(word);
+  }
 
   canEdit() {
 
@@ -42,8 +88,45 @@ class Product extends EditableView {
   }
 
 
+  renderImage() {
+
+    const {
+      image,
+    } = this.getObjectWithMutations();
+
+
+    const {
+      classes,
+    } = this.props;
+
+    return image ? <Image
+      className={classes.image}
+      src={image}
+      type="middle"
+    /> : <Paper
+      className={classes.noImage}
+    >
+        <Typography
+          variant="display2"
+          noWrap={false}
+          className="text"
+        >
+          No Image
+      </Typography>
+      </Paper>
+
+  }
+
 
   renderEditableView() {
+
+    const {
+      classes,
+    } = this.props;
+
+    const {
+      image,
+    } = this.getObjectWithMutations();
 
     return <Grid
       container
@@ -52,24 +135,43 @@ class Product extends EditableView {
 
       <Grid
         item
+        xs={12}
       >
         {this.getTextField({
-          name: "image",
-          Editor: SingleUploader,
+          name: "name",
+          label: this.lexicon("Name"),
+          helperText: this.lexicon("Product name"),
         })}
 
       </Grid>
 
       <Grid
         item
+        xs={12}
       >
-        {this.getTextField({
-          name: "name",
-          label: "Name",
-          helperText: "Product name",
-        })}
+
+        <Uploader
+          className={[classes.uploader, "fullWidth"].join(" ")}
+          onUpload={result => {
+            console.log("On upload", result);
+
+            const {
+              path,
+            } = result.data && result.data.singleUpload || {};
+
+            if (path) {
+              this.updateObject({
+                image: path,
+              });
+            }
+
+          }}
+        >
+          {this.renderImage()}
+        </Uploader>
 
       </Grid>
+
 
     </Grid>;
 
@@ -90,11 +192,18 @@ class Product extends EditableView {
 
       <Grid
         item
+        xs={12}
+      // style={{
+      //   border: "1px solid red",
+      //   flex: 1,
+      // }}
       >
+
+        {this.renderImage()}
 
       </Grid>
 
-      <Grid
+      {/* <Grid
         item
       >
 
@@ -104,7 +213,7 @@ class Product extends EditableView {
           Name: {name}
         </Typography>
 
-      </Grid>
+      </Grid> */}
 
     </Grid>;
 
@@ -118,6 +227,10 @@ class Product extends EditableView {
 
     return <Paper
       className={classes.root}
+
+      style={{
+        height: "100%",
+      }}
     >
       {super.render()}
     </Paper>
