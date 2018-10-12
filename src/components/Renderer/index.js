@@ -15,6 +15,12 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
     let routers = super.getRoutes();
 
     routers.unshift({
+      exact: true,
+      path: "/",
+      render: props => this.renderProducts(props),
+    });
+
+    routers.unshift({
       exact: false,
       path: "/products",
       render: props => this.renderProducts(props),

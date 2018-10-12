@@ -368,12 +368,15 @@ class ProductsRouter extends PrismaCmsComponent {
 
       <Route
         exact
-        path="/products"
+        path={[
+          "/",
+          "/products",
+        ]}
         render={props => {
 
           const QueryRender = this.QueryRender;
 
-          console.log("QueryRender", QueryRender);
+          // console.log("QueryRender", QueryRender);
 
 
           return <QueryRender

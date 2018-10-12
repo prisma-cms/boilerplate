@@ -35,8 +35,8 @@ export const styles = theme => {
     },
     noImage: {
       width: "100%",
-      paddingTop: "24%",
-      paddingBottom: "24%",
+      paddingTop: "26%",
+      paddingBottom: "26%",
       backgroundColor: grey[300],
       textAlign: "center",
     },
