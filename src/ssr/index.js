@@ -49,22 +49,9 @@ const cwd = process.cwd();
 
 const proxy = require('http-proxy-middleware');
 
+const setupProxy = require("@prisma-cms/front/lib/setupProxy");
 
-app.use(proxy('/api/', {
-  target: 'http://localhost:4000/',
-  ws: true,
-  pathRewrite: {
-    "^/api/": "/"
-  }
-}));
-
-app.use(proxy('/images/', {
-  target: 'http://localhost:4000/',
-  pathRewrite: {
-    "^/images/resized/([^/]+)/uploads/(.+)": "/images/$1/$2",
-  }
-}));
-
+setupProxy(app);
 
 app.use('/static', express.static(cwd + '/build/static')); //Serves resources from build folder
 app.use('/build', express.static(cwd + '/build')); //Serves resources from build folder
