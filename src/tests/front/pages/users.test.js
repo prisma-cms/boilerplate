@@ -77,7 +77,7 @@ describe('@prisma-cms/boilerplate users page test', () => {
       const item = node.querySelector("#test");
 
       expect(global.window.location.pathname).toEqual("/");
-      expect(title).toEqual("MainPage");
+      expect(title).toEqual("Main page");
 
       expect(testText).toContain(item && item.textContent || "")
       // return false
