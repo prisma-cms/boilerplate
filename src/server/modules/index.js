@@ -9,24 +9,24 @@ import {CmsModule} from "@prisma-cms/server";
 
 import ECommerceModule from "@prisma-cms/e-commerce";
 
-import RouteModule from "@prisma-cms/router";
+// import RouteModule from "@prisma-cms/router";
 
 // console.log("RouteModule", RouteModule);
 
-class RouterModuleExtended extends RouteModule{
+// class RouterModuleExtended extends RouteModule{
 
 
-  getRouteComponentTypes(types = []) {
+//   getRouteComponentTypes(types = []) {
 
-    types = types.concat([
-      "Product",
-      "ProductsCategory",
-    ]);
+//     types = types.concat([
+//       "Product",
+//       "ProductsCategory",
+//     ]);
     
-    return super.getRouteComponentTypes(types); 
+//     return super.getRouteComponentTypes(types); 
 
-  }
-}
+//   }
+// }
 
 
 class CoreModule extends CmsModule {
@@ -50,7 +50,7 @@ class CoreModule extends CmsModule {
     
     this.mergeModules([
       ECommerceModule,
-      RouterModuleExtended,
+      // RouterModuleExtended,
     ]);
 
   }
