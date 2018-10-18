@@ -1,0 +1,7 @@
+
+const { 
+  buildApiSchema,
+} = require("./");
+
+
+buildApiSchema();

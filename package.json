@@ -1,7 +1,7 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "1.5.2-beta",
-  "description": "BETA opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
+  "version": "1.6.0-beta",
+  "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
     "start": "react-scripts start",
@@ -10,21 +10,18 @@
     "start-ssr-dev": "NODE_ENV=production nodemon src/ssr",
     "start-server": "Sendmail=true action=start-server node src/server/",
     "start-server-dev": "Sendmail=true SendmailTest=true action=start-server nodemon src/server/index.js",
-    "deploy": "run-s build-schema-prisma && yarn deploy-schema && yarn get-schema -p prisma && yarn build-schema-api",
-    "deploy-force": "run-s build-schema-prisma && yarn deploy-schema -f && yarn get-schema -p prisma && yarn build-schema-api",
-    "deploy-prod": "yarn deploy",
-    "build-schema-prisma": "schemaType=prisma yarn build-schema",
-    "deploy-schema": "prisma deploy",
-    "get-schema": "graphql get-schema -p prisma -o src/schema/generated/prisma.graphql",
-    "build-schema-api": "schemaType=api run-s build-schema && yarn generate-fragments-api",
-    "build-schema": "action=build-schema node src/server/index.js",
-    "generate-fragments-api": "graphql generate-fragments --verbose",
+    "deploy": "NODE_ENV=test node src/scripts/deploy/with-prisma",
+    "build-api": "node src/scripts/deploy/api-only",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "@prisma-cms/e-commerce": "^1.0.1",
+    "@prisma-cms/prisma-schema": "^1.0.2-beta",
+    "@prisma-cms/router": "^1.0.1",
+    "@prisma-cms/server": "^1.6.0-beta",
     "babel-preset-es2015": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "graphql-cli-generate-fragments": "^1.4.1",
@@ -36,14 +33,9 @@
     "merge-graphql-schemas": "^1.5.7",
     "mysql": "^2.16.0",
     "prettier-eslint-cli": "4.7.0",
-    "prisma": "^1.16.0",
     "prisma-binding": "^2.1.5",
     "promises-all": "^1.0.0",
-    "roddeh-i18n": "^1.1.1",
-    "@prisma-cms/prisma-schema": "^1.0.2-beta",
-    "@prisma-cms/router": "^1.0.1",
-    "@prisma-cms/server": "^1.5.1-beta",
-    "@prisma-cms/e-commerce": "^1.0.1"
+    "roddeh-i18n": "^1.1.1"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",

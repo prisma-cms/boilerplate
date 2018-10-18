@@ -1,0 +1,7 @@
+
+const {
+  deploy,
+} = require("./");
+
+deploy();
+

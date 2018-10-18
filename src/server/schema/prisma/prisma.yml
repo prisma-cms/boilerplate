@@ -1,2 +1,0 @@
-datamodel: generated.graphql
-endpoint: ${env:endpoint}

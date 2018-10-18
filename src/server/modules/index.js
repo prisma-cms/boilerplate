@@ -7,27 +7,6 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 import {CmsModule} from "@prisma-cms/server";
 
-import ECommerceModule from "@prisma-cms/e-commerce";
-
-// import RouteModule from "@prisma-cms/router";
-
-// console.log("RouteModule", RouteModule);
-
-// class RouterModuleExtended extends RouteModule{
-
-
-//   getRouteComponentTypes(types = []) {
-
-//     types = types.concat([
-//       "Product",
-//       "ProductsCategory",
-//     ]);
-    
-//     return super.getRouteComponentTypes(types); 
-
-//   }
-// }
-
 
 class CoreModule extends CmsModule {
   
@@ -49,7 +28,6 @@ class CoreModule extends CmsModule {
     super(options);
     
     this.mergeModules([
-      ECommerceModule,
       // RouterModuleExtended,
     ]);
 

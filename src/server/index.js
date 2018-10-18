@@ -42,9 +42,8 @@ switch (process.env.action) {
 
     // console.log("startServer", startServer); 
 
-
     startServer({
-      typeDefs: 'src/server/schema/generated/api.graphql',
+      typeDefs: 'src/schema/generated/api.graphql',
       resolvers,
       imagesMiddleware,
     });
