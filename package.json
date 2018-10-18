@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "1.6.0-beta",
+  "version": "1.6.1-beta",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -19,9 +19,8 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@prisma-cms/e-commerce": "^1.0.1",
-    "@prisma-cms/prisma-schema": "^1.0.2-beta",
     "@prisma-cms/router": "^1.0.1",
-    "@prisma-cms/server": "^1.6.0-beta",
+    "@prisma-cms/server": "^1.6.1-beta",
     "babel-preset-es2015": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "graphql-cli-generate-fragments": "^1.4.1",
