@@ -6,6 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "PUBLIC_URL=/ react-scripts build",
+    "build-less": "node-less-chokidar src/styles/less",
     "start-ssr": "NODE_ENV=production node src/ssr",
     "start-ssr-dev": "NODE_ENV=production nodemon src/ssr",
     "start-server": "Sendmail=true action=start-server node src/server/",
