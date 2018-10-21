@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "1.6.2-beta",
+  "version": "1.6.3-beta",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -31,7 +31,7 @@
     "knex": "^0.15.2",
     "merge-graphql-schemas": "^1.5.7",
     "mysql": "^2.16.0",
-    "prettier-eslint-cli": "4.7.0",
+    "prettier-eslint-cli": "4.7.1",
     "prisma-cli-engine": "^1.18.1",
     "promises-all": "^1.0.0",
     "roddeh-i18n": "^1.1.1"
@@ -39,10 +39,10 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.1.2",
-    "@prisma-cms/component": "^1.0.2",
+    "@prisma-cms/component": "^1.0.7",
     "@prisma-cms/e-commerce": "^1.0.1",
-    "@prisma-cms/front": "^1.9.3-beta",
-    "@prisma-cms/server": "^1.6.3-beta",
+    "@prisma-cms/front": "^1.9.4-beta",
+    "@prisma-cms/server": "^1.6.5-beta",
     "@prisma-cms/ui": "^1.2.0",
     "@types/react": "^16.1.0",
     "apollo-boost": "^0.1.16",
@@ -68,7 +68,7 @@
     "material-ui-icons": "^1.0.0-beta.17",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
-    "node-less-chokidar": "^0.1.2",
+    "node-less-chokidar": "^0.3.1",
     "node-sass-chokidar": "^1.1.0",
     "prisma-binding": "^2.1.6",
     "react": "^16.5.2",
@@ -85,7 +85,8 @@
     "xml-writer": "^1.7.0"
   },
   "resolutions": {
-    "graphql": "14.0.2"
+    "graphql": "14.0.2",
+    "prisma-binding": "^2.1.6"
   },
   "browserslist": [
     ">0.2%",
