@@ -1,3 +1,7 @@
+2.0.0-beta
+============================================
+- Breaking changs! Move server modules into .mjs
+
 1.6.7-beta
 ============================================
 - Upgrade pakages

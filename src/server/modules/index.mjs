@@ -2,11 +2,20 @@
 import fs from "fs";
 
 import chalk from "chalk";
+ 
 
-import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
+import MergeSchema from 'merge-graphql-schemas';
 
 import {CmsModule} from "@prisma-cms/server";
 
+
+import path from 'path';
+
+const moduleURL = new URL(import.meta.url);
+
+const __dirname = path.dirname(moduleURL.pathname);
+
+const { fileLoader, mergeTypes } = MergeSchema;
 
 class CoreModule extends CmsModule {
   

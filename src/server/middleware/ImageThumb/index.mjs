@@ -1,6 +1,7 @@
 
-const sharp = require('sharp');
-var fs = require('fs');
+import sharp from "sharp";
+
+import fs from "fs";
 
 
 const resizeMax = async function (img, width, height) {
@@ -142,4 +143,4 @@ const ImageThumbMiddleware = async (req, res, next) => {
 
 }
 
-module.exports = ImageThumbMiddleware;
+export default ImageThumbMiddleware;
