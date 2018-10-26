@@ -14,20 +14,14 @@ import { getDataFromTree } from "react-apollo"
 import ReactDOM from 'react-dom/server';
 
 
-import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
+import { createGenerateClassName } from 'material-ui/styles';
 
 import MainApp from '../../App';
 
 
 import chalk from "chalk";
 
-import { MuiThemeProvider } from 'material-ui/styles';
-
 import URI from 'urijs';
-
-import moment from "moment";
-
-// import htmlToJson from 'html-to-json';
 
 import cheerio from "cheerio";
 
@@ -40,8 +34,6 @@ let api;
 const JssProvider = require('react-jss').JssProvider;
 const SheetsRegistry = require('react-jss').SheetsRegistry;
 
-// const theme = createMuiTheme({
-// });
 
 const fs = require("fs");
 
@@ -207,16 +199,11 @@ class Server {
         registry={sheets}
         generateClassName={createGenerateClassName()}
       >
-        {/* <MuiThemeProvider
-          theme={theme}
-          sheetsManager={new Map()}
-        > */}
         <ApolloProvider client={client}>
           <StaticRouter location={req.url} context={context}>
             <MainApp />
           </StaticRouter>
         </ApolloProvider>
-        {/* </MuiThemeProvider> */}
       </JssProvider>
     );
 
@@ -637,7 +624,6 @@ class Server {
       .writeElement("loc", locUri.toString())
 
 
-    // updatedAt && xml.writeElement("updatedAt", moment(updatedAt).format())
     updatedAt && xml.writeElement("lastmod", updatedAt)
 
     changefreq && xml.writeElement("changefreq", changefreq)

@@ -9,6 +9,12 @@ import MergeSchema from 'merge-graphql-schemas';
 import {CmsModule} from "@prisma-cms/server";
 
 
+import LogModule from "@prisma-cms/log-module";
+import UserModule from "@prisma-cms/user-module";
+import MailModule from "@prisma-cms/mail-module";
+import UploadModule from "@prisma-cms/upload-module";
+
+
 import path from 'path';
 
 const moduleURL = new URL(import.meta.url);
@@ -23,21 +29,13 @@ class CoreModule extends CmsModule {
 
   constructor(options = {}) {
 
-    let {
-      modules = [],
-    } = options;
-
-    modules = modules.concat([
-    ]);
-    
-    Object.assign(options, {
-      modules,
-    });
-    
     super(options);
     
     this.mergeModules([
-      // RouterModuleExtended,
+      UserModule,
+      LogModule,
+      MailModule,
+      UploadModule,
     ]);
 
   }

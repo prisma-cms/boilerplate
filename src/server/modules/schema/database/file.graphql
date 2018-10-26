@@ -1,0 +1,5 @@
+
+
+type File {
+  CreatedBy: User! @relation(name: "UserFiles")
+}

@@ -1,0 +1,5 @@
+
+type User{
+  files: [File!]! @relation(name: "UserFiles")
+}
+ 
