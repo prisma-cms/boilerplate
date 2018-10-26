@@ -7,7 +7,7 @@
     "start": "react-scripts start",
     "build": "PUBLIC_URL=/ react-scripts build",
     "build-less": "node-less-chokidar src/styles/less",
-    "start-ssr": "NODE_ENV=production node src/ssr",
+    "start-ssr": "NODE_ENV=production node --experimental-modules src/ssr",
     "start-ssr-dev": "NODE_ENV=production nodemon src/ssr",
     "start-server": "Sendmail=true action=start-server node --experimental-modules src/server/",
     "start-server-dev": "Sendmail=true SendmailTest=true action=start-server nodemon --experimental-modules src/server/",
@@ -30,6 +30,7 @@
     "apollo-cache-inmemory": "^1.3.6",
     "apollo-client": "^2.4.3",
     "apollo-link-http": "1.5.5",
+    "cheerio": "^1.0.0-rc.2",
     "material-ui": "1.0.0-beta.43",
     "material-ui-icons": "^1.0.0-beta.17",
     "moment": "^2.20.1",
@@ -45,6 +46,10 @@
     "xml-writer": "^1.7.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "graphql": "14.0.2",
     "graphql-tag": "2.10.0",
     "merge-graphql-schemas": "^1.5.7"

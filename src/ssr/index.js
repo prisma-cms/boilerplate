@@ -3,9 +3,28 @@
 const path = require('path');
 
 const basepath = process.cwd();
- 
+
+require('@babel/register')({
+  extensions: ['.js'],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "@babel/plugin-proposal-class-properties"
+  ],
+
+  ignore: [function (filename) {
+
+    return filename.indexOf(basepath + `/node_modules/`) === 0;
+  }],
+
+});
+
 ['.css', '.less', '.sass', '.ttf', '.woff', '.woff2', '.svg', '.png'].forEach((ext) => require.extensions[ext] = () => { });
 
+require('@babel/polyfill');
 
 let SSRmiddlewareClass = require('./SSR');
 
@@ -15,20 +34,15 @@ const ws = require('ws');
 
 global.WebSocket = ws;
 
-const express = require('express');
-// const logger = require('./logger');
+const express = require('express'); 
 
-const argv = require('minimist')(process.argv.slice(2));
-// const setup = require('./middlewares/frontendMiddleware');
-const isDev = process.env.NODE_ENV !== 'production';
-const resolve = require('path').resolve;
+const argv = require('minimist')(process.argv.slice(2)); 
 const app = express();
 
 var bodyParser = require('body-parser');
 
 const cwd = process.cwd();
-
-const proxy = require('http-proxy-middleware');
+ 
 
 const setupProxy = require("@prisma-cms/front/lib/setupProxy");
 

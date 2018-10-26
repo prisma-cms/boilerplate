@@ -1,6 +1,8 @@
 2.0.0-beta
 ============================================
 - Breaking changs! Move server modules into .mjs
+- Upgrade packages
+- Fix SSR
 
 1.6.7-beta
 ============================================
