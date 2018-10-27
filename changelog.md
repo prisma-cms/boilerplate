@@ -1,3 +1,7 @@
+2.0.1-beta
+============================================
+- Upgrade dependencies
+
 2.0.0-beta
 ============================================
 - Breaking changs! Move server modules into .mjs
