@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.0.2-beta",
+  "version": "2.0.3-beta",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -9,8 +9,8 @@
     "build-less": "node-less-chokidar src/styles/less",
     "start-ssr": "NODE_ENV=production node --experimental-modules src/ssr",
     "start-ssr-dev": "NODE_ENV=production nodemon src/ssr",
-    "start-server": "Sendmail=true action=start-server node --experimental-modules src/server/",
-    "start-server-dev": "Sendmail=true SendmailTest=true action=start-server nodemon --experimental-modules src/server/",
+    "start-server": "Sendmail=true node --experimental-modules src/server/",
+    "start-server-dev": "Sendmail=true SendmailTest=true nodemon --experimental-modules src/server/",
     "deploy": "NODE_ENV=test node --experimental-modules src/server/scripts/deploy/with-prisma",
     "build-api": "node --experimental-modules src/server/scripts/deploy/api-only",
     "test": "react-scripts test --env=jsdom",
@@ -24,7 +24,7 @@
     "@prisma-cms/mail-module": "^1.1.0-beta",
     "@prisma-cms/server": "^2.1.7-beta",
     "@prisma-cms/ui": "^1.2.2",
-    "@prisma-cms/upload-module": "^1.3.5-beta",
+    "@prisma-cms/upload-module": "^1.3.6-beta",
     "@prisma-cms/user-module": "^1.1.0-beta",
     "@types/react": "^16.1.0",
     "apollo-cache-inmemory": "^1.3.7",
