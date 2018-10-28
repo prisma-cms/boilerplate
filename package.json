@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.0.3-beta",
+  "version": "2.0.4-beta",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "@prisma-cms/component": "^1.0.9",
     "@prisma-cms/e-commerce": "^1.0.1",
-    "@prisma-cms/front": "^1.9.8-beta",
+    "@prisma-cms/front": "^1.9.9-beta",
     "@prisma-cms/log-module": "^1.1.0-beta",
     "@prisma-cms/mail-module": "^1.1.0-beta",
     "@prisma-cms/server": "^2.1.7-beta",
