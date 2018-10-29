@@ -1,0 +1,9 @@
+
+
+type TestUser {
+  prismaTestUsername: String
+}
+
+input TestUserCreateInput {
+  testUsername: String
+}

@@ -1,0 +1,5 @@
+
+type TestUser {
+  testUsername: String
+  prismaTestUsername: String
+}
