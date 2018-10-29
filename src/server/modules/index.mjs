@@ -2,11 +2,11 @@
 import fs from "fs";
 
 import chalk from "chalk";
- 
+
 
 import MergeSchema from 'merge-graphql-schemas';
 
-import {CmsModule} from "@prisma-cms/server";
+import { CmsModule } from "@prisma-cms/server";
 
 
 import LogModule from "@prisma-cms/log-module";
@@ -24,13 +24,13 @@ const __dirname = path.dirname(moduleURL.pathname);
 const { fileLoader, mergeTypes } = MergeSchema;
 
 class CoreModule extends CmsModule {
-  
+
 
 
   constructor(options = {}) {
 
     super(options);
-    
+
     this.mergeModules([
       UserModule,
       LogModule,
@@ -39,7 +39,7 @@ class CoreModule extends CmsModule {
     ]);
 
   }
-  
+
 
   getSchema(types = []) {
 
@@ -59,11 +59,12 @@ class CoreModule extends CmsModule {
 
   }
 
-  
-  getApiSchema(types = []) {
+
+  getApiSchema(types = [], excludeTypes = []) {
 
 
-    let apiSchema = super.getApiSchema(types, []);
+    let apiSchema = super.getApiSchema(types, excludeTypes.concat([
+    ]));
 
 
     let schema = fileLoader(__dirname + '/schema/api/', {
@@ -73,14 +74,6 @@ class CoreModule extends CmsModule {
     apiSchema = mergeTypes([apiSchema.concat(schema)], { all: true });
 
     return apiSchema;
-
-  }
-
-
-  getExcludableApiTypes(){
-
-    return super.getExcludableApiTypes([
-    ]);
 
   }
 

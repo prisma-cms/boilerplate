@@ -43,6 +43,17 @@ const requiredTypes = [
       ],
     },
   },
+  {
+    name: "UserCreateInput",
+    fields: {
+      both: [
+      ],
+      prisma: [
+      ],
+      api: [
+      ],
+    },
+  },
 ]
 
 

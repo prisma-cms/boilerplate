@@ -1,6 +1,8 @@
 2.0.5-beta
 ============================================
 - Added server tests
+- Fix getApiSchema
+- Fix imagesMiddleware
 
 2.0.4-beta
 ============================================
