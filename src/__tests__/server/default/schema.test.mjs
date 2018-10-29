@@ -13,7 +13,7 @@ const { describe, it } = mocha
 const module = new TestModule();
 
 
-const requiredTypes = [
+export const requiredTypes = [
   {
     name: "Query",
     fields: {
@@ -57,7 +57,7 @@ const requiredTypes = [
 ]
 
 
-const verifyTypes = function (types, requiredTypes, verbose = false) {
+export const verifyTypes = function (types, requiredTypes, verbose = false) {
 
 
   if (verbose) {
@@ -179,7 +179,7 @@ const verifyTypes = function (types, requiredTypes, verbose = false) {
 
 
 
-const verifySchema = function (schema) {
+export const verifySchema = function (schema, requiredTypes) {
 
   const ast = parse(schema);
 
@@ -204,16 +204,16 @@ const verifySchema = function (schema) {
 }
 
 
-describe('Verify prisma Schema', () => {
+describe('Verify prisma Schema 2', () => {
 
-  verifySchema(module.getSchema());
+  verifySchema(module.getSchema(), requiredTypes);
 
 });
 
 
-describe('Verify API Schema', () => {
+describe('Verify API Schema 2', () => {
 
-  verifySchema(module.getApiSchema());
+  verifySchema(module.getApiSchema(), requiredTypes);
 
 });
 
