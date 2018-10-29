@@ -163,7 +163,7 @@ export const verifyTypes = function (types, requiredTypes, verbose = false) {
             ;
 
         }
- 
+
 
         if (!finded) {
           throw (`Can not find field ${name}:${fieldName}`);

@@ -1,6 +1,8 @@
 
 import chalk from "chalk";
 
+
+import PrismaModule from "@prisma-cms/prisma-module";
 import CmsModule from "../../../../../server/modules";
 
 import InnerModule from "./innerModule";
@@ -48,16 +50,16 @@ class TestModule extends CmsModule {
   }
 
 
-  getApiSchema(types = []) {
+  getApiSchema(types = [], excludeTypes = []) {
 
     /**
      * Hack for imitate = "src/schema/generated/prisma.graphql";
      */
-    let baseSchema = this.getSchema();
+    // let baseSchema = this.getSchema();
 
     // console.log("baseSchema", baseSchema);
 
-    let apiSchema = super.getApiSchema(types.concat([baseSchema]), []);
+    let apiSchema = super.getApiSchema(types.concat(excludeTypes), []);
 
     // console.log(chalk.green("TestModule apiSchema"), apiSchema);
 
@@ -89,7 +91,7 @@ class TestModule extends CmsModule {
 
 
 export {
-  CmsModule as PrismaModule,
+  PrismaModule,
 }
 
 export default TestModule;

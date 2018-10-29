@@ -24,7 +24,6 @@ const requiredTypes = [
     name: "Query",
     fields: {
       both: [
-        "testUsers",
       ],
       prisma: [
       ],
@@ -40,40 +39,6 @@ const requiredTypes = [
       prisma: [
       ],
       api: [
-      ],
-    },
-  },
-  {
-    name: "TestUser",
-    fields: {
-      both: [
-        "testUsername",
-      ],
-      prisma: [
-        "prismaTestUsername",
-      ],
-      api: [
-        "apiTestUsername",
-      ],
-    },
-  },
-  {
-    name: "TestUserCreateInput",
-    fields: {
-      api: [
-        "testUsername",
-      ],
-    },
-  },
-  {
-    name: "TestEnumFields",
-    fields: {
-      both: [
-      ],
-      api: [
-        "TestField",
-      ],
-      prisma: [
       ],
     },
   },
