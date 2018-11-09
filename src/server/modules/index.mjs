@@ -13,6 +13,7 @@ import LogModule from "@prisma-cms/log-module";
 import UserModule from "@prisma-cms/user-module";
 import MailModule from "@prisma-cms/mail-module";
 import UploadModule from "@prisma-cms/upload-module";
+import RouterModule from "@prisma-cms/router-module";
 
 
 import path from 'path';
@@ -36,6 +37,7 @@ class CoreModule extends CmsModule {
       LogModule,
       MailModule,
       UploadModule,
+      RouterModule,
     ]);
 
   }

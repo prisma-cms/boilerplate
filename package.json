@@ -27,6 +27,7 @@
     "@prisma-cms/ui": "latest",
     "@prisma-cms/upload-module": "latest",
     "@prisma-cms/user-module": "latest",
+    "@prisma-cms/router-module": "latest",
     "@types/react": "^16.1.0",
     "apollo-cache-inmemory": "^1.3.7",
     "apollo-client": "^2.4.4",
