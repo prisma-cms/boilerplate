@@ -1,5 +1,7 @@
 {   
   "ignore": [
-    "*/generated/*"
+    "*/generated/*",
+    "*/coverage/*",
+    "*/uploads/*"
   ] 
 }
