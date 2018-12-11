@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.0.5-beta",
+  "version": "2.0.7",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -13,6 +13,8 @@
     "start-server-dev": "Sendmail=true SendmailTest=true nodemon --experimental-modules src/server/",
     "deploy": "NODE_ENV=test node --experimental-modules src/server/scripts/deploy/with-prisma",
     "build-api": "node --experimental-modules src/server/scripts/deploy/api-only",
+    "get-api-schema": "graphql get-schema -o src/schema/generated/api.graphql",
+    "build-api-fragments": "node --experimental-modules src/server/scripts/deploy/build-api-fragments",
     "test": "react-scripts test --env=jsdom",
     "test-server": "NODE_OPTIONS=\"--experimental-modules\" yarn mocha --delay src/__tests__/server/index.js",
     "eject": "react-scripts eject"

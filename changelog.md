@@ -1,6 +1,8 @@
 2.0.7-beta
 ============================================
 - Added router module
+- Added yarn get-api-schema
+- Added yarn build-api-fragments
 
 2.0.6-beta
 ============================================
