@@ -2,6 +2,7 @@
   "ignore": [
     "*/generated/*",
     "*/coverage/*",
-    "*/uploads/*"
+    "*/uploads/*",
+    "*/src/components/*"
   ] 
 }
