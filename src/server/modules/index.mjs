@@ -65,7 +65,23 @@ class CoreModule extends CmsModule {
   getApiSchema(types = [], excludeTypes = []) {
 
 
-    let apiSchema = super.getApiSchema(types, excludeTypes.concat([
+    let baseSchema = [];
+
+    let schemaFile = __dirname + "/../../schema/generated/prisma.graphql";
+
+    if (fs.existsSync(schemaFile)) {
+      baseSchema = fs.readFileSync(schemaFile, "utf-8");
+
+      // baseSchema = this.cleanupApiSchema(baseSchema, [
+      // ]);
+
+    }
+    else {
+      console.error(chalk.red(`Schema file ${schemaFile} did not loaded`));
+    }
+
+
+    let apiSchema = super.getApiSchema(types.concat(baseSchema), excludeTypes.concat([
     ]));
 
 
