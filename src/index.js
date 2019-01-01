@@ -7,7 +7,9 @@ import PrismaCms from "@prisma-cms/front";
 
 import registerServiceWorker from './registerServiceWorker';
 
-import App from "./App";
+import App, {
+  queryFragments,
+} from "./App";
 
 import {
   UserNoNestingFragment,
@@ -24,6 +26,7 @@ ReactDOM.render(<PrismaCms
     ${UserNoNestingFragment}
     `,
   }}
+  queryFragments={queryFragments}
 />, document.getElementById('root'));
 registerServiceWorker();
 
