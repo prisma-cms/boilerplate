@@ -1,3 +1,9 @@
+2.3.0
+============================================
+- Added @prisma-cms/society-module
+- Added @prisma-cms/society
+- Added chats
+
 2.2.0
 ============================================
 - Added @prisma-cms/context

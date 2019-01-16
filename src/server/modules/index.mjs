@@ -14,8 +14,10 @@ import UserModule from "@prisma-cms/user-module";
 import MailModule from "@prisma-cms/mail-module";
 import UploadModule from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
+import SocietyModule from "@prisma-cms/society-module";
 
 
+import { parse, print } from "graphql";
 import path from 'path';
 
 const moduleURL = new URL(import.meta.url);
@@ -24,8 +26,8 @@ const __dirname = path.dirname(moduleURL.pathname);
 
 const { fileLoader, mergeTypes } = MergeSchema;
 
-class CoreModule extends CmsModule {
 
+class CoreModule extends CmsModule {
 
 
   constructor(options = {}) {
@@ -38,6 +40,7 @@ class CoreModule extends CmsModule {
       MailModule,
       UploadModule,
       RouterModule,
+      SocietyModule,
     ]);
 
   }
@@ -62,8 +65,8 @@ class CoreModule extends CmsModule {
   }
 
 
-  getApiSchema(types = [], excludeTypes = []) {
 
+  getApiSchema(types = []) {
 
     let baseSchema = [];
 
@@ -72,8 +75,20 @@ class CoreModule extends CmsModule {
     if (fs.existsSync(schemaFile)) {
       baseSchema = fs.readFileSync(schemaFile, "utf-8");
 
-      // baseSchema = this.cleanupApiSchema(baseSchema, [
-      // ]);
+      baseSchema = this.cleanupApiSchema(baseSchema, [
+        "ChatRoomCreateInput",
+        "ChatRoomUpdateInput",
+        "UserCreateManyWithoutRoomsInput",
+        "UserUpdateManyWithoutRoomsInput",
+        // "ChatRoomInvitationUpdateManyWithoutRoomInput",
+  
+        "ChatMessageCreateInput",
+        "ChatMessageUpdateInput",
+        "ChatRoomCreateOneWithoutMessagesInput",
+  
+        "ChatMessageReadedCreateInput",
+        "ChatMessageCreateOneWithoutReadedByInput",
+      ]);
 
     }
     else {
@@ -81,17 +96,108 @@ class CoreModule extends CmsModule {
     }
 
 
-    let apiSchema = super.getApiSchema(types.concat(baseSchema), excludeTypes.concat([
-    ]));
+    let apiSchema = super.getApiSchema(types.concat(baseSchema), [
+    ]);
 
 
     let schema = fileLoader(__dirname + '/schema/api/', {
       recursive: true,
     });
 
-    apiSchema = mergeTypes([apiSchema.concat(schema)], { all: true });
+    apiSchema = mergeTypes(schema.concat(apiSchema), { all: true });
+
+    // console.log(chalk.green("Modxclub apiSchema"), apiSchema);
+
+
+    /**
+     * Фильтруем все резолверы, коих нет в текущем классе
+     */
+    const resolvers = this.getResolvers();
+
+    const parsed = parse(apiSchema);
+
+    let operations = parsed.definitions.filter(
+      n => n.kind === "ObjectTypeDefinition"
+        && ["Query", "Mutation", "Subscription"].indexOf(n.name.value) !== -1
+      // && !resolvers[n.name.value][]
+    );
+
+    operations.map(n => {
+
+      let {
+        name: {
+          value: operationName,
+        },
+        fields,
+      } = n;
+
+      n.fields = fields.filter(field => {
+        // console.log(chalk.green("field"), field);
+        return resolvers[operationName][field.name.value] ? true : false;
+      });
+
+    });
+
+    apiSchema = print(parsed);
+
 
     return apiSchema;
+
+  }
+
+
+
+  getResolvers() {
+
+
+    let resolvers = super.getResolvers();
+
+    // console.log("resolvers", resolvers);
+
+    const {
+      Query: {
+        letter,
+        letters,
+        lettersConnection,
+        file,
+        files,
+        filesConnection,
+        logedin,
+        logedins,
+        logedinsConnection,
+        log,
+        logs,
+        logsConnection,
+
+        ...Query
+      },
+      Mutation,
+      ...other
+    } = resolvers;
+
+
+    const {
+    } = Mutation;
+
+
+    let AllowedMutations = {
+      ...Mutation,
+    };
+ 
+    return {
+      ...other,
+      Query,
+      Mutation: AllowedMutations,
+      Log: {
+        stack: () => null,
+      },
+      Letter: {
+        id: () => null,
+        email: () => null,
+        subject: () => null,
+        message: () => null,
+      },
+    };
 
   }
 
