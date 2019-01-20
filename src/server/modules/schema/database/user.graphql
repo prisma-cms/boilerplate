@@ -1,0 +1,4 @@
+
+type User {
+  LettersCreated: [Letter!]! @relation(name: "LettersCreatedBy")
+}

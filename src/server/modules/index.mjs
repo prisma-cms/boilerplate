@@ -10,11 +10,13 @@ import { CmsModule } from "@prisma-cms/server";
 
 
 import LogModule from "@prisma-cms/log-module";
-import UserModule from "@prisma-cms/user-module";
+// import UserModule from "@prisma-cms/user-module";
+import UserModule from "./user";
 import MailModule from "@prisma-cms/mail-module";
 import UploadModule from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
 import SocietyModule from "@prisma-cms/society-module";
+import EthereumModule from "@prisma-cms/ethereum-module";
 
 
 import { parse, print } from "graphql";
@@ -35,12 +37,13 @@ class CoreModule extends CmsModule {
     super(options);
 
     this.mergeModules([
-      UserModule,
       LogModule,
       MailModule,
       UploadModule,
       RouterModule,
       SocietyModule,
+      EthereumModule,
+      UserModule,
     ]);
 
   }
@@ -97,6 +100,13 @@ class CoreModule extends CmsModule {
 
 
     let apiSchema = super.getApiSchema(types.concat(baseSchema), [
+
+      // "UserCreateInput",
+      // "UserUpdateInput",
+
+      "EthTransactionCreateInput",
+      "EthTransactionSubscriptionPayload",
+
     ]);
 
 

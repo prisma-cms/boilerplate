@@ -1,14 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import UserPageViewProto from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View"; 
-import UsersGroupsBlock from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View/Groups"; 
+import UserPageViewProto from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View";
+import UsersGroupsBlock from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View/Groups";
 
 import NotificationTypes from "./NotificationTypes";
 import ChatRooms from "./ChatRooms";
+import EthWallet from "./EthWallet";
+import Balances from "./EthWallet/Balances";
 
 class UserPageView extends UserPageViewProto {
- 
+
+
+
+  getWalletAddress() {
+
+    const object = this.getObjectWithMutations();
+
+    let {
+      ethWallet,
+    } = object;
+
+    const {
+      address,
+    } = this.getEthAccount() || {}
+
+    return ethWallet || address;
+  }
+
+
+  getEthAccount() {
+
+    const object = this.getObjectWithMutations();
+
+    let {
+      EthAccounts,
+    } = object;
+
+    return EthAccounts && EthAccounts[0] || null;
+
+  }
 
 
   renderDefaultView() {
@@ -18,6 +49,7 @@ class UserPageView extends UserPageViewProto {
 
     let {
       id: userId,
+      EthAccounts,
     } = object;
 
     const {
@@ -34,7 +66,78 @@ class UserPageView extends UserPageViewProto {
       id: currentUserId,
     } = currentUser || {}
 
+
+    const ethAccount = this.getEthAccount();
+
     // const ethWallet = this.getWalletAddress();
+
+    let ethAccountList = [];
+
+
+    if (currentUserId && currentUserId === userId) {
+
+      console.log("EthAccounts", EthAccounts, object);
+
+      if (EthAccounts && EthAccounts.length) {
+
+        ethAccountList = EthAccounts.map(n => {
+
+          const {
+            id,
+          } = n;
+
+          return <Grid
+            key={id}
+            item
+            xs={12}
+            md={6}
+          >
+
+            <Balances
+              ethAccount={n}
+              user={currentUser}
+            // style={{
+            //   marginTop: 20,
+            // }}
+            />
+
+          </Grid>;
+        });
+
+      }
+
+      ethAccountList.push(<Grid
+        key={"AddEthAccount"}
+        item
+        xs={12}
+        md={6}
+      >
+
+        <Balances
+          // ethAccount={n}
+          user={currentUser}
+        // style={{
+        //   marginTop: 20,
+        // }}
+        />
+
+      </Grid>);
+
+    }
+    else if (ethAccount || (currentUserId && currentUserId === userId)) {
+      ethAccountList = <Grid
+        item
+        xs={12}
+        md={6}
+      >
+
+        <EthWallet
+          // currentUserEthAccount={ethAccount}
+          user={object}
+          currentUser={currentUser}
+        />
+      </Grid>
+    }
 
     return <Grid
       container
@@ -72,7 +175,26 @@ class UserPageView extends UserPageViewProto {
 
 
           </Grid>
- 
+
+
+          {ethAccountList}
+
+
+          {/* {ethAccount || (currentUserId && currentUserId === userId) ?
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
+
+              <EthWallet
+                // currentUserEthAccount={ethAccount}
+                user={object}
+                currentUser={currentUser}
+              />
+            </Grid>
+            : null
+          } */}
 
 
           <Grid
@@ -165,7 +287,7 @@ class UserPageView extends UserPageViewProto {
           >
 
 
-            <Grid
+            {/* <Grid
               item
               xs={12}
             >
@@ -177,7 +299,7 @@ class UserPageView extends UserPageViewProto {
                 value: ethWallet || "",
               })}
 
-            </Grid>
+            </Grid> */}
 
 
             <Grid
@@ -259,8 +381,8 @@ class UserPageView extends UserPageViewProto {
     </Grid>;
 
   }
-  
+
 }
- 
+
 
 export default UserPageView;

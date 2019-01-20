@@ -118,7 +118,7 @@ class ChatRoomsByUser extends Component {
               id: userId,
             },
           }}
-          title={`Чат-комнаты с пользоваелем ${fullname || username}`}
+          title={`Чат-комнаты с пользователем ${fullname || username}`}
         />
 
       </Fragment>

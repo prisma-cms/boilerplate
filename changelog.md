@@ -1,3 +1,9 @@
+2.3.1
+============================================
+- Added @prisma-cms/ethereum-module
+- Added @prisma-cms/ethereum
+- Added multiple ethAccounts
+
 2.3.0
 ============================================
 - Added @prisma-cms/society-module

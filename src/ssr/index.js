@@ -44,7 +44,7 @@ var bodyParser = require('body-parser');
 const cwd = process.cwd();
  
 
-const setupProxy = require("@prisma-cms/front/lib/setupProxy");
+const setupProxy = require("../setupProxy");
 
 setupProxy(app);
 

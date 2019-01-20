@@ -8,6 +8,11 @@ import {
   SubscriptionProvider as SocietySubscriptionProvider,
 } from "@prisma-cms/society";
 
+import {
+  ContextProvider as EthereumContextProvider,
+  SubscriptionProvider as EthereumSubscriptionProvider,
+} from "@prisma-cms/ethereum";
+
 import ContextProvider from "./ContextProvider";
 
 import UserPage from './pages/UsersPage/UserPage';
@@ -18,6 +23,10 @@ import CreateChatRoomPage from "./pages/society/ChatRooms/ChatRoom/Create";
 
 import ChatMessagesPage from "./pages/society/ChatMessages";
 import ChatMessagePage from "./pages/society/ChatMessages/ChatMessage";
+
+import TransactionsPage from "./pages/ethereum/Transactions";
+import TransactionPage from "./pages/ethereum/Transactions/Transaction";
+
 
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
@@ -115,6 +124,21 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
           />
         },
       },
+      {
+        exact: true,
+        path: "/eth-transactions",
+        render: props => <TransactionsPage
+          {...props}
+          where={{}}
+          first={10}
+          orderBy="createdAt_DESC"
+        />
+      },
+      {
+        exact: true,
+        path: "/eth-transactions/:transactionId",
+        component: TransactionPage,
+      },
     ].concat(super.getRoutes());
 
     return routers;
@@ -125,9 +149,13 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
     return <SocietyContextProvider>
       <SocietySubscriptionProvider>
-        <ContextProvider>
-          {super.renderWrapper()}
-        </ContextProvider>
+        <EthereumContextProvider>
+          <EthereumSubscriptionProvider>
+            <ContextProvider>
+              {super.renderWrapper()}
+            </ContextProvider>
+          </EthereumSubscriptionProvider>
+        </EthereumContextProvider>
       </SocietySubscriptionProvider>
     </SocietyContextProvider>
 

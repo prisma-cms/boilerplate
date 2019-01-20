@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -20,17 +20,19 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@prisma-cms/front": "latest",
     "@prisma-cms/context": "latest",
+    "@prisma-cms/front": "latest",
     "@prisma-cms/log-module": "latest",
     "@prisma-cms/mail-module": "latest",
     "@prisma-cms/prisma-module": "latest",
     "@prisma-cms/router-module": "latest",
     "@prisma-cms/server": "latest",
-    "@prisma-cms/upload-module": "latest",
-    "@prisma-cms/user-module": "latest",
     "@prisma-cms/society": "latest",
     "@prisma-cms/society-module": "latest",
+    "@prisma-cms/upload-module": "latest",
+    "@prisma-cms/user-module": "latest",
+    "@prisma-cms/ethereum": "latest",
+    "@prisma-cms/ethereum-module": "latest",
     "apollo-cache-inmemory": "^1.3.7",
     "apollo-client": "^2.4.4",
     "apollo-link-http": "1.5.5",
@@ -46,7 +48,9 @@
     "node-sass-chokidar": "^1.1.0",
     "prisma-binding": "^2.1.6",
     "react-apollo": "^2.2.3",
+    "react-number-format": "^4.0.6",
     "urijs": "^1.19.1",
+    "web3": "^1.0.0-beta.37",
     "xml-writer": "^1.7.0"
   },
   "devDependencies": {
