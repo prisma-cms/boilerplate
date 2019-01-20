@@ -1,4 +1,4 @@
-2.3.1
+2.4.0
 ============================================
 - Added @prisma-cms/ethereum-module
 - Added @prisma-cms/ethereum
