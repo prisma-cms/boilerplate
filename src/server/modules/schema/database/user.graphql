@@ -1,4 +1,5 @@
 
 type User {
   LettersCreated: [Letter!]! @relation(name: "LettersCreatedBy")
+  sudo: Boolean @default(value: false)
 }

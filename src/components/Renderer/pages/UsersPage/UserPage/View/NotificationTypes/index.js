@@ -5,6 +5,8 @@ import { compose, graphql } from 'react-apollo';
 
 import Typography from "material-ui/Typography";
 
+import Context from "@prisma-cms/context";
+
 const notificationsQuery = gql`
   query {
     objects: notificationTypes{
@@ -24,9 +26,7 @@ class UserNotificationTypes extends Component {
     mutate: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    user: PropTypes.object,
-  }
+  static contextType = Context;
 
   render() {
 
@@ -42,9 +42,6 @@ class UserNotificationTypes extends Component {
       CheckBox,
     } = this.context;
 
-    console.log("CheckBox", CheckBox);
-
-    return null;
 
     if (!user || !currentUser || user.id !== currentUser.id) {
       return null;
@@ -64,7 +61,6 @@ class UserNotificationTypes extends Component {
     } = user;
 
 
-
     let output = null
 
     output = objects.map(n => {
@@ -82,7 +78,7 @@ class UserNotificationTypes extends Component {
       >
 
         <CheckBox
-          checked={NotificationTypes && NotificationTypes.findIndex(n => n.id === id) !== -1}
+          checked={NotificationTypes && NotificationTypes.findIndex(n => n.id === id) !== -1 ? true : false}
           label={comment || name}
           // disabled={!inEditMode}
           onChange={async event => {

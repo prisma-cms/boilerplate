@@ -59,6 +59,7 @@ class ContextProvider extends Component {
     const {
       UserNoNestingFragment,
       EthAccountNoNestingFragment,
+      NotificationTypeNoNestingFragment,
       BatchPayloadNoNestingFragment,
     } = queryFragments;
 
@@ -69,10 +70,14 @@ class ContextProvider extends Component {
         EthAccounts{
           ...EthAccountNoNesting
         }
+        NotificationTypes{
+          ...NotificationTypeNoNesting
+        }
       }
 
       ${UserNoNestingFragment}
       ${EthAccountNoNestingFragment}
+      ${NotificationTypeNoNestingFragment}
     `;
 
 
