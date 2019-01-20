@@ -1,0 +1,5 @@
+
+type Letter {
+  id: ID! @unique
+  User: User @relation(name: "LettersCreatedBy")
+}

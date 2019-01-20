@@ -1,0 +1,5 @@
+
+input UserUpdateInput {
+  ethWalletPK: String
+  ethWalletPKSendEmail: Boolean
+}
