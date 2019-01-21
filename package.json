@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  ChatRooms,
+  ChatRooms as ChatRoomsProto,
   NewMessage,
 } from "@prisma-cms/society";
 
@@ -17,6 +17,16 @@ const styles = theme => {
       padding: "0px !important",
     },
   }
+}
+
+
+class ChatRooms extends ChatRoomsProto {
+
+  setPageMeta(){
+
+    return;
+  }
+  
 }
 
 
