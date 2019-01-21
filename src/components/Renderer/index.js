@@ -1,4 +1,6 @@
 
+import "../../styles/less/styles.css";
+
 import React from "react";
 
 import { Renderer as PrismaCmsRenderer } from "@prisma-cms/front";
@@ -27,8 +29,16 @@ import ChatMessagePage from "./pages/society/ChatMessages/ChatMessage";
 import TransactionsPage from "./pages/ethereum/Transactions";
 import TransactionPage from "./pages/ethereum/Transactions/Transaction";
 
+import MainMenu from "./MainMenu";
+
 
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
+
+
+  renderMenu() {
+
+    return <MainMenu />;
+  }
 
 
   getRoutes() {

@@ -1,0 +1,24 @@
+
+
+input ResourceCreateInput {
+  type: ID
+  name: String
+  longtitle: String
+  content: Json
+  published: Boolean
+  deleted: Boolean
+  hidemenu: Boolean
+  searchable: Boolean
+  uri: String!
+  isfolder: Boolean
+}
+
+input ResourceUpdateInput {
+  name: String
+  longtitle: String
+  content: Json
+  published: Boolean
+  deleted: Boolean
+  hidemenu: Boolean
+  searchable: Boolean
+}

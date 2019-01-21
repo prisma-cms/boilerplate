@@ -79,18 +79,27 @@ class CoreModule extends CmsModule {
       baseSchema = fs.readFileSync(schemaFile, "utf-8");
 
       baseSchema = this.cleanupApiSchema(baseSchema, [
+
+        "ResourceCreateInput",
+        "ResourceUpdateInput",
+
         "ChatRoomCreateInput",
         "ChatRoomUpdateInput",
         "UserCreateManyWithoutRoomsInput",
         "UserUpdateManyWithoutRoomsInput",
         // "ChatRoomInvitationUpdateManyWithoutRoomInput",
-  
+
         "ChatMessageCreateInput",
         "ChatMessageUpdateInput",
         "ChatRoomCreateOneWithoutMessagesInput",
-  
+
         "ChatMessageReadedCreateInput",
         "ChatMessageCreateOneWithoutReadedByInput",
+
+        "EthContractSourceCreateInput",
+        "EthContractSourceUpdateInput",
+        "EthTransactionCreateInput",
+        "EthTransactionSubscriptionPayload",
       ]);
 
     }
@@ -101,11 +110,10 @@ class CoreModule extends CmsModule {
 
     let apiSchema = super.getApiSchema(types.concat(baseSchema), [
 
-      // "UserCreateInput",
-      // "UserUpdateInput",
-
-      "EthTransactionCreateInput",
-      "EthTransactionSubscriptionPayload",
+      "UserCreateInput",
+      "UserUpdateInput",
+      "NotificationTypeUpdateManyWithoutUsersInput",
+      "UserCreateOneWithoutResourcesInput",
 
     ]);
 
@@ -193,7 +201,7 @@ class CoreModule extends CmsModule {
     let AllowedMutations = {
       ...Mutation,
     };
- 
+
     return {
       ...other,
       Query,
