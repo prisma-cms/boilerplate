@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import PrismaCms from "@prisma-cms/front";
 
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 
 import App, {
   queryFragments,
@@ -33,5 +33,6 @@ ReactDOM.render(<PrismaCms
   }}
   queryFragments={queryFragments}
 />, document.getElementById('root'));
-registerServiceWorker();
+
+serviceWorker.unregister();
 
