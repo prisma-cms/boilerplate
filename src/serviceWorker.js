@@ -12,12 +12,12 @@
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.1/8 is considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
+  // [::1] is the IPv6 localhost address.
+  window.location.hostname === '[::1]' ||
+  // 127.0.0.1/8 is considered localhost for IPv4.
+  window.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+  )
 );
 
 export function register(config) {
@@ -43,7 +43,7 @@ export function register(config) {
         navigator.serviceWorker.ready.then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit http://bit.ly/CRA-PWA'
+            'worker. To learn more, visit http://bit.ly/CRA-PWA'
           );
         });
       } else {
@@ -71,7 +71,7 @@ function registerValidSW(swUrl, config) {
               // content until all client tabs are closed.
               console.log(
                 'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See http://bit.ly/CRA-PWA.'
+                'tabs for this page are closed. See http://bit.ly/CRA-PWA.'
               );
 
               // Execute callback
@@ -91,7 +91,152 @@ function registerValidSW(swUrl, config) {
             }
           }
         };
+
       };
+
+
+      registration.addEventListener("activate", (event, data) => {
+
+        console.log("addEventListener activate", event, data);
+
+      });
+
+      
+      // registration.sync.register('myFirstSync');
+
+
+      async function showNotification(title, options = {}) {
+
+
+        const actions = {
+          openWindow: (event) => {
+
+            const {
+              data,
+            } = event.target;
+
+            const {
+              url,
+            } = data || {}
+
+            if (!url) {
+              return false;
+            }
+
+            // window.open(url, "/url");
+          },
+        }
+
+
+        options = {
+          icon: "public/modx_128.png",
+          ...options,
+          vibrate: [300, 100, 400],
+          // actions: [{
+          //   action: 'MyOpen',
+          //   title: "Открыть",
+          // }],
+          actions: undefined,
+          // data: {
+          //   dfsdf: "DSfsdf",
+          // },
+          // data: {
+          //   action: "openMessage",
+          // },
+        }
+
+
+
+        // let notification = await registration
+        //   .showNotification(title, options)
+        //   ;
+
+        let widget = new Notification(
+          title,
+          options,
+        );
+
+
+        widget.addEventListener("click", event => {
+
+          const {
+            data,
+          } = event.target;
+
+          const {
+            action,
+          } = data || {}
+
+
+          try {
+            // event.target.data.action()
+
+            action && actions[action] && actions[action](event);
+
+          }
+          catch (error) {
+            console.error(error);
+          }
+
+        });
+
+        widget.addEventListener("close", event => {
+        });
+
+      }
+
+
+      const {
+        gql,
+        createClient,
+        // client,
+      } = window;
+
+
+      if (createClient) {
+
+        const {
+          origin,
+        } = global.location;
+
+        const httpUri = `${origin}/api/`;
+
+        const wsUri = httpUri.replace(/^http/, "ws");
+
+        const client = createClient(httpUri, wsUri);
+
+
+        setInterval(() => {
+
+
+          /**
+           * Получаем текущего пользователя
+           */
+          const me = gql`
+                    query me{
+                      user: me{
+                        id
+                        username
+                      }
+                    }
+                  `;
+
+
+          client.query({
+            query: me,
+            variables: {},
+            fetchPolicy: "no-cache",
+          }).then(r => {
+
+            console.log("me result", r);
+
+          })
+            .catch(console.error);
+
+        }, 5000);
+
+      }
+
     })
     .catch(error => {
       console.error('Error during service worker registration:', error);

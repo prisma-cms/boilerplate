@@ -8,6 +8,7 @@ import NotificationTypes from "./NotificationTypes";
 import ChatRooms from "./ChatRooms";
 import EthWallet from "./EthWallet";
 import Balances from "./EthWallet/Balances";
+import PushNotifications from "./PushNotifications";
 
 class UserPageView extends UserPageViewProto {
 
@@ -73,10 +74,16 @@ class UserPageView extends UserPageViewProto {
 
     let ethAccountList = [];
 
+    let pushNotifications;
+
 
     if (currentUserId && currentUserId === userId) {
 
-      console.log("EthAccounts", EthAccounts, object);
+
+      pushNotifications = <PushNotifications
+      />
+
+      // console.log("EthAccounts", EthAccounts, object);
 
       if (EthAccounts && EthAccounts.length) {
 
@@ -149,6 +156,8 @@ class UserPageView extends UserPageViewProto {
       >
 
         {this.renderAvatar()}
+
+        {pushNotifications}
 
       </Grid>
 

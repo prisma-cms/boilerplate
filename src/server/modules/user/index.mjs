@@ -150,20 +150,20 @@ export class ModxclubUserProcessor extends UserPayload {
 
 
 
-        /**
-         * Если пользователь указал отправить ему уведомление с паролем, отправляем
-         */
+      /**
+       * Если пользователь указал отправить ему уведомление с паролем, отправляем
+       */
 
-        let LettersCreated;
+      let LettersCreated;
 
-        if (ethWalletPKSendEmail && email) {
+      if (ethWalletPKSendEmail && email) {
 
-          LettersCreated = {
-            create: {
-              rank: 100,
-              email,
-              subject: "Данные вашего кошелька",
-              message: `
+        LettersCreated = {
+          create: {
+            rank: 100,
+            email,
+            subject: "Данные вашего кошелька",
+            message: `
                 <h3>
                   Данные вашего кошелька
                 </h3>
@@ -176,25 +176,25 @@ export class ModxclubUserProcessor extends UserPayload {
                   <strong>Приватный ключ:</strong> ${privateKey}
                 </p>
               `,
-            },
-          }
-
+          },
         }
 
-        const chainId = await web3.eth.net.getId();
-
-        Object.assign(data, {
-          EthAccounts: {
-            create: {
-              address: ethWallet,
-              type: "Contract",
-              chainId,
-            },
-          },
-          LettersCreated,
-        });
-
       }
+
+      const chainId = await web3.eth.net.getId();
+
+      Object.assign(data, {
+        EthAccounts: {
+          create: {
+            address: ethWallet,
+            type: "Contract",
+            chainId,
+          },
+        },
+        LettersCreated,
+      });
+
+    }
 
     // }
 
@@ -260,6 +260,10 @@ class ModxclubUserModule extends UserModule {
         updateUserProcessor,
         ...Mutation
       },
+      Query: {
+        me,
+        ...Query
+      },
       ...other
     } = resolvers;
 
@@ -267,6 +271,17 @@ class ModxclubUserModule extends UserModule {
 
     return {
       ...other,
+      Query: {
+        ...Query,
+        me: async (source, args, ctx, info) => {
+          console.log("me args", args);
+          const result = await me(source, args, ctx, info);
+
+          console.log("me result", result);
+
+          return result;
+        },
+      },
       Mutation: {
         ...Mutation,
         signup: (source, args, ctx, info) => {
