@@ -82,6 +82,16 @@ class CoreModule extends CmsModule {
 
         "ResourceCreateInput",
         "ResourceUpdateInput",
+        "UserCreateOneWithoutResourcesInput",
+        "ResourceCreateOneWithoutChildsInput",
+        "ResourceCreateManyWithoutParentInput",
+        "UserUpdateOneWithoutResourcesInput",
+        "ResourceUpdateOneWithoutChildsInput",
+        "ResourceUpdateManyWithoutParentInput",
+        "ResourceUpdateManyWithoutCreatedByInput",
+        "ResourceCreateManyWithoutCreatedByInput",
+        "FileCreateOneWithoutImageResourceInput",
+        "FileUpdateOneWithoutImageResourceInput",
 
         "ChatRoomCreateInput",
         "ChatRoomUpdateInput",

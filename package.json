@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -50,7 +50,7 @@
     "react-apollo": "^2.2.3",
     "react-number-format": "^4.0.6",
     "urijs": "^1.19.1",
-    "web3": "^1.0.0-beta.37",
+    "web3": "1.0.0-beta.37",
     "xml-writer": "^1.7.0"
   },
   "devDependencies": {
