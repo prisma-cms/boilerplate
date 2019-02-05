@@ -31,6 +31,12 @@ import TransactionPage from "./pages/ethereum/Transactions/Transaction";
 
 import MainMenu from "./MainMenu";
 
+import {
+  ContextProvider as WebrtcContextProvider,
+  SubscriptionProvider as WebrtcSubscriptionProvider,
+  WebRtcChatProvider,
+} from "@prisma-cms/webrtc";
+
 
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
@@ -161,9 +167,15 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
       <SocietySubscriptionProvider>
         <EthereumContextProvider>
           <EthereumSubscriptionProvider>
-            <ContextProvider>
-              {super.renderWrapper()}
-            </ContextProvider>
+            <WebrtcContextProvider>
+              <WebrtcSubscriptionProvider>
+                <WebRtcChatProvider>
+                  <ContextProvider>
+                    {super.renderWrapper()}
+                  </ContextProvider>
+                </WebRtcChatProvider>
+              </WebrtcSubscriptionProvider>
+            </WebrtcContextProvider>
           </EthereumSubscriptionProvider>
         </EthereumContextProvider>
       </SocietySubscriptionProvider>

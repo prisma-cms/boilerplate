@@ -17,6 +17,7 @@ import UploadModule from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
 import SocietyModule from "@prisma-cms/society-module";
 import EthereumModule from "@prisma-cms/ethereum-module";
+import WebrtcModule from "@prisma-cms/webrtc-module";
 
 
 import { parse, print } from "graphql";
@@ -43,6 +44,7 @@ class CoreModule extends CmsModule {
       RouterModule,
       SocietyModule,
       EthereumModule,
+      WebrtcModule,
       UserModule,
     ]);
 
@@ -105,6 +107,11 @@ class CoreModule extends CmsModule {
 
         "ChatMessageReadedCreateInput",
         "ChatMessageCreateOneWithoutReadedByInput",
+
+        // "CallRequestCreateInput",
+        "CallRequestUpdateDataInput",
+        "ChatRoomCreateOneWithoutCallRequestsInput",
+        "ChatRoomUpdateOneWithoutCallRequestsInput",
 
         "EthContractSourceCreateInput",
         "EthContractSourceUpdateInput",
