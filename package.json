@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -59,7 +59,6 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "ajv": "6.8.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "mocha": "^5.2.0",
     "nodemon": "latest",
@@ -68,8 +67,7 @@
   },
   "resolutions": {
     "graphql": "14.0.2",
-    "terser": "3.14.1",
-    "ajv": "6.8.1"
+    "terser": "3.14.1"
   },
   "browserslist": [
     ">0.2%",
