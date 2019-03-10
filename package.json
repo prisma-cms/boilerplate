@@ -54,7 +54,8 @@
     "react-number-format": "^4.0.6",
     "urijs": "^1.19.1",
     "web3": "1.0.0-beta.37",
-    "xml-writer": "^1.7.0"
+    "xml-writer": "^1.7.0",
+    "react-dnd": "7.0.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -68,7 +69,8 @@
   },
   "resolutions": {
     "graphql": "14.0.2",
-    "terser": "3.14.1"
+    "terser": "3.14.1",
+    "react-dnd": "7.0.2"
   },
   "browserslist": [
     ">0.2%",
