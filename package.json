@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -35,6 +35,7 @@
     "@prisma-cms/user-module": "latest",
     "@prisma-cms/webrtc": "latest",
     "@prisma-cms/webrtc-module": "latest",
+    "@prisma-cms/filters": "latest",
     "apollo-cache-inmemory": "^1.3.7",
     "apollo-client": "^2.4.4",
     "apollo-link-http": "1.5.5",
