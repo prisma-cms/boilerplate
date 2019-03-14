@@ -1,3 +1,8 @@
+2.5.4
+============================================
+- Fix apollo-link-dedup
+https://github.com/apollographql/apollo-link/issues/986#issuecomment-472700600
+
 2.5.3
 ============================================
 - Added @prisma-cms/filters
