@@ -109,7 +109,7 @@ export class MainMenu extends Component {
                 // color="inherit"
                 className={classes.link}
               >
-                Crypto Trader
+                Prisma-CMS
               </Typography>
             </Link>
 
@@ -174,7 +174,7 @@ export class MainMenu extends Component {
             item
           >
             <a
-              href="/api"
+              href="/api/"
               rel="noindex,nofollow"
               target="_blank"
             >
