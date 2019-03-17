@@ -1,5 +1,6 @@
 2.5.5
 ============================================
+- Fix react-router
 - Cleanup schema
 - Upgrade @prisma-cms/prisma-module
 
