@@ -6,7 +6,7 @@ import chalk from "chalk";
 
 import MergeSchema from 'merge-graphql-schemas';
 
-import { CmsModule } from "@prisma-cms/server";
+import PrismaModule from "@prisma-cms/prisma-module";
 
 
 import LogModule from "@prisma-cms/log-module";
@@ -30,7 +30,7 @@ const __dirname = path.dirname(moduleURL.pathname);
 const { fileLoader, mergeTypes } = MergeSchema;
 
 
-class CoreModule extends CmsModule {
+class CoreModule extends PrismaModule {
 
 
   constructor(options = {}) {
@@ -84,7 +84,6 @@ class CoreModule extends CmsModule {
 
         "ResourceCreateInput",
         "ResourceUpdateInput",
-        "UserCreateOneWithoutResourcesInput",
         "ResourceCreateOneWithoutChildsInput",
         "ResourceCreateManyWithoutParentInput",
         "UserUpdateOneWithoutResourcesInput",
@@ -129,8 +128,6 @@ class CoreModule extends CmsModule {
 
       "UserCreateInput",
       "UserUpdateInput",
-      "NotificationTypeUpdateManyWithoutUsersInput",
-      "UserCreateOneWithoutResourcesInput",
 
     ]);
 

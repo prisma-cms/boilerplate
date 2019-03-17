@@ -1,3 +1,8 @@
+2.5.5
+============================================
+- Cleanup schema
+- Upgrade @prisma-cms/prisma-module
+
 2.5.4
 ============================================
 - Fix apollo-link-dedup
