@@ -168,10 +168,10 @@ class UserPageView extends UserPageViewProto {
           // md={6}
           >
 
-            {/* <ChatRooms
+            <ChatRooms
               user={object}
               currentUser={currentUser}
-            /> */}
+            />
 
 
           </Grid>
