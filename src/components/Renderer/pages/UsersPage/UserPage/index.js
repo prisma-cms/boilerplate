@@ -6,12 +6,21 @@ import UserPageProto from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPag
 
 import View from "./View";
 
+import Page from "../../layout";
 
-class UserPage extends UserPageProto {
+
+class UserPage extends Page {
 
   static defaultProps = {
-    ...UserPageProto.defaultProps,
+    ...Page.defaultProps,
     View,
+  }
+
+  render() {
+
+    return super.render(<UserPageProto
+      {...this.props}
+    />);
   }
 
 }

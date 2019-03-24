@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.5.5",
+  "version": "2.6.0",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -33,6 +33,7 @@
     "@prisma-cms/society-module": "latest",
     "@prisma-cms/upload-module": "latest",
     "@prisma-cms/user-module": "latest",
+    "@prisma-cms/sms-module": "latest",
     "@prisma-cms/webrtc": "latest",
     "@prisma-cms/webrtc-module": "latest",
     "@prisma-cms/filters": "latest",

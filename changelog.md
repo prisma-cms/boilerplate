@@ -1,3 +1,9 @@
+2.6.0
+============================================
+- Fix Pages.setPageMeta()
+- Add @prisma-cms/sms-module
+- Upgrade @prisma-cms/front
+
 2.5.5
 ============================================
 - Fix react-router
