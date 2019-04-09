@@ -37,6 +37,11 @@ import {
   WebRtcChatProvider,
 } from "@prisma-cms/webrtc";
 
+import {
+  ContextProvider as FrontEditorContextProvider,
+  SubscriptionProvider as FrontEditorSubscriptionProvider,
+} from "@prisma-cms/front-editor"
+
 
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
@@ -170,9 +175,13 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
             <WebrtcContextProvider>
               <WebrtcSubscriptionProvider>
                 <WebRtcChatProvider>
-                  <ContextProvider>
-                    {super.renderWrapper()}
-                  </ContextProvider>
+                  <FrontEditorContextProvider>
+                    <FrontEditorSubscriptionProvider>
+                      <ContextProvider>
+                        {super.renderWrapper()}
+                      </ContextProvider>
+                    </FrontEditorSubscriptionProvider>
+                  </FrontEditorContextProvider>
                 </WebRtcChatProvider>
               </WebrtcSubscriptionProvider>
             </WebrtcContextProvider>

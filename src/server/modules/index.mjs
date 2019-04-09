@@ -18,6 +18,7 @@ import RouterModule from "@prisma-cms/router-module";
 import SocietyModule from "@prisma-cms/society-module";
 import EthereumModule from "@prisma-cms/ethereum-module";
 import WebrtcModule from "@prisma-cms/webrtc-module";
+import MarketplaceModule from "@prisma-cms/marketplace-module";
 
 
 import { parse, print } from "graphql";
@@ -38,6 +39,7 @@ class CoreModule extends PrismaModule {
     super(options);
 
     this.mergeModules([
+      MarketplaceModule,
       LogModule,
       MailModule,
       UploadModule,
