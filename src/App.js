@@ -19,7 +19,7 @@ export default class App extends PrismaApp {
     ...PrismaApp.defaultProps,
     Renderer,
     queryFragments,
-    lang: "ru",
+    // lang: "ru",
     themeOptions: {
       direction: 'ltr',
       paletteType: 'light',
