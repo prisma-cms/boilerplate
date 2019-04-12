@@ -1,3 +1,8 @@
+2.7.0
+============================================
+- Used new @prisma-cms/front-editor
+- Creating sites from scratch
+
 2.6.3
 ============================================
 - Remove web3 from dependencies

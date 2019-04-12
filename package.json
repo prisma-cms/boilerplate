@@ -1,10 +1,10 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "2.6.3",
+  "version": "2.7.0",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max-old-space-size=2048 start",
     "build": "PUBLIC_URL=/ react-scripts build",
     "build-less": "node-less-chokidar src/styles/less",
     "start-ssr": "NODE_ENV=production node --experimental-modules src/ssr",

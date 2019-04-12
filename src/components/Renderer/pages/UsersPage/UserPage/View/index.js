@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import UserPageViewProto from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View";
-import UsersGroupsBlock from "@prisma-cms/front/lib/modules/pages/UsersPage/UserPage/View/Groups";
+import UserPageViewProto from "@prisma-cms/front/lib/components/pages/UsersPage/UserPage/View";
+import UsersGroupsBlock from "@prisma-cms/front/lib/components/pages/UsersPage/UserPage/View/Groups";
 
 import NotificationTypes from "./NotificationTypes";
 import ChatRooms from "./ChatRooms";
