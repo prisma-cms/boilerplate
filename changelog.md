@@ -1,3 +1,9 @@
+2.6.3
+============================================
+- Remove web3 from dependencies
+- Added locales from ethereum wallet
+- Upgrade packages
+
 2.6.2
 ============================================
 - Added templates

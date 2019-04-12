@@ -51,6 +51,59 @@ export const styles = theme => {
   }
 }
 
+export const locales = {
+  ru: {
+    values: {
+      "Your wallet": "Ваш кошелек",
+      "User's wallet": "Кошелек пользователя",
+      "Address": "Адрес",
+      "Balance": "Баланс",
+      "Send": "Отправить",
+      "Error while creating wallet": "Не удалось создать кошелек",
+      "Top up": "Пополнить",
+      "You may": "Вы можете",
+      "create new wallet": "создать новый кошелек",
+      "or": "или",
+      "set existing": "указать существующий",
+      "Attention": "Внимание",
+      "We are not liable for any transactions and losses from ethereum wallets.": "Мы не несем никакой ответственности за какие-либо операции и потери с ethereum-кошельков.",
+      "This wallet is not a wallet in the literal sense of the word, but a link to your personal address in the system":
+        "Данный кошелек не является кошельком в прямом смысле слова, а является ссылкой на ваш личный адрес в системе",
+      "Close": "Закрыть",
+      "Read more": "Читать подробней",
+      "in wikipedia": "в википедии",
+      "A new ethereum wallet will be created for you. The database will only save its public address, without any access keys.":
+        "Для вас будет создан новый ethereum-кошелек. В базе сохранится только его публичный адрес, без каких-либо ключей доступа.",
+      "Generate private key": "Сгенерировать приватный ключ",
+      "Private key": "Приватный ключ",
+      "The address will be determined by the private key": "По приватному ключу будет получен адрес",
+      "Send data to your email": "Отправить данные на ваш емейл",
+      "If you don't know exactly what it is and how it works, you'd better not start it now, but try to get a better idea about this system.":
+        "Если вы не назнаете точно, что это такое и как работает, вам лучше не стоит его заводить сейчас, а попытаться получше узнать о этой системе.",
+      "We do not store your private keys. The key is needed only to get the address of your wallet and make sure that you have access to it. No key will be shown.":
+        "Мы не храним ваши приватные ключи. Ключ нужен только для того, чтобы получить адрес вашего кошелька и убедиться, что у вас есть к нему доступ. Никому ключ не будет показан.",
+      "Private key must start with 0x": "Приватный ключ должен начинаться с 0x",
+      "Could not decrypt private key": "Не удалось дешифровать приватный ключ",
+      "The received address does not match the address of your wallet": "Полученный адрес не совпадает с адресом вашего кошелька",
+      "No account received": "Не был получен аккаунт",
+      "Your personal ethereum wallet will be replenished. The balance will be displayed on the site, but we have no control over your wallet and actions with it.":
+        "Ваш личный этериум кошелек будет пополнен. Баланс будет отображаться на сайте, но мы никак не контролируем ваш кошелек и действия с ним.",
+      "Enter your private key to make sure you have access to your wallet. Otherwise, you will transfer funds and you can not pick them up later.":
+        "Введите ваш приватный ключ, чтобы убедиться, что у вас есть доступ к вашему кошельку. Иначе вы переведете средства и не сможете их потом забрать.",
+      "We do not accept payment for the replenishment of the wallet. For replenishment, you can choose any service for the purchase of ethereum cryptocurrency.":
+        "Мы не принимаем оплату на пополнение кошелька. Для пополнения вы можете выбрать любой сервис для покупки криптовалюты ethereum.",
+      "We advise to use the service": "Мы советуем воспользоваться сервисом",
+      "since they have a minimum replenishment amount of just 0.01 etherium, and we ourselves paid, they did not deceive us":
+        "так как у них минимальная сумма пополнения всего 0.01 этериума, и мы сами оплачивали, они нас не обманули",
+    },
+  },
+  en: {
+    values: {
+      "Приватный ключ должен начинаться с 0x": "Private key must start with 0x",
+    },
+  },
+}
+
 export class WalletBalances extends PrismaCmsComponent {
 
 
@@ -63,19 +116,35 @@ export class WalletBalances extends PrismaCmsComponent {
   };
 
 
-  state = {
-    ...super.state,
-    showTopupBalanceForm: false,
-    showForm: null,
-    createInRequest: false,
-    ethWalletPKSendEmail: true,
-    showInfo: false,
-    checkStatus: null,
-    showSendEthForm: false,
-    sendEthInRequest: false,
-    amount: null,
-    sendPrivateKey: "",
-    sendSuccessTransaction: null,
+  // static defaultProps = {};
+
+
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+      ...this.state,
+      showTopupBalanceForm: false,
+      showForm: null,
+      createInRequest: false,
+      ethWalletPKSendEmail: true,
+      showInfo: false,
+      checkStatus: null,
+      showSendEthForm: false,
+      sendEthInRequest: false,
+      amount: null,
+      sendPrivateKey: "",
+      sendSuccessTransaction: null,
+    }
+  }
+
+
+  componentWillMount() {
+
+    this.initLocales(locales);
+
+    super.componentWillMount && super.componentWillMount();
   }
 
 
@@ -137,14 +206,17 @@ export class WalletBalances extends PrismaCmsComponent {
 
   async createWallet() {
 
-    const web3 = new Web3();
+    // console.log("Web3.givenProvider", Web3.givenProvider);
+    // console.log("Web3", Web3);
+
+    const web3 = new Web3(Web3.givenProvider);
 
     const account = web3.eth.accounts.create(web3.utils.randomHex(32));
 
     // console.log("account", account);
 
     if (!account) {
-      this.addError("Не удалось создать кошелек");
+      this.addError(this.lexicon("Error while creating wallet"));
     }
     else {
 
@@ -184,12 +256,13 @@ export class WalletBalances extends PrismaCmsComponent {
     let errorMessage;
 
 
-    const web3 = new Web3();
+    const web3 = new Web3(Web3.givenProvider);
 
     let account;
 
+
     if (ethWalletPKCheck && !/^0x/.test(ethWalletPKCheck)) {
-      errorMessage = "Приватный ключ должен начинаться с 0x";
+      errorMessage = this.lexicon("Private key must start with 0x");
       checkStatus = false;
     }
     else {
@@ -200,7 +273,7 @@ export class WalletBalances extends PrismaCmsComponent {
       catch (error) {
         // console.error("privateKeyToAccount Error", error);
 
-        errorMessage = "Не удалось дешифровать приватный ключ";
+        errorMessage = this.lexicon("Could not decrypt private key");
         checkStatus = false;
 
       }
@@ -209,7 +282,7 @@ export class WalletBalances extends PrismaCmsComponent {
       if (account) {
 
         if (address !== account.address) {
-          errorMessage = "Полученный адрес не совпадает с адресом вашего кошелька";
+          errorMessage = this.lexicon("The received address does not match the address of your wallet");
           checkStatus = false;
         }
         else {
@@ -218,12 +291,11 @@ export class WalletBalances extends PrismaCmsComponent {
 
       }
       else {
-        errorMessage = "Не был получен аккаунт";
+        errorMessage = this.lexicon("No account received");
         checkStatus = false;
       }
 
     }
-
 
 
     if (errorMessage) {
@@ -386,10 +458,10 @@ export class WalletBalances extends PrismaCmsComponent {
 
 
     if (currentUserId && currentUserId === userId) {
-      title = "Ваш кошелек";
+      title = this.lexicon("Your wallet");
     }
     else {
-      title = "Кошелек пользователя";
+      title = this.lexicon("User's wallet");
     }
 
 
@@ -404,7 +476,7 @@ export class WalletBalances extends PrismaCmsComponent {
 
 
         <Typography>
-          Адрес: <a
+          {this.lexicon("Address")}: <a
             href={`https://etherscan.io/address/${address}`}
             target="_blank"
           >
@@ -413,7 +485,7 @@ export class WalletBalances extends PrismaCmsComponent {
         </Typography>
 
         <Typography>
-          Баланс Eth: {balance}
+          {this.lexicon("Balance")} Eth: {balance}
         </Typography>
 
       </Fragment>
@@ -421,6 +493,7 @@ export class WalletBalances extends PrismaCmsComponent {
       if (currentUserId) {
 
         if (currentUserId === userId) {
+
 
 
           /**
@@ -436,19 +509,19 @@ export class WalletBalances extends PrismaCmsComponent {
                 variant="subheading"
                 color="secondary"
               >
-                Внимание!
+                {this.lexicon("Attention")}!
               </Typography>
 
               <Typography
                 className={classes.paragraph}
               >
-                Пополняется ваш личный этериум-кошелек. Баланс будет отображаться на сайте Клуба, но мы никак не контролируем ваш кошелек и действия с ним.
+                {this.lexicon("Your personal ethereum wallet will be replenished. The balance will be displayed on the site, but we have no control over your wallet and actions with it.")}
               </Typography>
 
               <Typography
                 className={classes.paragraph}
               >
-                Введите ваш приватный ключ, чтобы убедиться, что у вас есть доступ к вашему кошельку. Иначе вы переведете средства и не сможете их потом забрать.
+                {this.lexicon("Enter your private key to make sure you have access to your wallet. Otherwise, you will transfer funds and you can not pick them up later.")}
               </Typography>
 
               <Grid
@@ -461,8 +534,8 @@ export class WalletBalances extends PrismaCmsComponent {
                 >
                   {this.renderField(<TextField
                     name="ethWalletPKCheck"
-                    label="Приватный ключ"
-                    helperText="По приватному ключу будет получен адрес"
+                    label={this.lexicon("Private key")}
+                    helperText={this.lexicon("The address will be determined by the private key")}
                     fullWidth
                     onChange={event => {
                       const {
@@ -494,19 +567,19 @@ export class WalletBalances extends PrismaCmsComponent {
               <Typography
                 className={classes.paragraph}
               >
-                Мы не принимаем оплату на пополнение кошелька. Для пополнения вы можете выбрать любой сервис для покупки криптовалюты ethereum.
+                {this.lexicon("We do not accept payment for the replenishment of the wallet. For replenishment, you can choose any service for the purchase of ethereum cryptocurrency.")}
               </Typography>
 
               <Typography
                 className={classes.paragraph}
               >
-                Мы советуем воспользоваться сервисом <a
+                {this.lexicon("We advise to use the service")} <a
                   href="https://pocket-exchange.com/?ref_hash=685f16b842e617cb7814eff46d386fb6"
                   target="_blank"
                   rel="nofollow"
                 >
                   pocket-exchange.com
-                </a>, так как у них минимальная сумма пополнения всего 0.01 этериума, и сами оплачивали, они не обманывали.
+                </a>, {this.lexicon("since they have a minimum replenishment amount of just 0.01 etherium, and we ourselves paid, they did not deceive us")}.
               </Typography>
 
             </div>);
@@ -521,7 +594,7 @@ export class WalletBalances extends PrismaCmsComponent {
               showTopupBalanceForm: !showTopupBalanceForm,
             })}
           >
-            {!showTopupBalanceForm ? "Пополнить" : "Отмена"}
+            {!showTopupBalanceForm ? this.lexicon("Top up") : "Cancel"}
           </Button>);
 
         }
@@ -695,7 +768,7 @@ export class WalletBalances extends PrismaCmsComponent {
               sendSuccessTransaction: null,
             })}
           >
-            {showSendEthForm ? "Отмена" : "Отправить Eth"}
+            {showSendEthForm ? this.lexicon("Cancel") : `${this.lexicon("Send")} Eth`}
           </Button>);
         }
 
@@ -711,6 +784,11 @@ export class WalletBalances extends PrismaCmsComponent {
 
       let form;
 
+      let locales = {
+        "": "",
+        "": "",
+        "": "",
+      }
 
       if (showForm) {
 
@@ -725,7 +803,7 @@ export class WalletBalances extends PrismaCmsComponent {
             >
 
               <Typography>
-                Для вас будет создан новый ethereum-кошелек. В базе сохранится только его публичный адрес, без каких-либо ключей доступа.
+                {this.lexicon("A new ethereum wallet will be created for you. The database will only save its public address, without any access keys.")}
               </Typography>
 
               <Button
@@ -733,7 +811,7 @@ export class WalletBalances extends PrismaCmsComponent {
                 variant="raised"
                 onClick={event => this.createWallet()}
               >
-                Сгенерировать приватный ключ
+                {this.lexicon("Generate private key")}
               </Button>
 
             </div>
@@ -749,8 +827,8 @@ export class WalletBalances extends PrismaCmsComponent {
 
               {this.renderField(<TextField
                 name="ethWalletPK"
-                label="Приватный ключ"
-                helperText="По приватному ключу будет получен адрес"
+                label={this.lexicon("Private key")}
+                helperText={this.lexicon("The address will be determined by the private key")}
                 fullWidth
                 onChange={event => {
                   const {
@@ -773,7 +851,7 @@ export class WalletBalances extends PrismaCmsComponent {
                       ethWalletPKSendEmail: checked,
                     })
                   }}
-                /> отправить данные на вашу почту
+                /> {this.lexicon("Send data to your email")}
               </div>
 
               <Button
@@ -782,7 +860,7 @@ export class WalletBalances extends PrismaCmsComponent {
                 disabled={!ethWalletPK || createInRequest}
                 onClick={event => this.importWallet()}
               >
-                Отправить
+                {this.lexicon("Send")}
               </Button>
 
 
@@ -795,13 +873,17 @@ export class WalletBalances extends PrismaCmsComponent {
       }
 
 
+      let local = {
+        "": "",
+        "": "",
+      }
 
       output = <div>
 
         <Typography
           className={classes.paragraph}
         >
-          Вы можете <a
+          {this.lexicon("You may")} <a
             href="javascript:;"
             onClick={event => {
               event.preventDefault();
@@ -811,8 +893,8 @@ export class WalletBalances extends PrismaCmsComponent {
               });
             }}
           >
-            создать новый кошелек
-          </a> или <a
+            {this.lexicon("create new wallet")}
+          </a> {this.lexicon("or")} <a
             href="javascript:;"
             onClick={event => {
               event.preventDefault();
@@ -822,7 +904,7 @@ export class WalletBalances extends PrismaCmsComponent {
               });
             }}
           >
-            указать существующий
+            {this.lexicon("set existing")}
           </a>.
         </Typography>
 
@@ -837,8 +919,8 @@ export class WalletBalances extends PrismaCmsComponent {
               color="secondary"
               component="span"
             >
-              Внимание!
-            </Typography> MODX-Клуб не несет никакой ответственности за какие-либо операции и потери с ethereum-кошельков.
+              {this.lexicon("Attention")}!
+            </Typography> {this.lexicon("We are not liable for any transactions and losses from ethereum wallets.")}
           </Typography>
           : null
         }
@@ -860,7 +942,7 @@ export class WalletBalances extends PrismaCmsComponent {
               });
             }}
           >
-            {showInfo ? "Закрыть" : "Читать подробней"}
+            {showInfo ? this.lexicon("Close") : this.lexicon("Read more")}
           </a>.
         </Grid>
 
@@ -871,23 +953,23 @@ export class WalletBalances extends PrismaCmsComponent {
             <Typography
               className={classes.paragraph}
             >
-              Данный кошелек не является кошельком в прямом смысле слова, а является ссылкой на ваш личный адрес в системе <a
+              {this.lexicon("This wallet is not a wallet in the literal sense of the word, but a link to your personal address in the system")} <a
                 href="https://www.ethereum.org/"
                 target="_blank"
                 rel="nofollow"
               >
                 ethereum
-              </a> (подробнее в <a
+              </a> ({this.lexicon("Read more")} <a
                 href="https://ru.wikipedia.org/wiki/Ethereum"
                 target="_blank"
                 rel="nofollow"
-              >википедии</a>).
+              >{this.lexicon("in wikipedia")}</a>).
             </Typography>
 
             <Typography
               className={classes.paragraph}
             >
-              Если вы не назнаете точно, что это такое и как работает, вам лучше стоит его заводить сейчас, а попытаться получше узнать о этой системе.
+              {this.lexicon("If you don't know exactly what it is and how it works, you'd better not start it now, but try to get a better idea about this system.")}
             </Typography>
 
             <Typography
@@ -899,8 +981,7 @@ export class WalletBalances extends PrismaCmsComponent {
               color="secondary"
               className={classes.paragraph}
             >
-              Мы не храним ваши приватные ключи. Ключ нужен только для того, чтобы получить адрес вашего кошелька и убедиться,
-              что у вас есть к нему доступ. Никому ключ не будет показан.
+              {this.lexicon("We do not store your private keys. The key is needed only to get the address of your wallet and make sure that you have access to it. No key will be shown.")}.
             </Typography>
 
 
@@ -927,7 +1008,7 @@ export class WalletBalances extends PrismaCmsComponent {
     }
 
 
-    return super.render(<Paper
+    return (<Paper
       className={[classes.root, checkStatus === true ? "success" : checkStatus === false ? "failure" : ""].join(" ")}
       {...other}
     >
@@ -960,11 +1041,11 @@ export class WalletBalances extends PrismaCmsComponent {
         : null
       }
 
-      {children}
+      {super.render()}
 
     </Paper>);
   }
 }
 
 
-export default withStyles(styles)(props => <WalletBalances {...props}/>);
+export default withStyles(styles)(props => <WalletBalances {...props} />);
