@@ -40,8 +40,9 @@ import {
 import {
   ContextProvider as FrontEditorContextProvider,
   SubscriptionProvider as FrontEditorSubscriptionProvider,
-  FrontEditorRoot,
+  // FrontEditorRoot,
 } from "@prisma-cms/front-editor"
+import RootPage from "./pages/Root";
 
 
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
@@ -59,13 +60,14 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
       getQueryFragment,
     } = this.context;
 
-    let routers = [
+    let routers = super.getRoutes().concat([
       {
         exact: false,
         path: "/",
-        component: FrontEditorRoot,
+        // component: FrontEditorRoot,
+        component: RootPage,
       }
-    ];
+    ]);
 
     return routers;
   }

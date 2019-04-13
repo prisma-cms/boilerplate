@@ -1,3 +1,8 @@
+2.7.1
+============================================
+- Upgrade @prisma-cms/front-editor
+- Added RootPage
+
 2.7.0
 ============================================
 - Used new @prisma-cms/front-editor
