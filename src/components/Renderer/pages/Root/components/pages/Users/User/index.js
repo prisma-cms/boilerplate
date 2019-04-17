@@ -21,7 +21,7 @@ class UserPage extends EditorComponent {
 
     const {
       classes,
-    } = this.context;
+    } = this.getEditorContext();
 
     return super.renderPanelView(<div
       className={classes.panelButton}
@@ -34,9 +34,9 @@ class UserPage extends EditorComponent {
 
   renderChildren() {
 
-    const {
-      ...other
-    } = this.getComponentProps(this);
+    // const {
+    //   ...other
+    // } = this.getComponentProps(this);
 
     // console.log("getComponentProps this", { ...this });
 
