@@ -1,3 +1,7 @@
+2.7.2
+============================================
+- Added @prisma-cms/marketplace-module
+
 2.7.1
 ============================================
 - Upgrade @prisma-cms/front-editor
