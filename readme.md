@@ -107,7 +107,7 @@ yarn --ignore-engines
   #### Start prisma docker images
   *Note: before do this, you can edit src/server/schema/prisma/docker-compose.yml for change prisma port and password.*
   ```
-  sudo docker-compose -f ./src/server/schema/prisma/docker-compose.yml up -d
+  sudo docker-compose -f ./src/server/scripts/docker/prisma/docker-compose.yml up -d
   ```
 
   #### Start PhpMyAdmin (optionaly)
