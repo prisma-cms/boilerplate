@@ -1,17 +1,6 @@
 
 *🙌 Sorry for my english...*
 
-## Examples
-
-### Example 1
-Extends type User. Add custom fields
-
-### Example 2
-Remove some fields from API schema
-
-
-=========================================
-
 ## Installation
  
 ### Base requirements
@@ -51,7 +40,7 @@ sudo apt install -y mc git build-essential
 
 ### Install node-js and npm
 ```shell
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 Check node-js `node -v`
@@ -68,7 +57,7 @@ Check yarn `yarn -v`
 
 ### Install prisma
 ```shell
-sudo npm i -g prisma npm-run-all nodemon pm2
+sudo npm i -g prisma npm-run-all nodemon pm2 cross-env
 ```
 Check prisma `prisma -v`
 
@@ -89,39 +78,15 @@ cd /var/www
 git clone https://github.com/prisma-cms/boilerplate
 cd boilerplate
 yarn --ignore-engines
-# Fix Error: Cannot find module '../build/Release/sharp.node'
-npm rebuild
 ```
 
 
 ## Deploy schema
-
-There two variants to use:
-<details>
-  <summary>With Prisma Cloud</summary>
- 
-  Signup on [www.prisma.io/cloud/](https://www.prisma.io/cloud/)
-
-
-
-  If you use Prisma Cloud, first you need signin. 
-  Note: for authorize required browser able opened from commandline. If you want authorize on server which does not have X and can not run browser, you should install prisma localy on your own computer, run `prisma login` localy, then copy local file ~/.prisma/config.yml on target server. 
-
-  Check you is logged in.
-  ```
-  prisma account
-  ```
-  If you loged in success, you can run `yarn deploy`.
-
-</details>
-
-<details>
-  <summary>With Prisma local</summary>
  
 
-  ## Install prisma local
+  ### Install prisma local
 
-  ### Install docker
+  #### Install docker
   ```shell
   sudo apt-get install software-properties-common python-software-properties
   sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
@@ -132,33 +97,27 @@ There two variants to use:
   Check docker installed
   `docker -v`
 
-  ### Install docker-compose
+  #### Install docker-compose
   ```shell
   sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   ```
   Check docker-compose `docker-compose -v`
 
-  ### Start prisma docker images
+  #### Start prisma docker images
   *Note: before do this, you can edit src/server/schema/prisma/docker-compose.yml for change prisma port and password.*
   ```
   sudo docker-compose -f ./src/server/schema/prisma/docker-compose.yml up -d
   ```
 
-  ### Start PhpMyAdmin (optionaly)
+  #### Start PhpMyAdmin (optionaly)
   ```
   sudo docker run -d --link prisma_mysql_1:db --network prisma_default -p 8080:80 phpmyadmin/phpmyadmin
   ```
 
-</details>
-
 
 ### Deploy
-#### If you use Prisma Cloud, you'll get endpoint automatically, just run:
-```shell
-yarn deploy
-```
-#### If you use Prisma local, you should specify endpoint by youself, for example:
+
 ```shell
 endpoint=http://localhost:4466/my-project/my-stage yarn deploy
 ```
@@ -187,12 +146,12 @@ APP_SECRET={MY_ULTRA_SECRET_KEY} endpoint={endpoint} yarn start-server
 ```
 Current endpoint after deploy you may see by this command (look for uncommented endpoint):
 ```shell
-cat src/server/schema/prisma/prisma.yml |grep endpoint
+cat src/schema/generated/prisma.graphql |grep "# source: "
 ```
 
 For example:
 ```shell
-APP_SECRET=MY_SECRET endpoint=https://eu1.prisma.sh/username/prisma/dev yarn start-server-dev
+APP_SECRET=MY_SECRET endpoint=http://localhost:4466/prisma/dev yarn start-server
 ```
 
 Open http://localhost:4000 (or http://server_address:4000)
@@ -237,6 +196,9 @@ PUBLIC_URL=/ yarn build
 yarn start-ssr
 ```
 
+## After install
+You'll need create your own site from scratch. See demo video: https://www.youtube.com/watch?v=YxoMhYPv96U&list=PLc0oMsU0oNwNF6e-Tnrn3eXhg3wQGGCvJ
+
 
 ## Known Issues
 #### Cannot find module '../build/Release/sharp.node'
@@ -262,4 +224,6 @@ Should be only one modules ./node_modules/sharp
 ## Support project
 We are looking for sponsors.
 
-Also you may support by paypal.com (send for info@modxclub.ru) or ETH [0x4c791666351Ec3b223acF96C9d9BE431679E5C04](https://etherscan.io/address/0x4c791666351Ec3b223acF96C9d9BE431679E5C04)
+Also you may support by ETH [0x4c791666351Ec3b223acF96C9d9BE431679E5C04](https://etherscan.io/address/0x4c791666351Ec3b223acF96C9d9BE431679E5C04) or paypal.com (send for info@modxclub.ru)
+
+Feel free ask any questions on https://prisma-cms.com
