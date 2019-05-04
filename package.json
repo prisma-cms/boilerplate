@@ -5,7 +5,7 @@
   "private": false,
   "scripts": {
     "start": "react-scripts --max-old-space-size=2048 start",
-    "build": "PUBLIC_URL=/ react-scripts --max-old-space-size=2048 build",
+    "build": "PUBLIC_URL=/ react-scripts --max-old-space-size=2500 build",
     "build-less": "node-less-chokidar src/styles/less",
     "start-ssr": "NODE_ENV=production node --experimental-modules src/ssr",
     "start-ssr-dev": "NODE_ENV=production nodemon src/ssr",
