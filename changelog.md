@@ -1,3 +1,10 @@
+2.7.3
+============================================
+- Added templates pages
+- Increase build memory limit
+- Added docker script
+- Fix readme
+
 2.7.2
 ============================================
 - Added @prisma-cms/marketplace-module

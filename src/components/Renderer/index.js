@@ -17,17 +17,17 @@ import {
 
 import ContextProvider from "./ContextProvider";
 
-import UserPage from './pages/UsersPage/UserPage';
+// import UserPage from './pages/UsersPage/UserPage';
 
-import ChatRoomsPage from "./pages/society/ChatRooms";
-import ChatRoomPage from "./pages/society/ChatRooms/ChatRoom";
-import CreateChatRoomPage from "./pages/society/ChatRooms/ChatRoom/Create";
+// import ChatRoomsPage from "./pages/society/ChatRooms";
+// import ChatRoomPage from "./pages/society/ChatRooms/ChatRoom";
+// import CreateChatRoomPage from "./pages/society/ChatRooms/ChatRoom/Create";
 
-import ChatMessagesPage from "./pages/society/ChatMessages";
-import ChatMessagePage from "./pages/society/ChatMessages/ChatMessage";
+// import ChatMessagesPage from "./pages/society/ChatMessages";
+// import ChatMessagePage from "./pages/society/ChatMessages/ChatMessage";
 
-import TransactionsPage from "./pages/ethereum/Transactions";
-import TransactionPage from "./pages/ethereum/Transactions/Transaction";
+// import TransactionsPage from "./pages/ethereum/Transactions";
+// import TransactionPage from "./pages/ethereum/Transactions/Transaction";
 
 import MainMenu from "./MainMenu";
 
@@ -42,6 +42,10 @@ import {
   SubscriptionProvider as FrontEditorSubscriptionProvider,
   // FrontEditorRoot,
 } from "@prisma-cms/front-editor"
+
+import TemplatesPage from "@prisma-cms/front-editor/lib/components/pages/Templates/"
+import TemplatePage from "@prisma-cms/front-editor/lib/components/pages/Templates/Template"
+
 import RootPage from "./pages/Root";
 
 
@@ -61,6 +65,38 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
     } = this.context;
 
     let routers = super.getRoutes().concat([
+      {
+        exact: true,
+        path: "/templates",
+        component: TemplatesPage,
+      },
+      // {
+      //   exact: true,
+      //   path: "/templates/create",
+      //   component: TemplateCreatePage,
+      // },
+      {
+        exact: true,
+        path: "/templates/:id",
+        render: props => {
+
+          const {
+            match: {
+              params: {
+                id,
+              },
+            },
+          } = props;
+
+          return <TemplatePage
+            key={id}
+            where={{
+              id,
+            }}
+            {...props}
+          />
+        },
+      },
       {
         exact: false,
         path: "/",
