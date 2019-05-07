@@ -1,7 +1,9 @@
+3.0.0
 ============================================
 - Added relation User-PrismaProject
 - Added relation Resource-PrismaProject
 - Added relation Template-PrismaProject
+- Added multisites
 
 2.7.3
 ============================================
