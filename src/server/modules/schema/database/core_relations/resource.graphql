@@ -1,7 +1,0 @@
-type Resource {
-  PrismaProject: Project @relation(name: "PrismaProjectResources")
-}
-
-type Project {
-  PrismaResources: [Resource!]! @relation(name: "PrismaProjectResources")
-}

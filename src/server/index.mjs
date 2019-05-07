@@ -67,7 +67,7 @@ startServer({
   contextOptions: {
     web3,
     getProjectFromRequest,
-  }
+  },
 });
 
 

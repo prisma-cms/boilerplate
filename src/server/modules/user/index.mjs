@@ -273,7 +273,7 @@ class ModxclubUserModule extends UserModule {
 
       const project = await getProjectFromRequest(ctx);
 
-      console.log("ctx project", project);
+      // console.log("ctx project", project);
 
       if (project) {
 

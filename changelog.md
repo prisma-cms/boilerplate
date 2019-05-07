@@ -1,5 +1,7 @@
 ============================================
 - Added relation User-PrismaProject
+- Added relation Resource-PrismaProject
+- Added relation Template-PrismaProject
 
 2.7.3
 ============================================
