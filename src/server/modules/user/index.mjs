@@ -247,6 +247,59 @@ class ModxclubUserModule extends UserModule {
 
   // }
 
+  async injectProjectLink(result, ctx) {
+
+
+    const {
+      success,
+      data: user,
+    } = result;
+
+    if (success && user) {
+
+      const {
+        id: userId,
+      } = user;
+
+
+      if (!userId) {
+        return;
+      }
+
+      const {
+        getProjectFromRequest,
+        db,
+      } = ctx;
+
+      const project = await getProjectFromRequest(ctx);
+
+      console.log("ctx project", project);
+
+      if (project) {
+
+        const {
+          id: projectId,
+        } = project;
+
+        await db.mutation.updateProject({
+          where: {
+            id: projectId,
+          },
+          data: {
+            PrismaUsers: {
+              connect: {
+                id: userId,
+              },
+            },
+          },
+        });
+
+      }
+
+    }
+
+    return;
+  }
 
 
   getResolvers() {
@@ -269,13 +322,29 @@ class ModxclubUserModule extends UserModule {
       ...other,
       Mutation: {
         ...Mutation,
-        signup: (source, args, ctx, info) => {
+        signup: async (source, args, ctx, info) => {
 
-          return new ModxclubUserProcessor(ctx).signup(args, info);
+          const result = await new ModxclubUserProcessor(ctx).signup(args, info);
+
+          await this.injectProjectLink(result, ctx);
+
+          return result;
+        },
+        signin: async (source, args, ctx, info) => {
+
+          // args = await this.injectProjectLink(args, ctx);
+
+          const result = await new ModxclubUserProcessor(ctx).signin(args, info);
+
+          // console.log("signin result", result);
+
+          await this.injectProjectLink(result, ctx);
+
+          return result;
         },
         updateUserProcessor: (source, args, ctx, info) => {
 
-          console.log("updateUserProcessor args", args);
+          // console.log("updateUserProcessor args", args);
 
           return new ModxclubUserProcessor(ctx).updateWithResponse("User", args, info);
         },

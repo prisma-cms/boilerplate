@@ -19,6 +19,7 @@ import SocietyModule from "@prisma-cms/society-module";
 import EthereumModule from "@prisma-cms/ethereum-module";
 import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
+import CooperationModule from "@prisma-cms/cooperation-module";
 
 
 import { parse, print } from "graphql";
@@ -39,6 +40,7 @@ class CoreModule extends PrismaModule {
     super(options);
 
     this.mergeModules([
+      CooperationModule,
       LogModule,
       MailModule,
       UploadModule,
@@ -83,6 +85,47 @@ class CoreModule extends PrismaModule {
       baseSchema = fs.readFileSync(schemaFile, "utf-8");
 
       baseSchema = this.cleanupApiSchema(baseSchema, [
+        // Cooperation
+        "ProjectCreateInput",
+        "ProjectUpdateInput",
+        "TaskCreateInput",
+        "TaskUpdateInput",
+        "TimerCreateInput",
+        "TimerUpdateInput",
+
+        "TaskReactionCreateInput",
+        "TaskReactionUpdateInput",
+        "TaskCreateOneInput",
+        "TaskUpdateOneInput",
+
+        "ProjectMemberCreateInput",
+        "ProjectMemberUpdateInput",
+        "ProjectCreateOneWithoutMembersInput",
+        "UserCreateOneWithoutProjectsInput",
+        "ServiceCreateManyWithoutProjectsInput",
+        "ServiceUpdateManyWithoutProjectsInput",
+
+        "TeamCreateInput",
+        "TeamUpdateInput",
+        "TeamCreateOneWithoutChildsInput",
+        "TeamCreateManyWithoutParentInput",
+        "TeamMemberCreateManyWithoutTeamInput",
+        "ProjectCreateManyWithoutTeamInput",
+        "TeamUpdateOneWithoutChildsInput",
+        "TeamUpdateManyWithoutParentInput",
+        "TeamMemberUpdateManyWithoutTeamInput",
+        "ProjectUpdateManyWithoutTeamInput",
+
+        "TeamMemberCreateInput",
+        "TeamMemberUpdateInput",
+        "TeamCreateOneWithoutMembersInput",
+        "UserCreateOneWithoutTeamsInput",
+
+        "PositionCreateInput",
+        "PositionUpdateInput",
+        "UserCreateManyWithoutPositionsInput",
+        "UserUpdateManyWithoutPositionsInput",
+        // Eof Cooperation
 
         "ResourceCreateInput",
         "ResourceUpdateInput",

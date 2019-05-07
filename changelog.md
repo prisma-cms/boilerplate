@@ -1,3 +1,6 @@
+============================================
+- Added relation User-PrismaProject
+
 2.7.3
 ============================================
 - Added templates pages

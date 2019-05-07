@@ -39,6 +39,7 @@
     "@prisma-cms/filters": "latest",
     "@prisma-cms/marketplace-module": "latest",
     "@prisma-cms/front-editor": "latest",
+    "@prisma-cms/cooperation-module": "latest",
     "apollo-cache-inmemory": "^1.3.7",
     "apollo-client": "^2.4.4",
     "apollo-link-http": "1.5.5",
