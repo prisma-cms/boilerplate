@@ -131,6 +131,10 @@ class Server {
       // referer,
     } = req.headers;
 
+    // const host = req.get('host');
+
+    const uri = new URI(`${protocol}//${hostname}${req.url}`);
+
 
     let assetsUrl;
 
@@ -201,7 +205,10 @@ class Server {
       >
         <ApolloProvider client={client}>
           <StaticRouter location={req.url} context={context}>
-            <MainApp />
+            <MainApp
+              sheetsManager={new Map()}
+              uri={uri}
+            />
           </StaticRouter>
         </ApolloProvider>
       </JssProvider>
@@ -316,7 +323,7 @@ class Server {
           // description = "Sdfdsfsdf";
 
           if (description) {
-            
+
             let meta = head.find("meta[name=description]");
 
             if (!meta.length) {
@@ -334,10 +341,10 @@ class Server {
             meta.attr("content", description);
           }
 
- 
+
 
           if (canonical) {
-            
+
             let meta = head.find("link[rel=canonical]");
 
             if (!meta.length) {
@@ -348,7 +355,7 @@ class Server {
 
               head.append(meta);
             }
- 
+
 
             meta.attr("href", canonical);
           }
