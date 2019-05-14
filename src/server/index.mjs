@@ -1,5 +1,8 @@
 
 import startServer from "@prisma-cms/server";
+import {
+  getProjectFromRequest,
+} from "@prisma-cms/marketplace-module";
 import CoreModule from "./modules";
 
 import Web3 from "web3";
@@ -26,39 +29,39 @@ const web3 = new Web3(GethServer);
  * Получаем проект из запроса.
  * Это нужно для определения того, к какому конкретному проекту относится запрос
  */
-const getProjectFromRequest = async function (ctx) {
+// const getProjectFromRequest = async function (ctx) {
 
-  // console.log("ctx", ctx.request.headers);
+//   // console.log("ctx", ctx.request.headers);
 
-  const {
-    request: {
-      headers: {
-        origin,
-      },
-    },
-    db,
-  } = ctx;
+//   const {
+//     request: {
+//       headers: {
+//         origin,
+//       },
+//     },
+//     db,
+//   } = ctx;
 
-  if (!origin) {
-    return;
-  }
+//   if (!origin) {
+//     return;
+//   }
 
-  const uri = new URI(origin);
+//   const uri = new URI(origin);
 
-  const domain = uri.domain();
+//   const domain = uri.domain();
 
-  if (!domain) {
-    return;
-  }
+//   if (!domain) {
+//     return;
+//   }
 
-  // console.log("ctx domain", domain);
+//   // console.log("ctx domain", domain);
 
-  return await db.query.project({
-    where: {
-      domain,
-    },
-  });
-}
+//   return await db.query.project({
+//     where: {
+//       domain,
+//     },
+//   });
+// }
 
 
 startServer({
