@@ -7,6 +7,10 @@ const cwd = process.cwd();
 
 module.exports = function (app) {
 
+  app.get("/pdf.worker.js", (req, res, next) => {
+    res.sendFile(`${cwd}/node_modules/pdfjs-dist/build/pdf.worker.min.js`);
+  });
+
   app.get("/voyager.worker.js", (req, res, next) => {
     res.sendFile(`${cwd}/node_modules/@prisma-cms/graphql-voyager/dist/voyager.worker.js`);
   });
