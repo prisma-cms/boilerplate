@@ -21,7 +21,7 @@ class PdfView extends EditorComponent {
     style: {
       ...EditorComponent.defaultProps.style,
       overflow: "auto",
-      maxWidth: 805,
+      maxWidth: 810,
       marginLeft: "auto",
       marginRight: "auto",
     }
