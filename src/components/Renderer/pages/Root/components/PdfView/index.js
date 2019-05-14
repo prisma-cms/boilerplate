@@ -113,7 +113,7 @@ class PdfView extends EditorComponent {
 
     if (pageNumber > 0) {
 
-      for (var i = pageNumber; i < numPages; i++) {
+      for (var i = pageNumber; i <= numPages; i++) {
 
         pagesList.push(<Page
           key={i}
