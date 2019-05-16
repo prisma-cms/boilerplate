@@ -12,6 +12,7 @@ input UserCreateInput {
 }
 
 input UserUpdateInput {
+  username: String
   phone: String
   password: String
   fullname: String

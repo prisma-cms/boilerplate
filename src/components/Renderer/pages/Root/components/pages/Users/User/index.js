@@ -38,9 +38,6 @@ class UserPage extends EditorComponent {
     //   ...other
     // } = this.getComponentProps(this);
 
-    // console.log("getComponentProps this", { ...this });
-
-    // console.log("getComponentProps props", { ...other });
 
     const {
       parent,
@@ -70,74 +67,6 @@ class UserPage extends EditorComponent {
       where={where}
     />;
   }
-
-  // getRenderProps() {
-
-  //   const {
-  //     style,
-  //     marginTop,
-  //     marginBottom,
-  //     // props: {
-  //     //   ...otherProps
-  //     // },
-  //     ...other
-  //   } = super.getRenderProps();
-
-  //   // const {
-  //   //   text,
-  //   //   // type,
-  //   //   // style,
-  //   //   color,
-  //   //   display,
-  //   //   displayType,
-  //   //   ...otherProps
-  //   // } = this.getComponentProps(this);
-
-
-
-
-
-  //   const renderProps = {
-  //     style: {
-  //       ...style,
-  //       marginTop,
-  //       marginBottom,
-  //     },
-  //     ...other,
-  //     // ...otherProps
-  //   }
-
-
-
-
-  //   return renderProps;
-  // }
-
-  // renderMainView() {
-
-  //   // const {
-  //   //   marginTop,
-  //   //   marginBottom,
-  //   // } = this.getComponentProps(this);
-
-  //   const {
-  //     style,
-  //     marginTop,
-  //     marginBottom,
-  //     ...other
-  //   } = this.getRenderProps();
-
-  //   return <div
-  //     style={{
-  //       marginTop,
-  //       marginBottom,
-  //       ...style,
-  //     }}
-  //     {...other}
-  //   >
-  //     {super.renderMainView()}
-  //   </div>;
-  // }
 
 }
 
