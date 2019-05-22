@@ -22,4 +22,33 @@ input UserUpdateInput {
   ethWalletPK: String
   ethWalletPKSendEmail: Boolean
   NotificationTypes: NotificationTypeUpdateManyWithoutUsersInput
+  Groups: UserGroupUpdateManyWithoutUsersInput
+  # CreatedUsers: UserUpdateManyWithoutCreatedByInput
+  # CreatedBy: UserUpdateOneWithoutCreatedUsersInput
+  # LogedIns: LogedInUpdateManyWithoutUserInput
+  # Files: FileUpdateManyWithoutCreatedByInput
+  # Resources: ResourceUpdateManyWithoutCreatedByInput
+  # Rooms: ChatRoomUpdateManyWithoutMembersInput
+  # CreatedRooms: ChatRoomUpdateManyWithoutCreatedByInput
+  # Messages: ChatMessageUpdateManyWithoutCreatedByInput
+  # ReadedMessages: ChatMessageReadedUpdateManyWithoutUserInput
+  # Notices: NoticeUpdateManyWithoutUserInput
+  # Votes: VoteUpdateManyWithoutUserInput
+  # NotificationTypes: NotificationTypeUpdateManyWithoutUsersInput
+  # NotificationTypesCreated: NotificationTypeUpdateManyWithoutCreatedByInput
+  # Tags: TagUpdateManyWithoutCreatedByInput
+  # ResourceTags: ResourceTagUpdateManyWithoutCreatedByInput
+  # Teams: TeamMemberUpdateManyWithoutUserInput
+  # TeamsCreated: TeamUpdateManyWithoutCreatedByInput
+  # Projects: ProjectMemberUpdateManyWithoutUserInput
+  # ProjectsCreated: ProjectUpdateManyWithoutCreatedByInput
+  # Tasks: TaskMemberUpdateManyWithoutUserInput
+  # Timers: TimerUpdateManyWithoutCreatedByInput
+  # PositionsCreated: PositionUpdateManyWithoutCreatedByInput
+  # Positions: PositionUpdateManyWithoutUsersInput
+  # TasksReactions: TaskReactionUpdateManyWithoutCreatedByInput
+  # EthContractSourcesCreated: EthContractSourceUpdateManyInput
+  # EthAccounts: EthAccountUpdateManyWithoutCreatedByInput
+  # PrismaProjects: ProjectUpdateManyWithoutPrismaUsersInput
+  # LettersCreated: LetterUpdateManyWithoutUserInput
 }
