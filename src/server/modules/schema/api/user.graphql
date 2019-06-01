@@ -52,3 +52,7 @@ input UserUpdateInput {
   # PrismaProjects: ProjectUpdateManyWithoutPrismaUsersInput
   # LettersCreated: LetterUpdateManyWithoutUserInput
 }
+
+input UserWhereInput {
+  search: String
+}
