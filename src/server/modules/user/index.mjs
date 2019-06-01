@@ -302,12 +302,101 @@ class ModxclubUserModule extends UserModule {
   }
 
 
+  injectWhere(where) {
+
+    let {
+      search,
+      ...other
+    } = where || {};
+
+
+    if (search !== undefined) {
+
+      delete where.search;
+
+      let condition;
+
+
+      if (search) {
+
+
+        condition = {
+          OR: [
+            {
+              fullname_contains: search,
+            },
+            {
+              username_contains: search,
+            },
+            {
+              email_contains: search,
+            },
+          ],
+        }
+
+
+      }
+
+
+      /**
+       * Если объект условия пустой, то во избежание лишней вложенности
+       * присваиваем ему полученное условие
+       */
+      if (!Object.keys(where).length) {
+
+        Object.assign(where, condition);
+
+      }
+
+      /**
+       * Иначе нам надо добавить полученное условие в массив AND,
+       * чтобы объединить с другими условиями
+       */
+      else {
+
+        if (!where.AND) {
+
+          where.AND = [];
+
+        }
+
+        where.AND.push(condition);
+
+      }
+
+    }
+
+    return where;
+
+  }
+
+
+  addQueryConditions(args, ctx, info) {
+
+    const {
+      modifyArgs,
+    } = ctx;
+
+    const {
+      where,
+    } = args;
+
+    modifyArgs(where, this.injectWhere, info);
+
+  }
+
+
   getResolvers() {
 
 
     let resolvers = super.getResolvers();
 
     const {
+      Query: {
+        users,
+        usersConnection,
+        ...Query
+      },
       Mutation: {
         signup,
         updateUserProcessor,
@@ -320,6 +409,21 @@ class ModxclubUserModule extends UserModule {
 
     return {
       ...other,
+      Query: {
+        ...Query,
+        users: (source, args, ctx, info) => {
+
+          this.addQueryConditions(args, ctx, info);
+
+          return users(source, args, ctx, info);
+        },
+        usersConnection: (source, args, ctx, info) => {
+
+          this.addQueryConditions(args, ctx, info);
+
+          return usersConnection(source, args, ctx, info);
+        },
+      },
       Mutation: {
         ...Mutation,
         signup: async (source, args, ctx, info) => {

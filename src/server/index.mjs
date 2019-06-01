@@ -1,5 +1,8 @@
 
-import startServer from "@prisma-cms/server";
+import startServer, {
+  modifyArgs,
+} from "@prisma-cms/server";
+
 import {
   getProjectFromRequest,
 } from "@prisma-cms/marketplace-module";
@@ -70,6 +73,7 @@ startServer({
   contextOptions: {
     web3,
     getProjectFromRequest,
+    modifyArgs,
   },
 });
 

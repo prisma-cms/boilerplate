@@ -1,3 +1,8 @@
+3.1.0
+============================================
+- Upgrade @prisma-cms/server
+- Added modifyArgs()
+
 3.0.3
 ============================================
 - Added CreateUserPage
