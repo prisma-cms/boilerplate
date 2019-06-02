@@ -42,6 +42,8 @@ const PWD = process.env.PWD;
 const HTML = fs.readFileSync(`${PWD}/build/index.html`, "utf8");
 
 
+let apiSchema;
+
 class Server {
 
 
@@ -52,15 +54,17 @@ class Server {
       ...other
     } = props;
 
-    api = new Prisma({
-      typeDefs: 'src/schema/generated/api.graphql',
-      endpoint: 'http://localhost:4000',
-      secret: 'mysecret123',
-      debug: false,
-      ...other,
-    });
+    // api = new Prisma({
+    //   typeDefs: 'src/schema/generated/api.graphql',
+    //   endpoint: 'http://localhost:4000',
+    //   secret: 'mysecret123',
+    //   debug: false,
+    //   ...other,
+    // });
 
     this.App = App || MainApp;
+
+    this.props = props;
 
   }
 
@@ -208,6 +212,16 @@ class Server {
             <MainApp
               sheetsManager={new Map()}
               uri={uri}
+              onSchemaLoad={schema => {
+
+                // console.log("onSchemaLoad", schema);
+                // console.log(chalk.green("onSchemaLoad"));
+
+                if (!apiSchema && schema) {
+                  apiSchema = `window.__PRISMA_CMS_API_SCHEMA__=${JSON.stringify(schema).replace(/</g, '\\u003c')};`;
+                }
+
+              }}
             />
           </StaticRouter>
         </ApolloProvider>
@@ -376,6 +390,14 @@ class Server {
           body.prepend(`<script type="text/javascript">
             ${`window.__APOLLO_STATE__=${JSON.stringify(state).replace(/</g, '\\u003c')};`}
           </script>`);
+
+          if (apiSchema) {
+
+            body.prepend(`<script type="text/javascript">
+              ${apiSchema}
+            </script>`);
+
+          }
 
           root.html(content);
 
