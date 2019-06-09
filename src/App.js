@@ -2,6 +2,9 @@
 
 import { Component } from "react";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import {App as PrismaApp} from "@prisma-cms/front";
 
 import Renderer from "./components/Renderer";
