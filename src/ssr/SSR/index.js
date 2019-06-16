@@ -54,18 +54,28 @@ class Server {
       ...other
     } = props;
 
-    // api = new Prisma({
-    //   typeDefs: 'src/schema/generated/api.graphql',
-    //   endpoint: 'http://localhost:4000',
-    //   secret: 'mysecret123',
-    //   debug: false,
-    //   ...other,
-    // });
-
     this.App = App || MainApp;
 
     this.props = props;
 
+  }
+
+
+  getApi(props) {
+
+    if (!api) {
+
+      api = new Prisma({
+        typeDefs: 'src/schema/generated/api.graphql',
+        endpoint: 'http://localhost:4000',
+        secret: 'mysecret123',
+        debug: false,
+        ...props,
+      });
+
+    }
+
+    return api;
   }
 
 
