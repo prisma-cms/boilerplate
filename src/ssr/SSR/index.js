@@ -192,6 +192,9 @@ class Server {
 
     const {
       App: MainApp,
+      props: {
+        rootSelector,
+      },
     } = this;
 
 
@@ -332,7 +335,7 @@ class Server {
 
           $("noscript#react-noscript-notify").remove();
 
-          let root = $("#root");
+          let root = $(rootSelector);
 
 
           let head = $("head");

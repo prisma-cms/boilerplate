@@ -28,21 +28,23 @@ require('@babel/polyfill');
 
 let SSRmiddlewareClass = require('./SSR');
 
-let SSRmiddleware = new SSRmiddlewareClass().middleware;
+let SSRmiddleware = new SSRmiddlewareClass({
+  rootSelector: "#root",
+}).middleware;
 
 const ws = require('ws');
 
 global.WebSocket = ws;
 
-const express = require('express'); 
+const express = require('express');
 
-const argv = require('minimist')(process.argv.slice(2)); 
+const argv = require('minimist')(process.argv.slice(2));
 const app = express();
 
 var bodyParser = require('body-parser');
 
 const cwd = process.cwd();
- 
+
 
 const setupProxy = require("../setupProxy");
 
@@ -54,7 +56,7 @@ app.use('/public', express.static(cwd + '/public')); //Serves resources from pub
 
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 
 
@@ -65,10 +67,10 @@ const port = argv.port || process.env.PORT || 3000;
 
 // Start your app.
 app.listen(port, (err) => {
-	if (err) {
+  if (err) {
     // return logger.error(err.message);
     console.error(err);
-	}
+  }
   // logger.appStarted(port);
   console.log("Server started");
 });
