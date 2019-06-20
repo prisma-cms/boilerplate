@@ -323,6 +323,9 @@ class ModxclubUserModule extends UserModule {
         condition = {
           OR: [
             {
+              id: search,
+            },
+            {
               fullname_contains: search,
             },
             {
