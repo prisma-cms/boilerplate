@@ -21,6 +21,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@prisma-cms/connector": "latest",
     "@prisma-cms/context": "latest",
     "@prisma-cms/cooperation-module": "latest",
     "@prisma-cms/ethereum": "latest",
