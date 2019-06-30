@@ -9,7 +9,7 @@ export default class PageLayout extends PrismaCmsPageLayout {
 
   render(content) {
 
-    console.log("PageLayout this", this);
+    // console.log("PageLayout this", this);
 
     return content === null ? null : super.render(<div
       style={{

@@ -354,7 +354,7 @@ export class WalletBalances extends PrismaCmsComponent {
     })
       .then(result => {
 
-        console.log("result", result);
+        // console.log("result", result);
 
         const {
           response,

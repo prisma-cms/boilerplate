@@ -32,7 +32,7 @@ class CreateUserPage extends PrismaCmsComponent {
 
   createUser = async (props) => {
 
-    console.log("props", { ...props });
+    // console.log("props", { ...props });
 
     const {
       query: {

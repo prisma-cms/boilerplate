@@ -76,7 +76,7 @@ class UserPageView extends UserPageViewProto {
 
     if (currentUserId && currentUserId === userId) {
 
-      console.log("EthAccounts", EthAccounts, object);
+      // console.log("EthAccounts", EthAccounts, object);
 
       if (EthAccounts && EthAccounts.length) {
 
