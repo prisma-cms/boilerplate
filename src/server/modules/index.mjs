@@ -16,7 +16,9 @@ import MailModule from "@prisma-cms/mail-module";
 import UploadModule from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
 import SocietyModule from "@prisma-cms/society-module";
-import EthereumModule from "@prisma-cms/ethereum-module";
+import EthereumModule, {
+  Modules as EthereumModules,
+} from "@prisma-cms/ethereum-module";
 import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
 import CooperationModule from "@prisma-cms/cooperation-module";
@@ -50,7 +52,7 @@ class CoreModule extends PrismaModule {
       UserModule,
       RouterModule,
       MarketplaceModule,
-    ]);
+    ].concat(EthereumModules));
 
   }
 

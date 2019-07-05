@@ -74,6 +74,7 @@ startServer({
     web3,
     getProjectFromRequest,
     modifyArgs,
+    resolvers,
   },
 });
 
