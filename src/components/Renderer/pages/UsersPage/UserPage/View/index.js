@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import UserPageViewProto from "@prisma-cms/front/lib/components/pages/UsersPage/UserPage/View";
 import UsersGroupsBlock from "@prisma-cms/front/lib/components/pages/UsersPage/UserPage/View/Groups";
+import MetamaskAccount from "@prisma-cms/front/lib/components/pages/UsersPage/UserPage/View/MetamaskAccount";
 
 import NotificationTypes from "./NotificationTypes";
 import ChatRooms from "./ChatRooms";
@@ -161,6 +162,19 @@ class UserPageView extends UserPageViewProto {
           container
           spacing={16}
         >
+
+
+
+          {currentUserId && currentUserId === userId ?
+            <MetamaskAccount
+              where={{
+                UserAuthed: {
+                  id: currentUserId,
+                },
+              }}
+            />
+            : null
+          }
 
           <Grid
             item

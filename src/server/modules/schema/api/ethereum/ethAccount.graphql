@@ -1,0 +1,33 @@
+
+
+input EthAccountCreateInput {
+  name: String
+  description: Json
+  address: String!
+  type: EthAccountType
+  source: String
+  bytecode: String
+  abi: Json
+  # CreatedBy: UserCreateOneWithoutEthAccountsInput
+  # Transaction: EthTransactionCreateOneWithoutAccountInput
+  # IncomeTransactions: EthTransactionCreateManyWithoutReceiverInput
+  # OutcomeTransactions: EthTransactionCreateManyWithoutSenderInput
+  ContractSource: EthContractSourceCreateOneWithoutAccountsInput
+  # UserAuthed: UserCreateOneWithoutEthAccountAuthedInput
+}
+
+input EthAccountUpdateInput {
+  name: String
+  description: Json
+  address: String
+  type: EthAccountType
+  source: String
+  bytecode: String
+  abi: Json
+  # CreatedBy: UserUpdateOneWithoutEthAccountsInput
+  # Transaction: EthTransactionUpdateOneWithoutAccountInput
+  # IncomeTransactions: EthTransactionUpdateManyWithoutReceiverInput
+  # OutcomeTransactions: EthTransactionUpdateManyWithoutSenderInput
+  ContractSource: EthContractSourceUpdateOneWithoutAccountsInput
+  # UserAuthed: UserUpdateOneWithoutEthAccountAuthedInput
+}

@@ -1,0 +1,13 @@
+
+type Mutation {
+
+  """Signin or Signup via Ethereum"""
+  ethSigninOrSignup(
+    data: EthRecoverPersonalSignatureDataInput!
+  ): AuthPayload!
+
+
+  ethConnectAuthAccount(
+    data: EthRecoverPersonalSignatureDataInput!
+  ): EthAccountResponse!
+}

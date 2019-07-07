@@ -1,0 +1,5 @@
+
+type EthAccount {
+  """Used for authorization"""
+  UserAuthed: User @relation(name: "UserEthAccountAuthed")
+}

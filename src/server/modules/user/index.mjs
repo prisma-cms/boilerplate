@@ -49,6 +49,501 @@ export class ModxclubUserProcessor extends UserPayload {
   }
 
 
+  /**
+   * Авторизация/регистрация с помощью метамаска.
+   * 
+   */
+  async ethSigninOrSignup(args, info) {
+
+    // console.log("ethSigninOrSignup args", args);
+
+
+    const {
+      db,
+      resolvers: {
+        Mutation: {
+          ethRecoverPersonalSignature,
+        },
+      },
+    } = this.ctx;
+
+    let result;
+
+    /**
+     * Получаем адрес кошелька которым было подписано сообщение.
+     * Заметка: нам не важно какое было сообщение. Важно кем было подписано сообщение.
+     */
+    const address = await ethRecoverPersonalSignature(null, args, this.ctx);
+
+    if (!address) {
+
+      return this.addError("Не был получен адрес подписчика");
+    }
+
+    // console.log("ethSigninOrSignup address", address);
+
+    /**
+     * Пытаемся получить аккаунт, если уже имеется
+     */
+
+    let EthAccountAuthed;
+
+
+    const ethAccount = await db.query.ethAccount({
+      where: {
+        address,
+      },
+    }, `{
+      id
+      address
+      CreatedBy{
+        id
+      }
+      UserAuthed{
+        id
+      }
+    }`);
+
+
+    if (ethAccount) {
+
+      const {
+        UserAuthed,
+      } = ethAccount;
+
+
+      /**
+       * Если уже имеется привязанный пользователь, авторизовываем его
+       */
+
+      if (UserAuthed) {
+
+        this.data = UserAuthed;
+
+        const token = this.createToken(UserAuthed);
+
+        result = {
+          ...this.prepareResponse(),
+          token,
+        };
+
+      }
+
+
+      EthAccountAuthed = {
+        connect: {
+          address,
+        },
+      }
+
+    }
+    else {
+
+      EthAccountAuthed = {
+        create: {
+          address,
+        },
+      }
+    }
+
+    // console.log("ethSigninOrSignup ethAccount", JSON.stringify(ethAccount, true, 2));
+
+    // return {}
+
+    /**
+     * Пытаемся получить пользователя по адресу.
+     * Если был получен, то авторизовываем. 
+     * Если нет, то создаем нового.
+     */
+
+
+    const generatedPassword = await this.generatePassword();
+
+    // console.log("ethSigninOrSignup generatedPassword", generatedPassword);
+
+
+    /**
+     * result возможен только если с аккаунтом был получен ранее авторизованный пользователь.
+     * Иначе создаем нового пользователя.
+     */
+    if (!result && EthAccountAuthed) {
+
+      result = await super.signup({
+        data: {
+          password: await this.createPassword(generatedPassword),
+          EthAccountAuthed,
+        },
+      });
+
+      // console.log("ethSigninOrSignup result", JSON.stringify(result, true, 2));
+
+    }
+
+
+    const {
+      success,
+      data,
+    } = result || {};
+
+
+
+    if (success && data) {
+
+      const {
+        id: userId,
+      } = data;
+
+
+      /**
+       * Если у аккаунт еще не указано кем он создан, привязываем его к текущему пользователю
+       */
+
+      // const ethAccount = await db.query.ethAccount({
+      //   where: {
+      //     address,
+      //   },
+      // }, `{
+      //   id
+      //   address
+      //   CreatedBy{
+      //     id
+      //   }
+      // }`);
+
+      // if (ethAccount && !ethAccount.CreatedBy) {
+
+      //   await db.mutation.updateEthAccount({
+      //     where: {
+      //       address,
+      //     },
+      //     data: {
+      //       CreatedBy: {
+      //         connect: {
+      //           id: userId,
+      //         },
+      //       },
+      //     },
+      //   })
+      //     .catch(console.error);
+
+      // }
+
+
+      /**
+       * Если аккаунт новый, привязываем к текущему пользователю
+       */
+      if (EthAccountAuthed && EthAccountAuthed.create) {
+
+        await db.mutation.updateEthAccount({
+          where: {
+            address,
+          },
+          data: {
+            CreatedBy: {
+              connect: {
+                id: userId,
+              },
+            },
+          },
+        })
+          .catch(console.error);
+
+      }
+
+
+      await db.mutation.updateUser({
+        data: {
+          LogedIns: {
+            create: {},
+          },
+          activated: true,
+        },
+        where: {
+          id: userId,
+        },
+      })
+        .catch(console.error);
+
+    }
+
+
+    return result || this.prepareResponse();
+
+  }
+
+
+  /**
+   * Ключница. Присоединяем к пользователю ethereum-аккаунт для авторизации
+   * 
+   */
+  async ethConnectAuthAccount(args, info) {
+
+    // console.log("ethSigninOrSignup args", args);
+
+
+    const {
+      db,
+      resolvers: {
+        Mutation: {
+          ethRecoverPersonalSignature,
+          createEthAccountProcessor,
+        },
+      },
+      currentUser,
+    } = this.ctx;
+
+    let result;
+
+    const {
+      id: currentUserId,
+    } = currentUser || {};
+
+    if (!currentUserId) {
+      throw new Error("Необходимо авторизоваться");
+    }
+
+    /**
+     * Получаем адрес кошелька которым было подписано сообщение.
+     * Заметка: нам не важно какое было сообщение. Важно кем было подписано сообщение.
+     */
+    const address = await ethRecoverPersonalSignature(null, args, this.ctx);
+
+    if (!address) {
+
+      return this.addError("Не был получен адрес подписчика");
+    }
+
+    // console.log("ethSigninOrSignup address", address);
+
+    /**
+     * Пытаемся получить аккаунт, если уже имеется
+     */
+
+    // let EthAccountAuthed;
+
+
+    const ethAccount = await db.query.ethAccount({
+      where: {
+        address,
+      },
+    }, `{
+      id
+      address
+      CreatedBy{
+        id
+      }
+      UserAuthed{
+        id
+      }
+    }`);
+
+
+    if (ethAccount) {
+
+      const {
+        UserAuthed,
+      } = ethAccount;
+
+
+      /**
+       * Если уже имеется привязанный пользователь, проверяем, принадлежит ли он текущему пользователю
+       */
+
+      if (UserAuthed) {
+
+        const {
+          id,
+        } = UserAuthed;
+
+
+        if (id === currentUserId) {
+
+          this.data = ethAccount;
+          result = this.prepareResponse();
+        }
+        else {
+          
+          this.addError("Аккаунт уже используется другим пользователем");
+        }
+
+      }
+      else {
+
+        /**
+         * Если аккаунт есть, но еще не привязан ни к какому пользователю, привязываем его к текущему пользователю
+         */
+        this.data = await db.mutation.updateEthAccount({
+          where: {
+            address,
+          },
+          data: {
+            UserAuthed: {
+              connect: {
+                id: currentUserId,
+              },
+            },
+          },
+        });
+
+        result = this.prepareResponse();
+
+      }
+
+
+      // EthAccountAuthed = {
+      //   connect: {
+      //     address,
+      //   },
+      // }
+
+    }
+    else {
+
+      // EthAccountAuthed = {
+      //   create: {
+      //     address,
+      //   },
+      // }
+
+      result = await createEthAccountProcessor(null, {
+        data: {
+          address,
+          UserAuthed: {
+            connect: {
+              id: currentUserId,
+            },
+          },
+        },
+      }, this.ctx);
+
+    }
+
+    console.log("ethConnectAuthAccount ethAccount", JSON.stringify(ethAccount, true, 2));
+
+    return result || this.prepareResponse();
+
+    /**
+     * Пытаемся получить пользователя по адресу.
+     * Если был получен, то авторизовываем. 
+     * Если нет, то создаем нового.
+     */
+
+
+    const generatedPassword = await this.generatePassword();
+
+    // console.log("ethSigninOrSignup generatedPassword", generatedPassword);
+
+
+    /**
+     * result возможен только если с аккаунтом был получен ранее авторизованный пользователь.
+     * Иначе создаем нового пользователя.
+     */
+    if (!result && EthAccountAuthed) {
+
+      result = await super.signup({
+        data: {
+          password: await this.createPassword(generatedPassword),
+          EthAccountAuthed,
+        },
+      });
+
+      // console.log("ethSigninOrSignup result", JSON.stringify(result, true, 2));
+
+    }
+
+
+    const {
+      success,
+      data,
+    } = result || {};
+
+
+
+    if (success && data) {
+
+      const {
+        id: userId,
+      } = data;
+
+
+      /**
+       * Если у аккаунт еще не указано кем он создан, привязываем его к текущему пользователю
+       */
+
+      // const ethAccount = await db.query.ethAccount({
+      //   where: {
+      //     address,
+      //   },
+      // }, `{
+      //   id
+      //   address
+      //   CreatedBy{
+      //     id
+      //   }
+      // }`);
+
+      // if (ethAccount && !ethAccount.CreatedBy) {
+
+      //   await db.mutation.updateEthAccount({
+      //     where: {
+      //       address,
+      //     },
+      //     data: {
+      //       CreatedBy: {
+      //         connect: {
+      //           id: userId,
+      //         },
+      //       },
+      //     },
+      //   })
+      //     .catch(console.error);
+
+      // }
+
+
+      /**
+       * Если аккаунт новый, привязываем к текущему пользователю
+       */
+      if (EthAccountAuthed && EthAccountAuthed.create) {
+
+        await db.mutation.updateEthAccount({
+          where: {
+            address,
+          },
+          data: {
+            CreatedBy: {
+              connect: {
+                id: userId,
+              },
+            },
+          },
+        })
+          .catch(console.error);
+
+      }
+
+
+      await db.mutation.updateUser({
+        data: {
+          LogedIns: {
+            create: {},
+          },
+          activated: true,
+        },
+        where: {
+          id: userId,
+        },
+      })
+        .catch(console.error);
+
+    }
+
+
+    return result || this.prepareResponse();
+
+  }
+
+
   async mutate(method, args, info) {
 
     let {
@@ -181,14 +676,14 @@ export class ModxclubUserProcessor extends UserPayload {
 
       }
 
-      const chainId = await web3.eth.net.getId();
+      // const chainId = await web3.eth.net.getId();
 
       Object.assign(data, {
         EthAccounts: {
           create: {
             address: ethWallet,
             type: "Contract",
-            chainId,
+            // chainId,
           },
         },
         LettersCreated,
@@ -253,7 +748,7 @@ class ModxclubUserModule extends UserModule {
     const {
       success,
       data: user,
-    } = result;
+    } = result || {};
 
     if (success && user) {
 
@@ -309,10 +804,10 @@ class ModxclubUserModule extends UserModule {
       ...other
     } = where || {};
 
-    
+
     let condition;
 
-    
+
     if (search !== undefined) {
 
       delete where.search;
@@ -449,6 +944,30 @@ class ModxclubUserModule extends UserModule {
           // console.log("signin result", result);
 
           await this.injectProjectLink(result, ctx);
+
+          return result;
+        },
+        ethSigninOrSignup: async (source, args, ctx, info) => {
+
+          // args = await this.injectProjectLink(args, ctx);
+
+          const result = await new ModxclubUserProcessor(ctx).ethSigninOrSignup(args, info);
+
+          // console.log("signin result", result);
+
+          await this.injectProjectLink(result, ctx);
+
+          return result;
+        },
+
+        /**
+         * Return EthAccount
+         */
+        ethConnectAuthAccount: async (source, args, ctx, info) => {
+
+          // args = await this.injectProjectLink(args, ctx);
+
+          const result = await new ModxclubUserProcessor(ctx).ethConnectAuthAccount(args, info);
 
           return result;
         },

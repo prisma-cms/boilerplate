@@ -1,3 +1,9 @@
+3.3.0
+============================================
+- Added User::ethSigninOrSignup()
+- Added User::ethConnectAuthAccount()
+- Added authorization via metamask
+
 3.2.1
 ============================================
 - Remove react-pdf

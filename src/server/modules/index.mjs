@@ -162,6 +162,8 @@ class CoreModule extends PrismaModule {
         "EthContractSourceCreateInput",
         "EthContractSourceUpdateInput",
         "EthTransactionCreateInput",
+        "EthAccountCreateInput",
+        "EthAccountUpdateInput",
         "EthTransactionSubscriptionPayload",
       ]);
 
