@@ -1,7 +1,7 @@
 
 input EthTransactionCreateInput {
   privateKey: String!
-  type: EthTransactionTypes!
+  type: EthTransactionType
   to: String
   amount: Float
   gasPrice: Int
