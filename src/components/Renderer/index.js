@@ -1,7 +1,7 @@
 
 import "../../styles/less/styles.css";
 
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Renderer as PrismaCmsRenderer } from "@prisma-cms/front";
 
@@ -18,6 +18,8 @@ import {
 import Context from "@prisma-cms/context";
 
 import ContextProvider from "./ContextProvider";
+
+import { Link } from "react-router-dom";
 
 // import UserPage from './pages/UsersPage/UserPage';
 
@@ -107,8 +109,14 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
         exact: false,
         path: "/",
         // component: FrontEditorRoot,
-        component: RootPage,
-      }
+        // component: RootPage,
+        render: props => {
+
+          return <RootPage
+            // {...props}
+          />
+        },
+      },
     ]);
 
     return routers;
@@ -246,17 +254,20 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
           schema,
         } = context;
 
-        // console.log("Renderer.query", schema);
 
         if (!schema) {
           return null;
         }
 
-
         return <Context.Provider
-          value={Object.assign(context, this.context, {
+          // value={Object.assign(context, this.context, {
+          //   queryFragments,
+          // })}
+          value={{
+            ...context,
+            ...this.context,
             queryFragments,
-          })}
+          }}
         >
           <SocietyContextProvider>
             <SocietySubscriptionProvider>
