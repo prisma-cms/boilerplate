@@ -79,7 +79,49 @@ class Server {
   }
 
 
+  timeLogStart(uri) {
+
+    if (process.env.PRISMA_CMS_TIMELOG === "true") {
+      console.log(chalk.green("Start request", uri));
+      console.time("PrismaCMS SSR Render");
+    }
+
+  }
+
+  timeLogEnd() {
+
+    if (process.env.PRISMA_CMS_TIMELOG === "true") {
+      console.timeEnd("PrismaCMS SSR Render");
+      console.log(chalk.green("End request"));
+    }
+
+  }
+
+  timeLog(label) {
+
+    if (process.env.PRISMA_CMS_TIMELOG === "true") {
+
+      // const args = ["PrismaCMS SSR Render"].concat((arguments || []));
+
+      const args = ["PrismaCMS SSR Render"].concat([...arguments]);
+
+      // console.log("arguments", arguments);
+
+      // console.log("arguments array", [...arguments]);
+      // console.log("args", args);
+
+      console.timeLog.apply(this, args);
+      // console.timeLog.apply("PrismaCMS SSR Render");
+      // console.timeLog("PrismaCMS SSR Render", label);
+    }
+
+  }
+
+
   middleware = async (req, res) => {
+
+    // console.log("process.env.NODE_ENV", process.env.PRISMA_CMS_TIMELOG);
+
 
     /**
      * Надо сбрасывать этот объект, чтобы не попадали результаты прошлого выполнения
@@ -92,6 +134,12 @@ class Server {
     const host = req.get('host');
 
     const uri = new URI(`${protocol}://${host}${req.url}`);
+
+    this.timeLogStart(uri.toString());
+
+    // this.timeLog("start", uri.toString());
+
+    // this.timeLog();
 
     const {
       page,
@@ -118,15 +166,22 @@ class Server {
 
         break;
 
-      default: response = this.renderHTML(req, res, uri)
-        .catch(error => {
-          console.error(chalk.red("Server error"), error);
-          res.status(500);
-          res.end(error.message);
-          ;
-        });
+      default:
+        response = await this.renderHTML(req, res, uri)
+          .catch(error => {
+            console.error(chalk.red("Server error"), error);
+            res.status(500);
+            res.end(error.message);
+            ;
+          });
+
+      // res.end("Debug");
 
     }
+
+    this.timeLogEnd();
+
+    // console.log(chalk.green("response"), response);
 
     return response;
 
@@ -134,6 +189,27 @@ class Server {
 
 
   async renderHTML(req, res) {
+
+
+    this.timeLog("renderHTML", "start");
+
+    // return new Promise((resolve) => {
+
+
+    //   this.timeLog("Promise start");
+
+    //   setTimeout(() => {
+    //     res.end("output");
+
+
+
+    //     resolve("dsfdsfdsf");
+    //   }, 3000);
+
+    // });
+
+    // res.end("output");
+    // return;
 
 
     let context = {}
@@ -198,6 +274,8 @@ class Server {
     } = this;
 
 
+    this.timeLog("renderHTML", "Init ApolloClient");
+
     const client = new ApolloClient({
       ssrMode: true,
       // Remember that this is the interface the SSR server will use to connect to the
@@ -213,7 +291,12 @@ class Server {
       cache: new InMemoryCache(),
     });
 
+
+    this.timeLog("renderHTML", "Init SheetsRegistry");
+
     const sheets = new SheetsRegistry();
+
+    this.timeLog("renderHTML", "Init App");
 
     const App = (
       <JssProvider
@@ -225,13 +308,17 @@ class Server {
             <MainApp
               sheetsManager={new Map()}
               uri={uri}
-              onSchemaLoad={schema => {
+              onSchemaLoad={clientSchema => {
 
                 // console.log("onSchemaLoad", schema);
                 // console.log(chalk.green("onSchemaLoad"));
 
-                if (!apiSchema && schema) {
-                  apiSchema = `window.__PRISMA_CMS_API_SCHEMA__=${JSON.stringify(schema).replace(/</g, '\\u003c')};`;
+                if (!apiSchema && clientSchema) {
+                  // apiSchema = `window.__PRISMA_CMS_API_SCHEMA__=${JSON.stringify(schema).replace(/</g, '\\u003c')};`;
+                  apiSchema = `window.__PRISMA_CMS_API_SCHEMA_DSL__=${JSON.stringify(clientSchema).replace(/</g, '\\u003c')};`;
+                  apiSchema = `<script type="text/javascript">
+                    ${apiSchema}
+                  </script>`
                 }
 
               }}
@@ -241,13 +328,17 @@ class Server {
       </JssProvider>
     );
 
-
+    this.timeLog("renderHTML", "getDataFromTree start");
 
     await getDataFromTree(App)
       .then(async () => {
         // We are ready to render for real
         const content = await ReactDOM.renderToString(App);
+        this.timeLog("renderHTML", "getDataFromTree ReactDOM.renderToString");
+
         const initialState = await client.extract();
+
+        this.timeLog("renderHTML", "getDataFromTree client.extract()");
 
 
         let {
@@ -301,11 +392,11 @@ class Server {
         //   head,
         // } = result;
 
-        function Html({
+        const Html = ({
           content,
           state,
           sheets = "",
-        }) {
+        }) => {
 
 
           // head = $(head);
@@ -323,9 +414,13 @@ class Server {
           // console.log(chalk.green("head"), head.html());
 
 
+          this.timeLog("renderHTML", "cheerio.load start");
+
           const $ = cheerio.load(HTML, {
             decodeEntities: false,
-          })
+          });
+
+          this.timeLog("renderHTML", "cheerio.load end");
 
           // console.log(chalk.green("$"), $);
 
@@ -348,6 +443,8 @@ class Server {
           }
 
           // description = "Sdfdsfsdf";
+
+
 
           if (description) {
 
@@ -388,6 +485,7 @@ class Server {
           }
 
 
+          this.timeLog( "start add styles");
 
           head.append(`<style
             id="server-side-jss"
@@ -395,26 +493,65 @@ class Server {
             ${sheets.toString()}
           </style>`);
 
+          this.timeLog( "end add styles");
 
           // <script dangerouslySetInnerHTML={{
           //   __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(/</g, '\\u003c')};`,
           // }} />
 
-          body.prepend(`<script type="text/javascript">
+          // this.timeLog( "start add apolloState");
+
+          // body.prepend(`<script type="text/javascript">
+          // ${`window.__APOLLO_STATE__=${JSON.stringify(state).replace(/</g, '\\u003c')};`}
+          // </script>`);
+
+
+          let apolloState;
+
+          if (state) {
+            apolloState = `<script type="text/javascript">
             ${`window.__APOLLO_STATE__=${JSON.stringify(state).replace(/</g, '\\u003c')};`}
-          </script>`);
-
-          if (apiSchema) {
-
-            body.prepend(`<script type="text/javascript">
-              ${apiSchema}
-            </script>`);
-
+            </script>`;
           }
 
-          root.html(content);
 
-          return $.html();
+          // this.timeLog( "end add apolloState");
+
+          // if (apiSchema) {
+
+
+          // this.timeLog( "start add apiSchema");
+
+          // body.prepend(`<script type="text/javascript">
+          // ${apiSchema}
+          // </script>`);
+
+          // this.timeLog( "end add apiSchema");
+
+          // }
+
+          // root.html(content);
+
+          // console.log("content", content);
+
+
+          this.timeLog("renderHTML", "$.html() start");
+          let result = $.html();
+          this.timeLog("renderHTML", "$.html() end");
+
+
+          // <body><div id="root"></div>
+
+          this.timeLog("renderHTML", "replace root content start");
+
+          // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>`);
+          // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>${apiSchema}`);
+          result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${apolloState || ""}${apiSchema || ""}`);
+
+          this.timeLog("renderHTML", "replace root content end");
+
+
+          return result;
 
           // const response = (
           //   <html>
@@ -532,6 +669,9 @@ class Server {
         res.end(e.message);
         ;
       });
+
+
+    this.timeLog("renderHTML", "getDataFromTree end");
   }
 
 

@@ -15,6 +15,8 @@ import {
   SubscriptionProvider as EthereumSubscriptionProvider,
 } from "@prisma-cms/ethereum";
 
+import Context from "@prisma-cms/context";
+
 import ContextProvider from "./ContextProvider";
 
 // import UserPage from './pages/UsersPage/UserPage';
@@ -48,8 +50,12 @@ import TemplatePage from "@prisma-cms/front-editor/lib/components/pages/Template
 
 import RootPage from "./pages/Root";
 
-
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
+
+  // static defaultProps = {
+  //   ...PrismaCmsRenderer.defaultProps,
+  //   queryFragments,
+  // }
 
 
   renderMenu() {
@@ -224,27 +230,60 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
   renderWrapper() {
 
-    return <SocietyContextProvider>
-      <SocietySubscriptionProvider>
-        <EthereumContextProvider>
-          <EthereumSubscriptionProvider>
-            <WebrtcContextProvider>
-              <WebrtcSubscriptionProvider>
-                <WebRtcChatProvider>
-                  <FrontEditorContextProvider>
-                    <FrontEditorSubscriptionProvider>
-                      <ContextProvider>
-                        {super.renderWrapper()}
-                      </ContextProvider>
-                    </FrontEditorSubscriptionProvider>
-                  </FrontEditorContextProvider>
-                </WebRtcChatProvider>
-              </WebrtcSubscriptionProvider>
-            </WebrtcContextProvider>
-          </EthereumSubscriptionProvider>
-        </EthereumContextProvider>
-      </SocietySubscriptionProvider>
-    </SocietyContextProvider>
+    const {
+      queryFragments,
+    } = this.props;
+
+    // console.log("queryFragments", queryFragments);
+
+    // return "Sdfsdf";
+
+    return <Context.Consumer>
+      {context => {
+
+
+        const {
+          schema,
+        } = context;
+
+        // console.log("Renderer.query", schema);
+
+        if (!schema) {
+          return null;
+        }
+
+
+        return <Context.Provider
+          value={Object.assign(context, this.context, {
+            queryFragments,
+          })}
+        >
+          <SocietyContextProvider>
+            <SocietySubscriptionProvider>
+              <EthereumContextProvider>
+                <EthereumSubscriptionProvider>
+                  <WebrtcContextProvider>
+                    <WebrtcSubscriptionProvider>
+                      <WebRtcChatProvider>
+                        <FrontEditorContextProvider>
+                          <FrontEditorSubscriptionProvider>
+                            <ContextProvider>
+                              {super.renderWrapper()}
+                            </ContextProvider>
+                          </FrontEditorSubscriptionProvider>
+                        </FrontEditorContextProvider>
+                      </WebRtcChatProvider>
+                    </WebrtcSubscriptionProvider>
+                  </WebrtcContextProvider>
+                </EthereumSubscriptionProvider>
+              </EthereumContextProvider>
+            </SocietySubscriptionProvider>
+          </SocietyContextProvider>
+        </Context.Provider>
+      }}
+    </Context.Consumer>
+
+
 
   }
 

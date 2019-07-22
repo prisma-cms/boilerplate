@@ -27,7 +27,6 @@ class ContextProvider extends Component {
       query: {
         ...query,
         ...this.prepareQuery(),
-        __aaaa: () => {},
       },
       ...UI,
     });
