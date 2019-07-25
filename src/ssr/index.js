@@ -26,6 +26,8 @@ require('@babel/register')({
 
 require('@babel/polyfill');
 
+const fs = require("fs");
+
 let SSRmiddlewareClass = require('./SSR');
 
 let SSRmiddleware = new SSRmiddlewareClass({
@@ -50,9 +52,6 @@ const setupProxy = require("../setupProxy");
 
 setupProxy(app);
 
-app.use('/static', express.static(cwd + '/build/static')); //Serves resources from build folder
-app.use('/build', express.static(cwd + '/build')); //Serves resources from build folder
-app.use('/public', express.static(cwd + '/public')); //Serves resources from public folder
 
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -60,7 +59,48 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 
 
-app.get('**', SSRmiddleware);
+app.get("/static/js/voyager.worker.js", (req, res, next) => {
+  res.sendFile(`${cwd}/node_modules/@prisma-cms/graphql-voyager/dist/voyager.worker.js`);
+});
+
+/**
+ * Process static files
+ */
+app.get("**", (req, res, next) => {
+
+  const {
+    pathname,
+  } = req._parsedUrl;
+
+  if (pathname && pathname !== "/") {
+
+    const path = `${cwd}/build${pathname}`;
+
+    if (fs.existsSync(path)) {
+      // Do something
+      return res.sendFile(path);
+    }
+
+  }
+
+  next();
+});
+
+app.get('**', (req, res, next) => {
+
+  return SSRmiddleware(req, res, next);
+});
+
+// app.get('/', express.static(cwd + '/build')); //Serves resources from build folder
+// app.use('/static', express.static(cwd + '/build/static')); //Serves resources from build folder
+// app.use('/build', express.static(cwd + '/build')); //Serves resources from build folder
+// app.use('/public', express.static(cwd + '/public')); //Serves resources from public folder
+// app.get('/favicon.ico', express.static(cwd + '/build')); //Serves resources from build folder
+// app.get('/manifest.json', express.static(cwd + '/build')); //Serves resources from build folder
+// app.get('/service-worker.js', express.static(cwd + '/build')); //Serves resources from build folder
+
+
+
 
 // get the intended port number, use port 3000 if not provided
 const port = argv.port || process.env.PORT || 3000;

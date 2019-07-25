@@ -52,12 +52,14 @@ import TemplatePage from "@prisma-cms/front-editor/lib/components/pages/Template
 
 import RootPage from "./pages/Root";
 
+import * as queryFragments from "../../schema/generated/api.fragments";
+
 export default class BoilerplateRenderer extends PrismaCmsRenderer {
 
-  // static defaultProps = {
-  //   ...PrismaCmsRenderer.defaultProps,
-  //   queryFragments,
-  // }
+  static defaultProps = {
+    ...PrismaCmsRenderer.defaultProps,
+    queryFragments,
+  }
 
 
   renderMenu() {
@@ -242,9 +244,9 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
       queryFragments,
     } = this.props;
 
-    // console.log("queryFragments", queryFragments);
-
-    // return "Sdfsdf";
+    if(!queryFragments) {
+      return null;
+    }
 
     return <Context.Consumer>
       {context => {

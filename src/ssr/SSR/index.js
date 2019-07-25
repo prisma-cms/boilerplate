@@ -547,6 +547,9 @@ class Server {
           // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>`);
           // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>${apiSchema}`);
           result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${apolloState || ""}${apiSchema || ""}`);
+          // result = result.replace(`<div id="root"></div>`, `<div id="root">${"content" || ""}</div>${apolloState || ""}${apiSchema || ""}`);
+          // result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${"apolloState" || ""}${apiSchema || ""}`);
+          // result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${"apolloState" || ""}`);
 
           this.timeLog("renderHTML", "replace root content end");
 
@@ -654,7 +657,11 @@ class Server {
 
         });
         // res.end(`<!doctype html>\n${output}`);
+
+        this.timeLog("renderHTML then", "res.end start");
         res.end(output);
+        // res.end("output");
+        this.timeLog("renderHTML then", "res.end end");
 
 
 
