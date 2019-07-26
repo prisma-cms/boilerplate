@@ -29,6 +29,7 @@
     "@prisma-cms/filters": "latest",
     "@prisma-cms/front": "latest",
     "@prisma-cms/front-editor": "latest",
+    "@prisma-cms/graphql-voyager": "latest",
     "@prisma-cms/log-module": "latest",
     "@prisma-cms/mail-module": "latest",
     "@prisma-cms/marketplace-module": "latest",

@@ -4,6 +4,7 @@ import "../../styles/less/styles.css";
 import React, { Fragment } from "react";
 
 import { Renderer as PrismaCmsRenderer } from "@prisma-cms/front";
+import GraphqlVoyagerPage from "@prisma-cms/front/lib/components/pages/GraphqlVoyager";
 
 import {
   ContextProvider as SocietyContextProvider,
@@ -106,6 +107,11 @@ export default class BoilerplateRenderer extends PrismaCmsRenderer {
             {...props}
           />
         },
+      },
+      {
+        exact: true,
+        path: "/graphql-voyager",
+        component: GraphqlVoyagerPage,
       },
       {
         exact: false,
