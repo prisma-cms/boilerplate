@@ -418,7 +418,7 @@ export class ModxclubUserProcessor extends UserPayload {
 
     }
 
-    console.log("ethConnectAuthAccount ethAccount", JSON.stringify(ethAccount, true, 2));
+    // console.log("ethConnectAuthAccount ethAccount", JSON.stringify(ethAccount, true, 2));
 
     return result || this.prepareResponse();
 
