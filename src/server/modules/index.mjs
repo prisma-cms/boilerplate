@@ -51,7 +51,7 @@ class CoreModule extends PrismaModule {
       SocietyModule,
       EthereumModule,
       WebrtcModule,
-      UserModule,
+      // UserModule,
       RouterModule,
       MarketplaceModule,
     ]
@@ -239,6 +239,22 @@ class CoreModule extends PrismaModule {
   }
 
 
+  renderApiSchema() {
+
+    let schemaFile = "src/schema/generated/api.graphql";
+
+    let baseSchema = "";
+
+    if (fs.existsSync(schemaFile)) {
+      baseSchema = fs.readFileSync(schemaFile, "utf-8");
+    }
+    // else {
+    //   console.log("file not exists");
+    // }
+
+    return baseSchema;
+  }
+
 
   getResolvers() {
 
@@ -279,7 +295,10 @@ class CoreModule extends PrismaModule {
 
     return {
       ...other,
-      Query,
+      Query: {
+        ...Query,
+        apiSchema: this.renderApiSchema,
+      },
       Mutation: AllowedMutations,
       Log: {
         stack: () => null,

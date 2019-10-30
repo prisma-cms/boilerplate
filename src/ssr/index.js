@@ -1,6 +1,6 @@
 /* eslint consistent-return:0 */
 
-const path = require('path');
+// const path = require('path');
 
 const basepath = process.cwd();
 
@@ -22,7 +22,7 @@ require('@babel/register')({
 
 });
 
-['.css', '.less', '.sass', '.ttf', '.woff', '.woff2', '.svg', '.png', '.jpg', '.jpeg', '.gif'].forEach((ext) => require.extensions[ext] = () => { });
+['.css', '.less', '.sass', '.scss', '.ttf', '.woff', '.woff2', '.svg', '.png', '.jpg', '.jpeg', '.gif'].forEach((ext) => require.extensions[ext] = () => { });
 
 require('@babel/polyfill');
 
@@ -30,7 +30,12 @@ const fs = require("fs");
 
 let SSRmiddlewareClass = require('./SSR');
 
+const apolloCaches = {
+
+};
+
 let SSRmiddleware = new SSRmiddlewareClass({
+  apolloCaches,
   rootSelector: "#root",
 }).middleware;
 
@@ -85,6 +90,32 @@ app.get("**", (req, res, next) => {
 
   next();
 });
+
+app.get('/__apollo-state__/:state_id', async (req, res, next) => {
+
+  const {
+    state_id,
+  } = req.params;
+
+
+  const state = apolloCaches[state_id];
+
+  if (state) {
+
+    delete apolloCaches[state_id];
+
+    res.status(200);
+    res.contentType(`application/json`);
+    res.setHeader("Cache-Control", "no-cache");
+    res.send(state);
+  }
+  else {
+    res.status(404).send('File not found');
+  }
+
+});
+
+app.use(express.static(cwd + '/shared')); //Serves resources from public folder
 
 app.get('**', (req, res, next) => {
 

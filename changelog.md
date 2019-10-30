@@ -1,3 +1,11 @@
+3.5.0
+============================================
+- Upgrade @prisma-cms/front
+- Fix SSR
+- Added public filder "shared"
+- Added apiSchema async loader
+- Added apollo state async loader
+
 3.4.1
 ============================================
 - Added chat Components
