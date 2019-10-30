@@ -42,7 +42,7 @@ const PWD = process.env.PWD;
 const HTML = fs.readFileSync(`${PWD}/build/index.html`, "utf8");
 
 
-let apiSchema;
+// let apiSchema;
 
 class Server {
 
@@ -314,13 +314,13 @@ class Server {
                 // console.log("onSchemaLoad", schema);
                 // console.log(chalk.green("onSchemaLoad"));
 
-                if (!apiSchema && clientSchema) {
-                  // apiSchema = `window.__PRISMA_CMS_API_SCHEMA__=${JSON.stringify(schema).replace(/</g, '\\u003c')};`;
-                  apiSchema = `window.__PRISMA_CMS_API_SCHEMA_DSL__=${JSON.stringify(clientSchema).replace(/</g, '\\u003c')};`;
-                  apiSchema = `<script type="text/javascript">
-                    ${apiSchema}
-                  </script>`
-                }
+                // if (!apiSchema && clientSchema) {
+                //   // apiSchema = `window.__PRISMA_CMS_API_SCHEMA__=${JSON.stringify(schema).replace(/</g, '\\u003c')};`;
+                //   apiSchema = `window.__PRISMA_CMS_API_SCHEMA_DSL__=${JSON.stringify(clientSchema).replace(/</g, '\\u003c')};`;
+                //   apiSchema = `<script type="text/javascript">
+                //     ${apiSchema}
+                //   </script>`
+                // }
 
               }}
             />
