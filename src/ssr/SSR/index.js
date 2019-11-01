@@ -568,7 +568,8 @@ class Server {
           // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>`);
           // result = result.replace(`<body><div id="root"></div>`, `<body><div id="root">${content}</div>${apiSchema}`);
           // result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${apolloState || ""}${apiSchema || ""}`);
-          result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>`);
+          const rootId = rootSelector.replace(/^#/, '');
+          result = result.replace(`<div id="${rootId}"></div>`, `<div id="${rootId}">${content || ""}</div>`);
           // result = result.replace(`<div id="root"></div>`, `<div id="root">${"content" || ""}</div>${apolloState || ""}${apiSchema || ""}`);
           // result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${"apolloState" || ""}${apiSchema || ""}`);
           // result = result.replace(`<div id="root"></div>`, `<div id="root">${content || ""}</div>${"apolloState" || ""}`);
