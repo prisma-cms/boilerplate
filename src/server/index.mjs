@@ -10,7 +10,7 @@ import CoreModule from "./modules";
 
 import Web3 from "web3";
 
-import URI from "urijs";
+// import URI from "urijs";
 
 const coreModule = new CoreModule({
 });
@@ -21,7 +21,7 @@ const resolvers = coreModule.getResolvers();
 const GethServer = process.env.GethServer || "http://localhost:8545";
 
 if (!GethServer) {
-  throw ("Env GethServer required");
+  throw new Error("Env GethServer required");
 }
 
 const web3 = new Web3(GethServer);
@@ -75,6 +75,7 @@ startServer({
     getProjectFromRequest,
     modifyArgs,
     resolvers,
+    // debug: true,
   },
 });
 

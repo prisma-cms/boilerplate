@@ -229,6 +229,7 @@ class CoreModule extends PrismaModule {
         return resolvers[operationName][field.name.value] ? true : false;
       });
 
+      return null;
     });
 
     apiSchema = print(parsed);
@@ -285,8 +286,8 @@ class CoreModule extends PrismaModule {
     } = resolvers;
 
 
-    const {
-    } = Mutation;
+    // const {
+    // } = Mutation;
 
 
     let AllowedMutations = {
