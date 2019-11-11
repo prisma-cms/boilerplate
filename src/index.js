@@ -21,7 +21,7 @@ const node = document.getElementById('root');
 
 if (node) {
 
-  loader()
+  loader({})
     .then(() => {
 
       ReactDOM.render(<PrismaCms
