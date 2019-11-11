@@ -1,0 +1,12 @@
+
+type GalleryFile{
+  id: ID! @unique
+  rank: Int @default(value: 0)
+  File: File! @relation(name: "GalleryFile")
+  Gallery: Gallery! @relation(name: "GalleryFiles")
+  CreatedBy: User
+}
+
+type File {
+  Galleries: [GalleryFile!]! @relation(name: "GalleryFile")
+}

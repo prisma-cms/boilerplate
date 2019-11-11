@@ -1,0 +1,12 @@
+
+type Gallery {
+  id: ID! @unique
+  name: String
+  Files: [GalleryFile!]! @relation(name: "GalleryFiles" onDelete: CASCADE)
+  Resource: Resource
+  CreatedBy: User
+}
+
+type Resource {
+  Galleries: [Gallery!]!
+}

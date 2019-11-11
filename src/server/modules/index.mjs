@@ -12,6 +12,7 @@ import PrismaModule from "@prisma-cms/prisma-module";
 import LogModule from "@prisma-cms/log-module";
 // import UserModule from "@prisma-cms/user-module";
 import UserModule from "./user";
+import ResourceModule from "./resource";
 import MailModule from "@prisma-cms/mail-module";
 import UploadModule from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
@@ -25,6 +26,8 @@ import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
 import CooperationModule from "@prisma-cms/cooperation-module";
 
+import Gallery from "./Gallery";
+import GalleryFile from "./GalleryFile";
 
 import { parse, print } from "graphql";
 import path from 'path';
@@ -54,6 +57,9 @@ class CoreModule extends PrismaModule {
       // UserModule,
       RouterModule,
       MarketplaceModule,
+      ResourceModule,
+      Gallery,
+      GalleryFile,
     ]
       .concat(
         EthereumModules,
@@ -269,7 +275,7 @@ class CoreModule extends PrismaModule {
         letter,
         letters,
         lettersConnection,
-        file,
+        // file,
         files,
         filesConnection,
         logedin,
