@@ -4,7 +4,7 @@
 
 import ResourceModule, {
 } from "@prisma-cms/resource-module";
- 
+
 
 class ResourceModuleCustom extends ResourceModule {
 

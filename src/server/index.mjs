@@ -1,6 +1,7 @@
 
 import startServer, {
   modifyArgs,
+  paginationMiddleware,
 } from "@prisma-cms/server";
 
 import {
@@ -67,9 +68,15 @@ const web3 = new Web3(GethServer);
 // }
 
 
+const middlewares = [
+  paginationMiddleware,
+];
+
+
 startServer({
   typeDefs: 'src/schema/generated/api.graphql',
   resolvers,
+  middlewares,
   contextOptions: {
     web3,
     getProjectFromRequest,

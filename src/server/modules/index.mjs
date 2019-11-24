@@ -24,7 +24,8 @@ import EthereumModule, {
 } from "@prisma-cms/ethereum-module";
 import WebrtcModule from "@prisma-cms/webrtc-module";
 import MarketplaceModule from "@prisma-cms/marketplace-module";
-import CooperationModule from "@prisma-cms/cooperation-module";
+// import CooperationModule from "@prisma-cms/cooperation-module";
+import CooperationModule from "./cooperation";
 
 import Gallery from "./Gallery";
 import GalleryFile from "./GalleryFile";
@@ -107,12 +108,12 @@ class CoreModule extends PrismaModule {
         "ProjectCreateInput",
         "ProjectUpdateInput",
         "TaskCreateInput",
-        "TaskUpdateInput",
+        // "TaskUpdateInput",
         "TimerCreateInput",
         "TimerUpdateInput",
 
         "TaskReactionCreateInput",
-        "TaskReactionUpdateInput",
+        // "TaskReactionUpdateInput",
         "TaskCreateOneInput",
         "TaskUpdateOneInput",
 
