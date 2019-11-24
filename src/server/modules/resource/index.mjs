@@ -23,22 +23,22 @@ class ResourceModuleCustom extends ResourceModule {
   }
 
 
-  injectWhereUnique(where) {
+  // injectWhereUnique(where) {
 
-    let {
-      uri,
-    } = where || {};
+  //   let {
+  //     uri,
+  //   } = where || {};
 
-    /**
-     * Если указан ури, но не начинается со слеша, то добавляем слеш
-     */
-    if (uri && !uri.startsWith("/")) {
-      where.uri = `/${uri}`;
-    }
+  //   /**
+  //    * Если указан ури, но не начинается со слеша, то добавляем слеш
+  //    */
+  //   if (uri && !uri.startsWith("/")) {
+  //     where.uri = `/${uri}`;
+  //   }
 
-    return where;
+  //   return where;
 
-  }
+  // }
 
 
   getResolvers() {
@@ -46,10 +46,10 @@ class ResourceModuleCustom extends ResourceModule {
     let resolvers = super.getResolvers();
 
     const {
-      Query: {
-        resource,
-        ...Query
-      },
+      // Query: {
+      //   resource,
+      //   ...Query
+      // },
       ...other
     } = resolvers;
 
@@ -57,30 +57,30 @@ class ResourceModuleCustom extends ResourceModule {
 
     return {
       ...other,
-      Query: {
-        ...Query,
-        resource: async (source, args, ctx, info) => {
+      // Query: {
+      //   ...Query,
+      //   resource: async (source, args, ctx, info) => {
 
-          // console.log("resource args", args);
+      //     // console.log("resource args", args);
 
-          const {
-            modifyArgs,
-          } = ctx;
+      //     const {
+      //       modifyArgs,
+      //     } = ctx;
 
-          const {
-            where,
-          } = args;
+      //     const {
+      //       where,
+      //     } = args;
 
-          /**
-           * Во фронт-редакторе пока что недоработка с обработкой УРЛов (точнее запросов от роутера,
-           * нельзя задать path: ":uri", можно только path: "/:uri*"),
-           * поэтому приходится добавлять в начало слеш, если не указан.
-           */
-          modifyArgs(where, this.injectWhereUnique, info);
+      //     /**
+      //      * Во фронт-редакторе пока что недоработка с обработкой УРЛов (точнее запросов от роутера,
+      //      * нельзя задать path: ":uri", можно только path: "/:uri*"),
+      //      * поэтому приходится добавлять в начало слеш, если не указан.
+      //      */
+      //     modifyArgs(where, this.injectWhereUnique, info);
 
-          return resource(source, args, ctx, info);
-        },
-      },
+      //     return resource(source, args, ctx, info);
+      //   },
+      // },
     };
 
   }
