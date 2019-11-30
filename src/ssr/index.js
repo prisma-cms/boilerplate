@@ -34,9 +34,14 @@ const apolloCaches = {
 
 };
 
+const {
+  API_ENDPOINT = 'http://localhost:4000',
+} = process.env;
+
 let SSRmiddleware = new SSRmiddlewareClass({
   apolloCaches,
   rootSelector: "#root",
+  API_ENDPOINT,
 }).middleware;
 
 const ws = require('ws');
