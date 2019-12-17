@@ -75,20 +75,20 @@ class CoreModule extends PrismaModule {
 
   getSchema(types = []) {
 
-    let schema = fileLoader(__dirname + '/schema/database/', {
+    let schema = super.getSchema(types);
+
+    // schema = this.cleanupApiSchema(schema, [
+    // ]);
+
+    let customSchema = fileLoader(__dirname + '/schema/database/', {
       recursive: true,
     });
 
-
-    if (schema) {
-      types = types.concat(schema);
+    if (customSchema) {
+      schema = mergeTypes([schema].concat(customSchema), { all: true });
     }
 
-
-    let typesArray = super.getSchema(types);
-
-    return typesArray;
-
+    return schema;
   }
 
 

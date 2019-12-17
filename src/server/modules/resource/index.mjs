@@ -50,7 +50,6 @@ class ResourceModuleCustom extends ResourceModule {
       //   resource,
       //   ...Query
       // },
-      Resource,
       ...other
     } = resolvers;
 
@@ -82,25 +81,6 @@ class ResourceModuleCustom extends ResourceModule {
       //     return resource(source, args, ctx, info);
       //   },
       // },
-      Resource: {
-        ...Resource,
-        Comments: (source, args, ctx, info) => {
-
-          const {
-            id,
-            Comments,
-          } = source;
-
-          return id ? ctx.db.query.resources({
-            where: {
-              CommentTarget: {
-                id,
-              },
-            },
-          }, info)
-            : Comments;
-        },
-      },
     };
 
   }
