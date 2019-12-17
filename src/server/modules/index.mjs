@@ -14,7 +14,9 @@ import LogModule from "@prisma-cms/log-module";
 import UserModule from "./user";
 import ResourceModule from "./resource";
 import MailModule from "@prisma-cms/mail-module";
-import UploadModule from "@prisma-cms/upload-module";
+import UploadModule, {
+  Modules as UploadModules,
+} from "@prisma-cms/upload-module";
 import RouterModule from "@prisma-cms/router-module";
 import SocietyModule, {
   Modules as SocietyModules,
@@ -27,8 +29,6 @@ import MarketplaceModule from "@prisma-cms/marketplace-module";
 // import CooperationModule from "@prisma-cms/cooperation-module";
 import CooperationModule from "./cooperation";
 
-import Gallery from "./Gallery";
-import GalleryFile from "./GalleryFile";
 
 import { parse, print } from "graphql";
 import path from 'path';
@@ -59,12 +59,11 @@ class CoreModule extends PrismaModule {
       RouterModule,
       MarketplaceModule,
       ResourceModule,
-      Gallery,
-      GalleryFile,
     ]
       .concat(
         EthereumModules,
         SocietyModules,
+        UploadModules,
       )
       .concat([
         UserModule,

@@ -249,10 +249,3 @@ type Template {
   updatedAt: DateTime! @updatedAt
 }
 
-type Gallery {
-  id: ID! @id
-}
-
-type GalleryFile {
-  id: ID! @id
-}
