@@ -4,5 +4,5 @@ type User {
   sudo: Boolean @default(value: false)
 
   """Used for authorization"""
-  EthAccountAuthed: EthAccount @relation(name: "UserEthAccountAuthed")
+  EthAccountAuthed: EthAccount @relation(name: "UserEthAccountAuthed" link: INLINE)
 }
