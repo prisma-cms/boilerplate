@@ -19,6 +19,10 @@ const coreModule = new CoreModule({
 const resolvers = coreModule.getResolvers();
 // console.log("resolvers", resolvers);
 
+const {
+  SendmailTest,
+} = process.env;
+
 const GethServer = process.env.GethServer || "http://localhost:8545";
 
 if (!GethServer) {
@@ -73,10 +77,27 @@ const middlewares = [
 ];
 
 
+const sendmailOptions = {};
+
+if (SendmailTest === 'true') {
+  Object.assign(sendmailOptions, {
+    smtpPort: 1025,
+    smtpHost: 'mail',
+    devHost: 'mail',
+  });
+}
+
+
 startServer({
   typeDefs: 'src/schema/generated/api.graphql',
   resolvers,
   middlewares,
+  sendmailOptions,
+  // MailerProps: {
+  //   mailSender: "no-reply@my-host",
+  //   footer: `<p>Regards,<br /> 
+  //   Administration <a href="https://my-host">my-host/a></p>`,
+  // },
   contextOptions: {
     web3,
     getProjectFromRequest,
