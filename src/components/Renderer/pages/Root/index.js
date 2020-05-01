@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import PrismaCmsComponent from "@prisma-cms/component";
 import RootConnector from '@prisma-cms/front-editor/lib/components/Root';
@@ -9,6 +8,7 @@ import CreateUserPage from './components/pages/Users/User/Create';
 import ChatRooms from './components/pages/ChatRooms';
 import NoticesMenu from './components/society/NoticesMenu';
 import ChatRoom from './components/pages/ChatRooms/ChatRoom';
+import CallRequestButtons from './components/webrtc/CallRequestButtons';
 
 
 
@@ -29,6 +29,7 @@ class RootPage extends PrismaCmsComponent {
         ChatRooms,
         ChatRoom,
         // PdfView,
+        CallRequestButtons,
       ])}
       {...other}
     />
