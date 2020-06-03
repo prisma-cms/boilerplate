@@ -8,6 +8,7 @@ import {
   getProjectFromRequest,
 } from "@prisma-cms/marketplace-module";
 import CoreModule from "./modules";
+// import permissions from './middleware/permissions';
 
 import Web3 from "web3";
 
@@ -73,6 +74,7 @@ const web3 = new Web3(GethServer);
 
 
 const middlewares = [
+  // permissions,
   paginationMiddleware,
 ];
 

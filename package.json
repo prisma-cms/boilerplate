@@ -1,6 +1,6 @@
 {
   "name": "@prisma-cms/boilerplate",
-  "version": "4.0.6",
+  "version": "4.1.0",
   "description": "Opensource framework CMS powered by GraphQL, Prisma, MySQL, React & Apollo GraphQL",
   "private": false,
   "scripts": {
@@ -50,6 +50,7 @@
     "cheerio": "^1.0.0-rc.2",
     "graphql": "14.0.2",
     "graphql-tag": "2.10.0",
+    "graphql-shield": "^7.3.0",
     "material-ui": "1.0.0-beta.43",
     "material-ui-icons": "^1.0.0-beta.17",
     "merge-graphql-schemas": "latest",
